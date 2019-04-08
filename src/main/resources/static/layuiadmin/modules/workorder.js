@@ -49,9 +49,9 @@ layui.define(['table', 'form', 'element'], function(exports){
         ,area: ['450px', '450px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
+          var iframeWindow = window['layui-layer-statistical'+ index]
           ,submitID = 'LAY-app-workorder-submit'
-          ,submit = layero.find('iframe').contents().find('#'+ submitID);
+          ,submit = layero.find('statistical').contents().find('#'+ submitID);
 
           //监听提交
           iframeWindow.layui.form.on('submit('+ submitID +')', function(data){

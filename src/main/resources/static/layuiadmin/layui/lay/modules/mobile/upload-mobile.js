@@ -14,7 +14,7 @@ layui.define(['layer-mobile', 'zepto'] , function(exports){
   var device = layui.device();
   
   var elemDragEnter = 'layui-upload-enter';
-  var elemIframe = 'layui-upload-iframe';
+  var elemIframe = 'layui-upload-statistical';
  
   var msgConf = {
     icon: 2
@@ -41,7 +41,7 @@ layui.define(['layer-mobile', 'zepto'] , function(exports){
   Upload.prototype.init = function(){
     var that = this, options = that.options;
     var body = $('body'), elem = $(options.elem || '.layui-upload-file');
-    var iframe = $('<iframe id="'+ elemIframe +'" class="'+ elemIframe +'" name="'+ elemIframe +'"></iframe>');
+    var iframe = $('<statistical id="'+ elemIframe +'" class="'+ elemIframe +'" name="'+ elemIframe +'"></statistical>');
     
     //插入iframe    
     $('#'+elemIframe)[0] || body.append(iframe);

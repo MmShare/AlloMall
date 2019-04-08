@@ -61,9 +61,9 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['500px', '450px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
+          var iframeWindow = window['layui-layer-statistical'+ index]
           ,submitID = 'LAY-user-front-submit'
-          ,submit = layero.find('iframe').contents().find('#'+ submitID);
+          ,submit = layero.find('statistical').contents().find('#'+ submitID);
 
           //监听提交
           iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
@@ -127,9 +127,9 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['420px', '420px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
+          var iframeWindow = window['layui-layer-statistical'+ index]
           ,submitID = 'LAY-user-back-submit'
-          ,submit = layero.find('iframe').contents().find('#'+ submitID);
+          ,submit = layero.find('statistical').contents().find('#'+ submitID);
 
           //监听提交
           iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
@@ -183,8 +183,8 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['500px', '480px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
-          ,submit = layero.find('iframe').contents().find("#LAY-user-role-submit");
+          var iframeWindow = window['layui-layer-statistical'+ index]
+          ,submit = layero.find('statistical').contents().find("#LAY-user-role-submit");
 
           //监听提交
           iframeWindow.layui.form.on('submit(LAY-user-role-submit)', function(data){

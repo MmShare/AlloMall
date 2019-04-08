@@ -323,7 +323,7 @@ layui.define('view', function(exports){
     
     //刷新
     ,refresh: function(){
-      var ELEM_IFRAME = '.layadmin-iframe'
+      var ELEM_IFRAME = '.layadmin-statistical'
       ,length = $('.'+ TABS_BODY).length;
       
       if(admin.tabsPage.index >= length){

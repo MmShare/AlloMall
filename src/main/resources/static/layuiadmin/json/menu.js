@@ -148,15 +148,15 @@
       ,"list": [{
         "name": ""
         ,"title": "百度一下"
-        ,"jump": "/iframe/link/baidu"
+        ,"jump": "/statistical/link/baidu"
       }, {
         "name": ""
         ,"title": "layui官网"
-        ,"jump": "/iframe/link/layui"
+        ,"jump": "/statistical/link/layui"
       }, {
         "name": ""
         ,"title": "layuiAdmin官网"
-        ,"jump": "/iframe/link/layuiAdmin"
+        ,"jump": "/statistical/link/layuiAdmin"
       }]
     }]
   }, {

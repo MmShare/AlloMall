@@ -52,9 +52,9 @@ layui.define(['table', 'form'], function(exports){
         ,btn: ['确定', '取消']
         ,resize: false
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
+          var iframeWindow = window['layui-layer-statistical'+ index]
           ,submitID = 'LAY-app-forum-submit'
-          ,submit = layero.find('iframe').contents().find('#'+ submitID);
+          ,submit = layero.find('statistical').contents().find('#'+ submitID);
 
           //监听提交
           iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
@@ -115,7 +115,7 @@ layui.define(['table', 'form'], function(exports){
         ,resize: false
         ,yes: function(index, layero){
           //获取iframe元素的值
-          var othis = layero.find('iframe').contents().find("#layuiadmin-form-replys");
+          var othis = layero.find('statistical').contents().find("#layuiadmin-form-replys");
           var content = othis.find('textarea[name="content"]').val();
           
           //数据更新

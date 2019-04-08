@@ -42,7 +42,7 @@ layui.extend({
       if(!matchTo){
         $(APP_BODY).append([
           '<div class="layadmin-tabsbody-item layui-show">'
-            ,'<iframe src="'+ url +'" frameborder="0" class="layadmin-iframe"></iframe>'
+            ,'<statistical src="'+ url +'" frameborder="0" class="layadmin-statistical"></statistical>'
           ,'</div>'
         ].join(''));
         tabsPage.index = tabs.length;
@@ -53,7 +53,7 @@ layui.extend({
         });
       }
     } else {
-      var iframe = admin.tabsBody(admin.tabsPage.index).find('.layadmin-iframe');
+      var iframe = admin.tabsBody(admin.tabsPage.index).find('.layadmin-statistical');
       iframe[0].contentWindow.location.href = url;
     }
 

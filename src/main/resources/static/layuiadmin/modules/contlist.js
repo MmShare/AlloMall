@@ -50,8 +50,8 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['550px', '550px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
-          ,submit = layero.find('iframe').contents().find("#layuiadmin-app-form-edit");
+          var iframeWindow = window['layui-layer-statistical'+ index]
+          ,submit = layero.find('statistical').contents().find("#layuiadmin-app-form-edit");
 
           //监听提交
           iframeWindow.layui.form.on('submit(layuiadmin-app-form-edit)', function(data){
@@ -107,7 +107,7 @@ layui.define(['table', 'form'], function(exports){
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
           //获取iframe元素的值
-          var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags")
+          var othis = layero.find('statistical').contents().find("#layuiadmin-app-form-tags")
           ,tags = othis.find('input[name="tags"]').val();
           
           if(!tags.replace(/\s/g, '')) return;
@@ -119,7 +119,7 @@ layui.define(['table', 'form'], function(exports){
         }
         ,success: function(layero, index){
           //给iframe元素赋值
-          var othis = layero.find('iframe').contents().find("#layuiadmin-app-form-tags").click();
+          var othis = layero.find('statistical').contents().find("#layuiadmin-app-form-tags").click();
           othis.find('input[name="tags"]').val(data.tags);
         }
       });
@@ -160,9 +160,9 @@ layui.define(['table', 'form'], function(exports){
         ,area: ['450px', '300px']
         ,btn: ['确定', '取消']
         ,yes: function(index, layero){
-          var iframeWindow = window['layui-layer-iframe'+ index]
+          var iframeWindow = window['layui-layer-statistical'+ index]
           ,submitID = 'layuiadmin-app-comm-submit'
-          ,submit = layero.find('iframe').contents().find('#'+ submitID);
+          ,submit = layero.find('statistical').contents().find('#'+ submitID);
 
           //监听提交
           iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
