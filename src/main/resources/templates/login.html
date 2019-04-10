@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>登入 - layuiAdmin</title>
+  <title>登入 - AlloMall</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,8 +18,8 @@
 
     <div class="layadmin-user-login-main">
       <div class="layadmin-user-login-box layadmin-user-login-header">
-        <h2>layuiAdmin</h2>
-        <p>layui 官方出品的单页面后台管理模板系统</p>
+        <h2>AlloMall</h2>
+        <p>一款专注alloMall管理的系统</p>
       </div>
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
@@ -51,24 +51,14 @@
           <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 入</button>
         </div>
         <div class="layui-trans layui-form-item layadmin-user-login-other">
-          <label>社交账号登入</label>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-          <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
-          
           <a href="reg.html" class="layadmin-user-jump-change layadmin-link">注册帐号</a>
         </div>
       </div>
     </div>
     
     <div class="layui-trans layadmin-user-login-footer">
-      
-      <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
-      <p>
-        <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
-        <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
-        <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
-      </p>
+
+      <p>© 2019 <a href="#" target="_blank">QQ:1130506616</a></p>
     </div>
     
     <!--<div class="ladmin-user-login-theme">
@@ -107,15 +97,15 @@
     
       //请求登入接口
       admin.req({
-        url: layui.setter.base + 'json/user/login.js' //实际使用请改成服务端真实接口
+        url:  '/user/login.json' //实际使用请改成服务端真实接口
         ,data: obj.field
         ,done: function(res){
         
-          //请求成功后，写入 access_token
+/*          //请求成功后，写入 access_token
           layui.data(setter.tableName, {
             key: setter.request.tokenName
             ,value: res.data.access_token
-          });
+          });*/
           
           //登入成功的提示与跳转
           layer.msg('登入成功', {
@@ -123,20 +113,13 @@
             ,icon: 1
             ,time: 1000
           }, function(){
-            location.href = '../'; //后台主页
+            location.href = '/home/index.html'; //后台主页
           });
         }
       });
       
     });
-    
-    
-    //实际使用时记得删除该代码
-    layer.msg('为了方便演示，用户名密码可随意输入', {
-      offset: '15px'
-      ,icon: 1
-    });
-    
+
   });
   </script>
 </body>
