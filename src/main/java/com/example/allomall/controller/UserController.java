@@ -29,7 +29,8 @@ public class UserController {
     public Data doLogin(Data data){
         log.info("开始登录ing..................................");
         data.setSuccess(true);
-        data.setMsg("登录成功111");
+        data.setMsg("登录成功");
+
         return data;
     }
 
