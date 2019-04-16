@@ -19,4 +19,10 @@ public class ProductController {
         return "product/product-list";
     }
 
+    @RequestMapping(value = "/add.html")
+    public String toAddProduct(){
+        log.info("add Product 页面.................");
+        return "product/product-add";
+    }
+
 }
