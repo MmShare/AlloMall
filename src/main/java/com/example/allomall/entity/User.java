@@ -5,6 +5,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_USER")
@@ -18,22 +19,22 @@ public class User {
     private Integer id;//id
 
     @Column(name = "name",length = 50)
-    private String name;
+    private String name;//用户名
 
     @Column(name = "account",length = 50)
-    private String account;
+    private String account;//账号
 
     @Column(name = "pwd",length = 50)
-    private String pwd;
+    private String pwd;//密码
 
     @Column(name = "sex",length = 50)
-    private String sex;
+    private String sex;//性别
 
     @Column(name = "phone",length = 50)
-    private String phone;
+    private String phone;//电话
 
     @Column(name = "address",length = 50)
-    private String address;
+    private String address;//地址
 
 
 }

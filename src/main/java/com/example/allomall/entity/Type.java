@@ -4,7 +4,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_TYPE")
@@ -19,9 +19,7 @@ public class Type {
     private Integer id;//id
 
     @Column(name = "name",length = 50)
-    private String name;
+    private String name;//类型名字
 
-    @OneToMany(mappedBy = "type",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<Product> productList;
 
 }

@@ -2,6 +2,7 @@ package com.example.allomall.controller;
 
 import com.example.allomall.entity.Data;
 import com.example.allomall.entity.Material;
+import com.example.allomall.entity.Table;
 import com.example.allomall.repostitory.MaterialRepostitory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +42,14 @@ public class SystemController {
 
     @RequestMapping(value = "/material/getList.json")
     @ResponseBody
-    public List<Material> getMaterialList(){
+    public Table getMaterialList(Table table){
         log.info("get material list .....................................................");
-        System.out.println(materialRepostitory.findAll().toString());
-        return materialRepostitory.findAll();
+            table.setCode(0);
+            table.setMsg("");
+            System.out.println(materialRepostitory.findAll().size());
+            table.setCount(materialRepostitory.findAll().size());
+            table.setData(materialRepostitory.findAll());
+            return table;
     }
 
     @RequestMapping(value = "/material/add.html")

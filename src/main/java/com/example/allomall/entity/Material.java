@@ -3,7 +3,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_MATERIAL")
@@ -28,6 +28,4 @@ public class Material {
     @Column(name = "width",length = 50)
     private double width;//宽度
 
-    @OneToMany(mappedBy = "material",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Associated> associatedList;
 }

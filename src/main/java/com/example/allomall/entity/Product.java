@@ -3,6 +3,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -29,13 +30,9 @@ public class Product {
     private double price;//价格
 
     @Column(name = "information",length = 50)
-    private String information;
+    private String information;//介绍
 
-    @JoinColumn(name = "tid")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Type type;//隶属类型
-
-    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
-    private List<Associated>  associatedList;//关联中间表
+    @Column(name = "tid")
+    private Integer tid;//隶属类型
 
 }

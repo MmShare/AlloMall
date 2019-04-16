@@ -3,6 +3,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_ORDER")
@@ -60,11 +61,8 @@ public class Order {
     @Column(name = "attention",length = 50)
     private String attention;//注意事项
 
-    @JoinColumn(name = "pid")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Product product;//关联商品表
-
-
+    @Column(name = "pid")
+    private Integer pid;//关联商品表
 
 
 }
