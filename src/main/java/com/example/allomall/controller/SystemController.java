@@ -44,7 +44,7 @@ public class SystemController {
     @ResponseBody
     public Table getMaterialList(Table table){
         log.info("get material list .....................................................");
-            table.setCode(0);
+            table.setCode(1);
             table.setMsg("");
             System.out.println(materialRepostitory.findAll().size());
             table.setCount(materialRepostitory.findAll().size());

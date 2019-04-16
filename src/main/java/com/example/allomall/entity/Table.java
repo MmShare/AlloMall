@@ -9,14 +9,14 @@ public class Table {
     private Integer count;
     private List<Material> data;
 
-    public Integer getCode(Integer integer) {
-        return code;
-    }
 
     public void setCode(Integer code) {
         this.code = code;
     }
 
+    public Integer getCode() {
+        return code;
+    }
     public String getMsg() {
         return msg;
     }
@@ -40,4 +40,6 @@ public class Table {
     public void setData(List<Material> data) {
         this.data = data;
     }
+
+
 }
