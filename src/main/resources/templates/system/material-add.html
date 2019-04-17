@@ -111,8 +111,11 @@
         success:function (data) {
           window.parent.layer.closeAll();
           window.parent.layer.msg("新增成功");
-          //window.parent.location.reload();
+          setTimeout(function () {
+            window.parent.location.reload();
+          },300);
         },
+
         error:function () {
           window.parent.layer.closeAll();
         }
