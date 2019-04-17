@@ -32,7 +32,10 @@ public class Product {
     @Column(name = "information",length = 50)
     private String information;//介绍
 
-    @Column(name = "tid")
+    @Column(name = "tid",length = 50)
     private Integer tid;//隶属类型
+
+    @Column(name = "state",length = 50)
+    private Integer state;//状态
 
 }

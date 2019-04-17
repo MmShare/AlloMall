@@ -21,5 +21,8 @@ public class Type {
     @Column(name = "name",length = 50)
     private String name;//类型名字
 
+    @Column(name = "state",length = 50)
+    private Integer state;//状态
+
 
 }

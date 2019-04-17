@@ -28,4 +28,10 @@ public class Material {
     @Column(name = "width",length = 50)
     private double width;//宽度
 
+    @Column(name = "date",length = 50)
+    private String date;//添加日期
+
+    @Column(name = "state",length = 50)
+    private Integer state;//状态
+
 }

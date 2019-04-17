@@ -43,8 +43,8 @@ public class Order {
     @Column(name = "deliveryTime",length = 50)
     private String deliveryTime;//完成日期
 
-    @Column(name = "status",length = 50)
-    private String status;//状态
+    @Column(name = "state",length = 50)
+    private String state;//状态
 
     @Column(name = "length",length = 50)
     private double length;//长度

@@ -36,5 +36,8 @@ public class User {
     @Column(name = "address",length = 50)
     private String address;//地址
 
+    @Column(name = "state",length = 50)
+    private Integer state;//状态
+
 
 }

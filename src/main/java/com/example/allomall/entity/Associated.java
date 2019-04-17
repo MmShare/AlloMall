@@ -25,4 +25,7 @@ public class Associated implements  Serializable {
 
     @Column(name = "mid",length = 50)
     private Integer mid;//附属材料的id
+
+    @Column(name = "state",length = 50)
+    private Integer state;//状态
 }
