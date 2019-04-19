@@ -3,6 +3,7 @@ package com.example.allomall.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_ORDER")
@@ -42,8 +43,8 @@ public class Order {
     @Column(name = "deliveryTime",length = 50)
     private String deliveryTime;//完成日期
 
-    @Column(name = "status",length = 50)
-    private String status;//状态
+    @Column(name = "state",length = 50)
+    private String state;//状态
 
     @Column(name = "length",length = 50)
     private double length;//长度
@@ -60,11 +61,8 @@ public class Order {
     @Column(name = "attention",length = 50)
     private String attention;//注意事项
 
-    @JoinColumn(name = "pid")
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Product product;//关联商品表
-
-
+    @Column(name = "pid")
+    private Integer pid;//关联商品表
 
 
 }
