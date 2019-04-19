@@ -10,13 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
-  
+
   <script>
   /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
   </script>
 </head>
 <body class="layui-layout-body">
-  
+
   <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
       <div class="layui-header">
@@ -33,15 +33,15 @@
             </a>
           </li>
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords="> 
+            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords=">
           </li>
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-          
+
           <li class="layui-nav-item" lay-unselect>
             <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-              <i class="layui-icon layui-icon-notice"></i>  
-              
+              <i class="layui-icon layui-icon-notice"></i>
+
               <!-- 如果有新消息，则显示小圆点 -->
               <span class="layui-badge-dot"></span>
             </a>
@@ -67,7 +67,7 @@
               <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
             </dl>
           </li>
-          
+
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
           </li>
@@ -76,14 +76,14 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
           <div class="layui-logo" lay-href="home/console.html">
             <span>alloMall</span>
           </div>
-          
+
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
             <li data-name="home" class="layui-nav-item layui-nav-itemed">
               <a href="javascript:;" lay-tips="主页" lay-direction="2">
@@ -105,6 +105,7 @@
                     <dd data-name="list"><a lay-href="/product/product.html/1">全部商品</a></dd>
                     <dd data-name="mobile"><a lay-href="/product/product.html/2">在售商品</a></dd>
                     <dd data-name="mobile-pc"><a lay-href="/product/product.html/3">下架商品</a></dd>
+                    <dd data-name="mobile-pc"><a lay-href="/product/add.html">添加商品</a></dd>
               </dl>
             </li>
 
@@ -134,9 +135,9 @@
                 <cite>统计</cite>
               </a>
               <dl class="layui-nav-child">
-                    <dd><a lay-href="statistics/statistics.html/1">订单统计</a></dd>
-                    <dd><a lay-href="statistics/statistics.html/2">欠款统计</a></dd>
-                    <dd><a lay-href="statistics/statistics.html/3">员工统计</a></dd>
+                    <dd><a lay-href="/statistics/statistics.html/1">订单统计</a></dd>
+                    <dd><a lay-href="/statistics/statistics.html/2">欠款统计</a></dd>
+                    <dd><a lay-href="/statistics/statistics.html/3">员工统计</a></dd>
               </dl>
             </li>
 
@@ -146,8 +147,8 @@
                 <cite>系统管理</cite>
               </a>
               <dl class="layui-nav-child">
-                    <dd><a lay-href="system/windowsType.html">门窗类型列表</a></dd>
-                    <dd><a lay-href="system/material.html">材料列表</a></dd>
+                    <dd><a lay-href="/system/windowsType/list.html">门窗类型列表</a></dd>
+                    <dd><a lay-href="/system/material/list.html">材料列表</a></dd>
               </dl>
             </li>
 
@@ -180,15 +181,15 @@
           </ul>
         </div>
       </div>
-      
-      
+
+
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
           <iframe src="/home/home.html" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
-      
+
       <!-- 辅助元素，一般用于移动设备下遮罩 -->
       <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
