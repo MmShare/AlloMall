@@ -25,29 +25,14 @@
                 <input type="tel" name="name" lay-verify="title" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">长度:</label>
-              <div class="layui-input-inline">
-                <input type="text" name="length"  autocomplete="off" class="layui-input">
-              </div>
-            </div>
           </div>
 
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">宽度:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="height"  autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">高度:</label>
-              <div class="layui-input-inline">
-                <input type="text" name="width"  autocomplete="off" class="layui-input">
-              </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">基本介绍</label>
+            <div class="layui-input-block">
+              <textarea name="information" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
-
           <div class="layui-form-item" style="margin-right: 0px">
             <div class="layui-input-block" >
               <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
@@ -105,7 +90,7 @@
     form.on('submit(component-form-element)', function(data){
       $.ajax({
         type:"POST",
-        url:"/system/material/add.json",
+        url:"/system/windowsType/add.json",
         dataType:"JSON",
         data:data.field,
         success:function (data) {

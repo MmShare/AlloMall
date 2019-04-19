@@ -13,7 +13,7 @@ public class OrderController {
     private static final Logger log= LoggerFactory.getLogger(HomeController.class);
 
 
-    @RequestMapping(value = "/Order.html")
+    @RequestMapping(value = "/order/list.html")
     public String toAllOrder(){
         return "order/order-list";
     }

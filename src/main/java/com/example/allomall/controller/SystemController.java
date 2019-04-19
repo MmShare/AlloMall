@@ -65,6 +65,8 @@ public class SystemController {
     public Data doWindosTypeAdd(Data data,Type type){
         log.info("do windos add .....................................................");
         try {
+            type.setDate(sf.format(new Date()));
+            type.setState(1);
             typeRepostitory.save(type);
             data.setSuccess(true);
             data.setMsg("新增门窗类型成功");

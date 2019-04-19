@@ -21,6 +21,9 @@ public class Type {
     @Column(name = "name",length = 50)
     private String name;//类型名字
 
+    @Column(name = "information",length = 350)
+    private String information;//描述
+
     @Column(name = "date",length = 50)
     private String date;//添加日期
 

@@ -65,17 +65,21 @@
 
     table.render({
       elem: '#test-table-operate'
-      ,url: '/system/material/getList.json'
+      ,url: '/system/windowsType/getList.json'
       ,cols: [
               [
                 {type:'checkbox'}
                 ,{field:'id', width:110, title: 'ID', sort: true}
-                ,{field:'name', width:130, title: '商品名'}
-                ,{field:'length', width:100, title: '长度', sort: true}
-                ,{field:'height', width:100, title: '宽度', sort: true}
-                ,{field:'width', width:100, title: '高度', sort: true}
-                ,{field:'date', width:135, title: '日期', sort: true}
-                ,{field:'state', width:135, title: '状态', sort: true}
+                ,{field:'name', width:130, title: '门窗类型名'}
+                ,{field:'information', width:250, title: '描述'}
+                ,{field:'date', width:135, title: '添加日期', sort: true}
+                ,{field:'state', width:135, title: '状态', sort: true,templet:function (data) {
+                  if (data.state == 1){
+                    return "可用";
+                  }else {
+                    return "不可用";
+                  }
+                }}
                 ,{title:'操作',width:218, align:'center', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
@@ -105,9 +109,9 @@
       add: function(){ //添加材料
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
+          area: ['800px', '350px'],
           title:"材料添加框",
-          content:['/system/material/add.html', 'no'],
+          content:['/system/windowsType/add.html', 'no'],
         });
       }
     };

@@ -75,7 +75,13 @@
                 ,{field:'height', width:100, title: '宽度', sort: true}
                 ,{field:'width', width:100, title: '高度', sort: true}
                 ,{field:'date', width:135, title: '日期', sort: true}
-                ,{field:'state', width:135, title: '状态', sort: true}
+                ,{field:'state', width:135, title: '状态', sort: true,templet:function (data) {
+                  if (data.state == 1){
+                    return "可用";
+                  }else {
+                    return "不可用";
+                  }
+                }}
                 ,{title:'操作',width:218, align:'center', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
@@ -119,6 +125,7 @@
 
   });
 </script>
+
 
 
 </body>
