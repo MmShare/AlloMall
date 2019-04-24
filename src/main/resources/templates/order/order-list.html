@@ -26,9 +26,18 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md12">
       <div class="layui-card">
-        <div class="layui-card-header">开启分页</div>
+        <div class="layui-card-header">
+          <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+            搜索ID：
+            <div class="layui-inline">
+              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+          </div>
+        </div>
         <div class="layui-card-body">
-          <table class="layui-hide" id="test-table-page"></table>
+          <table class="layui-hide" id="oder-table-information" lay-filter="oder-table-information"></table>
+
           <script type="text/html" id="test-table-operate-barDemo">
             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -51,9 +60,10 @@
             ,table = layui.table;
 
     table.render({
-      elem: '#test-table-page'
+      elem: '#oder-table-information'
       ,url: layui.setter.base + 'json/table/user.js'
-      ,cols: [[
+      ,cols: [
+              [
         {type:'checkbox'}
         ,{field:'id', width:80, title: 'ID', sort: true}
         ,{field:'username', width:80, title: '商品名'}
@@ -66,15 +76,9 @@
         ,{field:'wealth', width:135, title: '完成日期', sort: true}
         ,{field:'wealth', width:135, title: '状态', sort: true}
         ,{title:'操作',width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
-      ]]
+      ]
+      ]
       ,page: true
-    });
-
-    admin.popup({
-      content: '演示数据均为静态模拟数据，因此【切换分页和条数时】发现数据未变并非 BUG。实际使用时改成真实接口即可。'
-      ,area: '300px'
-      ,offset: '15px'
-      ,shade: false
     });
 
   });

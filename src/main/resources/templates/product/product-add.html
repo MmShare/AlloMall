@@ -21,14 +21,14 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">商品名称:</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="name" lay-verify="required|phone" autocomplete="off"
+                            <input type="tel" name="name" lay-verify="title" autocomplete="off"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">商品价格:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="price" lay-verify="email" autocomplete="off" class="layui-input">
+                            <input type="text" name="price"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -37,15 +37,15 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">长度</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="length" lay-verify="required|phone" autocomplete="off"
+                            <input type="tel" name="length"  autocomplete="off"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">宽度</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="width" lay-verify="email" autocomplete="off" class="layui-input">
-                        </div>
+                            <input type="text" name="width"  autocomplete="off" class="layui-input">
+                    </div>
                     </div>
                 </div>
 
@@ -53,13 +53,13 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">高度:</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="height" lay-verify="required|phone" autocomplete="off"
+                            <input type="tel" name="height"  autocomplete="off"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">单行选择框</label>
-                        <div class="layui-input-block">
+                        <div class="layui-input-inline">
                             <select lay-filter="aihao" name="tid" id="tid">
                                 <option th:each="type:${typeList}" th:value="${type.id}"
                                         th:text="${type.name}"></option>
@@ -135,8 +135,22 @@
 
         /* 监听提交 */
         form.on('submit(component-form-demo1)', function (data) {
-            parent.layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            $.ajax({
+                type:"POST",
+                url:"/system/windowsType/add.json",
+                dataType:"JSON",
+                data:data.field,
+                success:function (data) {
+                    window.parent.layer.closeAll();
+                    window.parent.layer.msg("新增成功");
+                    setTimeout(function () {
+                        window.parent.location.reload();
+                    },300);
+                },
+
+                error:function () {
+                    layer.msg("新增失败")
+                }
             })
             return false;
         });

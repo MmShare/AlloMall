@@ -19,6 +19,7 @@ public class OrderController {
 
     @RequestMapping(value = "/order/list.html/{typeid}")
     public String toAllOrder(){
+        log.info("to order html .................................................");
         return "order/order-list";
     }
 
