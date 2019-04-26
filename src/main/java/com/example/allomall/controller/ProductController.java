@@ -59,6 +59,7 @@ public class ProductController {
     @RequestMapping(value = "/product/add.json")
     @ResponseBody
     public Data doProductAdd(Data data, Product product){
+        log.info("do product add .....................................");
         try {
             product.setDate(sf.format(new Date()));
             product.setState(1);

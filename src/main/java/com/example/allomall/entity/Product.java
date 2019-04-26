@@ -27,16 +27,16 @@ public class Product {
     private String url;//图片地址
 
     @Column(name = "price",length = 50)
-    private double price;//价格
+    private String price;//价格
 
     @Column(name = "length",length = 50)
-    private double length;//长度
+    private String length;//长度
 
     @Column(name = "height",length = 50)
-    private double height;//高度
+    private String height;//高度
 
     @Column(name = "width",length = 50)
-    private double width;//宽度
+    private String width;//宽度
 
     @Column(name = "information",length = 50)
     private String information;//介绍

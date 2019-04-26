@@ -69,23 +69,26 @@
       ,cols: [
               [
                 {type:'checkbox'}
-                ,{field:'id', width:110, title: 'ID', sort: true}
-                ,{field:'name', width:130, title: '商品名'}
-                ,{field:'length', width:100, title: '长度', sort: true}
-                ,{field:'height', width:100, title: '宽度', sort: true}
-                ,{field:'width', width:100, title: '高度', sort: true}
-                ,{field:'date', width:135, title: '日期', sort: true}
-                ,{field:'state', width:135, title: '状态', sort: true,templet:function (data) {
+                ,{field:'id', width:"10%", title: 'ID', sort: true}
+                ,{field:'name', width:"15%", title: '商品名'}
+                ,{field:'length', width:"10%", title: '长度', sort: true}
+                ,{field:'height', width:"10%", title: '宽度', sort: true}
+                ,{field:'width', width:"10%", title: '高度', sort: true}
+                ,{field:'date', width:"15%", title: '日期', sort: true}
+                ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
                   if (data.state == 1){
                     return "可用";
                   }else {
                     return "不可用";
                   }
                 }}
-                ,{title:'操作',width:218, align:'center', toolbar: '#test-table-operate-barDemo'}
+                ,{title:'操作',width:"20%", align:'center', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
         ,page: true
+      ,text: {
+        none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+      }
     });
 
     //监听表格复选框选择
@@ -96,14 +99,24 @@
     table.on('tool(test-table-operate)', function(obj){
       var data = obj.data;
       if(obj.event === 'detail'){
-        layer.msg('ID：'+ data.id + ' 的查看操作');
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料添加框",
+          content:['/system/material/show.html', 'no'],
+        });
       } else if(obj.event === 'del'){
         layer.confirm('真的删除行么', function(index){
           obj.del();
           layer.close(index);
         });
       } else if(obj.event === 'edit'){
-        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料添加框",
+          content:['/system/material/edit.html', 'no'],
+        });
       }
     });
 
