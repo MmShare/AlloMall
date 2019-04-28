@@ -144,8 +144,45 @@ public class SystemController {
     }
 
     @RequestMapping(value = "/material/edit.html")
-    public String toMaterialEdit(ModelMap map){
+    public String toMaterialEdit(ModelMap map,Material material,@Param("id") Integer id){
         log.info("to material edit html ....................................................");
+        try {
+            id=2;
+            material=materialRepostitory.findMaterialById(id);
+            System.out.println(material.getName());
+            map.put("material",material);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "system/material-edit";
+    }
+
+    @RequestMapping(value = "/material/edit.json")
+    @ResponseBody
+    public Data doMaterialEdit(Data data,Material material){
+        log.info("do material edit..........................................................");
+        try {
+            materialRepostitory.save(material);
+            data.setSuccess(true);
+            data.setMsg("修改材料信息成功");
+        }catch (Exception e){
+            data.setSuccess(false);
+            data.setMsg("修改材料信息失败");
+        }
+        return data;
+    }
+
+    @RequestMapping(value = "/material/show.html")
+    public String toMaterialShow(ModelMap map,Material material,@Param("id") Integer id){
+        log.info("to material show .........................................................");
+        try {
+            id=1;
+            material=materialRepostitory.findMaterialById(id);
+            System.out.println(material.getName());
+            map.put("material",material);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "system/material-show";
     }
 }

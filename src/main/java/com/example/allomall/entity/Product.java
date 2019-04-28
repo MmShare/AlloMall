@@ -29,7 +29,7 @@ public class Product {
     private String url;//图片地址
 
     @Column(name = "price",length = 50)
-    private double price;//价格
+    private String price;//价格
 
     @Column(name = "length",length = 50)
     private String length;//长度
