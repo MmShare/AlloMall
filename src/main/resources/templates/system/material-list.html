@@ -69,20 +69,20 @@
       ,cols: [
               [
                 {type:'checkbox'}
-                ,{field:'id', width:110, title: 'ID', sort: true}
-                ,{field:'name', width:130, title: '商品名'}
-                ,{field:'length', width:100, title: '长度', sort: true}
-                ,{field:'height', width:100, title: '宽度', sort: true}
-                ,{field:'width', width:100, title: '高度', sort: true}
-                ,{field:'date', width:135, title: '日期', sort: true}
-                ,{field:'state', width:135, title: '状态', sort: true,templet:function (data) {
+                ,{field:'id', width:"10%", title: 'ID', sort: true}
+                ,{field:'name', width:"10%", title: '商品名'}
+                ,{field:'length', width:"10%", title: '长度', sort: true}
+                ,{field:'height', width:"10%", title: '宽度', sort: true}
+                ,{field:'width', width:"10%", title: '高度', sort: true}
+                ,{field:'date', width:"10%", title: '日期', sort: true}
+                ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
                   if (data.state == 1){
                     return "可用";
                   }else {
                     return "不可用";
                   }
                 }}
-                ,{title:'操作',width:218, align:'center', toolbar: '#test-table-operate-barDemo'}
+                ,{title:'操作',width:"30%", align:'center', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
         ,page: true

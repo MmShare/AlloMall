@@ -1,5 +1,6 @@
 package com.example.allomall.controller;
 
+import com.example.allomall.Config.SystemParameter;
 import com.example.allomall.entity.Data;
 import com.example.allomall.entity.Material;
 import com.example.allomall.entity.Table;
@@ -66,7 +67,7 @@ public class SystemController {
         log.info("do windos add .....................................................");
         try {
             type.setDate(sf.format(new Date()));
-            type.setState(1);
+            type.setState(SystemParameter.IS_USER);
             typeRepostitory.save(type);
             data.setSuccess(true);
             data.setMsg("新增门窗类型成功");
@@ -130,7 +131,7 @@ public class SystemController {
         log.info("do material add.........................................................");
         try {
             material.setDate(sf.format(new Date()));
-            material.setState(1);
+            material.setState(SystemParameter.IS_USER);
             materialRepostitory.save(material);
             data.setSuccess(true);
             data.setMsg("添加材料成功");

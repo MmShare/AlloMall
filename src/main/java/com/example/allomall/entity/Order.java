@@ -47,13 +47,13 @@ public class Order {
     private String state;//状态
 
     @Column(name = "length",length = 50)
-    private double length;//长度
+    private String length;//长度
 
     @Column(name = "height",length = 50)
-    private double height;//高度
+    private String height;//高度
 
     @Column(name = "width",length = 50)
-    private double width;//宽度
+    private String width;//宽度
 
     @Column(name = "number",length = 50)
     private Integer number;//数量
