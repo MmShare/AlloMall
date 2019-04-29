@@ -30,7 +30,7 @@
           <div class="test-table-reload-btn" style="margin-bottom: 10px;">
             搜索ID：
             <div class="layui-inline">
-              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">
+              <input class="layui-input" name="id" id="orderReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
@@ -61,25 +61,88 @@
 
     table.render({
       elem: '#oder-table-information'
-      ,url: layui.setter.base + 'json/table/user.js'
+      ,url: '/order/order/getList.json'
       ,cols: [
               [
         {type:'checkbox'}
-        ,{field:'id', width:80, title: 'ID', sort: true}
-        ,{field:'username', width:80, title: '商品名'}
-        ,{field:'sex', width:80, title: '收货人', sort: true}
-        ,{field:'city', width:80, title: '电话'}
-        ,{field:'sign', title: '地址', minWidth: 100}
-        ,{field:'experience', width:80, title: '押金', sort: true}
-        ,{field:'score', width:80, title: '总价', sort: true}
-        ,{field:'classify', width:80, title: '创建日期'}
-        ,{field:'wealth', width:135, title: '完成日期', sort: true}
-        ,{field:'wealth', width:135, title: '状态', sort: true}
+        ,{field:'id', width:"5%", title: 'ID', sort: true}
+        ,{field:'orderNumber', width:"10%", title: '订单号', sort: true}
+        ,{field:'peopleName', width:"10%", title: '收货人'}
+        ,{field:'peoplePhone', width:"10%", title: '联系电话'}
+        ,{field:'peopleAddress', width:"15%",title: '收货地址', minWidth: 100}
+        ,{field:'havePay', width:"8%", title: '押金', sort: true}
+        ,{field:'prices', width:"8%", title: '总价', sort: true}
+        ,{field:'attention', width:"15%", title: '注意事项'}
+        ,{field:'createTime', width:"10%", title: '创建日期', sort: true}
+        ,{field:'deliveryTime', width:"10%", title: '完成日期', sort: true}
+        ,{field:'state', width:"5%", title: '状态', sort: true}
         ,{title:'操作',width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
-      ]
+      ],id:'oder-table-information'
       ,page: true
+      ,text: {
+      none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+    }
     });
+
+    //监听工具条
+    table.on('tool(oder-table-information)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料添加框",
+          content:['/system/material/show.html', 'no'],
+        });
+      } else if(obj.event === 'del'){
+        layer.confirm('真的删除行么', function(index){
+          $.ajax({
+            type:"POST",
+            url:"/system/material/delete.json",
+            dataType:"JSON",
+            data:{id:data.id},
+            success:function (res) {
+              obj.del();
+              layer.close(index);
+              layer.msg(res.msg);
+            },
+
+            error:function () {
+            }
+          })
+
+        });
+      } else if(obj.event === 'edit'){
+
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料添加框",
+          content:['/system/material/edit.html', 'no'],
+        });
+      }
+    });
+
+    var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#orderReload');
+
+
+        //执行重载
+        table.reload('oder-table-information', {
+          url:''
+          ,page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            key: {
+              id: demoReload.val()
+            }
+          }
+        });
+      }
+    };
 
   });
 </script>

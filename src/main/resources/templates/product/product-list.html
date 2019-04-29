@@ -38,11 +38,11 @@
                         </div>
                     </div>
                 </a>
-                <b style="margin-left: 22px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-primary">查看</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm">下单</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-warm">修改</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-normal">追加材料</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-danger ">删除</b>
+                <b style="margin-left: 22px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-primary" onclick="doshow();">查看</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm" lay-event="">下单</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="">修改</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">追加材料</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-danger " lay-event="">删除</b>
             </div>
         </div>
 
@@ -70,6 +70,29 @@
             ,count: 50 //数据总数
         });
     });
+
+        function doshow() {
+            layer.open({
+                type: 2,
+                area: ['800px', '290px'],
+                title:"材料添加框",
+                content:['/product/product/show.html', 'no'],
+            });
+        };
+
+        function doelete() {
+
+        };
+
+        function doedit() {
+
+        };
+        function dosupply() {
+
+        };
+        function docheckout() {
+
+        };
 </script>
 </body>
 </html>

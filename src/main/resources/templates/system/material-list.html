@@ -82,7 +82,7 @@
                     return "不可用";
                   }
                 }}
-                ,{title:'操作',width:"20%", align:'center', toolbar: '#test-table-operate-barDemo'}
+                ,{title:'操作',width:"20%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
         ,page: true
@@ -107,8 +107,21 @@
         });
       } else if(obj.event === 'del'){
         layer.confirm('真的删除行么', function(index){
-          obj.del();
-          layer.close(index);
+          $.ajax({
+            type:"POST",
+            url:"/system/material/delete.json",
+            dataType:"JSON",
+            data:{id:data.id},
+            success:function (res) {
+              obj.del();
+              layer.close(index);
+              layer.msg(res.msg);
+            },
+
+            error:function () {
+            }
+          })
+
         });
       } else if(obj.event === 'edit'){
 

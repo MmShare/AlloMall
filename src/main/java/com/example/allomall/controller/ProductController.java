@@ -2,7 +2,10 @@ package com.example.allomall.controller;
 
 
 import com.example.allomall.entity.Data;
+import com.example.allomall.entity.Order;
 import com.example.allomall.entity.Product;
+import com.example.allomall.repostitory.AssociatedRepostitory;
+import com.example.allomall.repostitory.OrderRepostitory;
 import com.example.allomall.repostitory.ProductRepostitory;
 import com.example.allomall.repostitory.TypeRepostitory;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.boot.system.SystemProperties;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,9 +36,24 @@ public class ProductController {
     @Autowired
     private ProductRepostitory productRepostitory;
 
+    @Autowired
+    private AssociatedRepostitory associatedRepostitory;
+
+    @Autowired
+    private OrderRepostitory orderRepostitory;
+
     @RequestMapping(value = "/product/list.html/{typeid}")
-    public String toAllProduct(){
+    public String toAllProduct(ModelMap map, @PathVariable("typeid") Integer typeid){
         log.info("product页面..................................................");
+        if (typeid==1){
+
+        }else if (typeid==2){
+
+        }else if (typeid==3){
+
+        }else {
+            map.put("productList",productRepostitory.findAll());
+        }
         return "product/product-list";
     }
 
@@ -75,14 +94,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product/show.html")
-    public String toProductShow(ModelMap map){
+    public String toProductShow(ModelMap map,@Param("id") Integer id){
+        map.put("product",productRepostitory.findProductById(id));
         return "product/product-show";
     }
 
 
     @RequestMapping(value = "/product/edit.html")
     public String toProductEdit(@Param("id") Integer id,ModelMap map){
-        //map.put("Product",productRepostitory.f)
+        map.put("product",productRepostitory.findProductById(id));
         return "product/product-edit";
     }
 
@@ -103,9 +123,11 @@ public class ProductController {
 
     @RequestMapping(value = "/product/delete.json")
     @ResponseBody
-    public Data doProductDelete(Data data,@Param("id") Integer id){
+    public Data doProductDelete(Data data,Product product,@Param("id") Integer id){
         try {
-            //
+            product=productRepostitory.findProductById(id);
+            product.setState(0);
+            productRepostitory.save(product);
             data.setSuccess(true);
             data.setMsg("删除商品成功");
         }catch (Exception e){
@@ -117,14 +139,22 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product/additional.html")
-    public String toProductAdditional(){
+    public String toProductAdditional(@Param("id") Integer id){
+        associatedRepostitory.findAssociatedsByPid(id);
         return "product/additional-material";
     }
 
     @RequestMapping(value = "/product/additional.json")
     @ResponseBody
-    public Data doProductAdditional(Data data){
+    public Data doProductAdditional(Data data,@Param("id") Integer id,@Param("id_one") Integer id_one,@Param("id_two") Integer id_two,@Param("id_three") Integer id_three){
         try {
+            if (id_one!=null){
+
+            }else if (id_two!=null){
+
+            }else if (id_three!=null){
+
+            }
             data.setSuccess(true);
             data.setMsg("附加材料成功");
         }catch (Exception e){
@@ -132,6 +162,27 @@ public class ProductController {
             data.setSuccess(false);
             data.setMsg("附加材料的时候发生错误");
         }
+        return data;
+    }
+
+    @RequestMapping(value = "/product/removeMaterial.json")
+    @ResponseBody
+    public Data doProductRemoveMaterial(Data data,@Param("pid") Integer pid,@Param("mid") Integer mid ){
+        associatedRepostitory.deleteAssociatedByPidAndMid(pid,mid);
+        return data;
+    }
+
+    @RequestMapping(value = "/product/buy.html")
+    public String toProductBuy(){
+        return "product-buy";
+    }
+
+    @RequestMapping(value = "/product/buy.json")
+    @ResponseBody
+    public Data doProductBuy(Data data, Order order,@Param("id") Integer pid){
+        order.setPid(pid);
+        order.setCreateTime(sf.format(new Date()));
+        orderRepostitory.save(order);
         return data;
     }
 

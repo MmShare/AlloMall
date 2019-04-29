@@ -79,9 +79,16 @@ public class SystemController {
         return data;
     }
 
+    @RequestMapping(value = "/windowsType/show.html")
+    public String toWindowsTypeShow(ModelMap map,@Param("id") Integer id){
+        map.put("windowsType",typeRepostitory.findTypeById(id));
+        return "system/windowType-show";
+    }
+
     @RequestMapping(value = "/windowsType/edit.html")
     public String toWindowsTypeEdit(ModelMap map, @Param("id") Integer id){
         log.info("to windowsType edit 页面..............................................");
+        map.put("windowsType",typeRepostitory.findTypeById(id));
         return "system/windowType-edit";
     }
 
@@ -98,6 +105,13 @@ public class SystemController {
             data.setSuccess(false);
             data.setMsg("修改门窗类型时发生错误");
         }
+        return data;
+    }
+
+    @RequestMapping(value = "/windowsType/delete.json")
+    @ResponseBody
+    public Data doWindowsTypeDelete(Data data,@Param("id") Integer id){
+        typeRepostitory.deleteTypeById(id);
         return data;
     }
 
@@ -184,5 +198,18 @@ public class SystemController {
             e.printStackTrace();
         }
         return "system/material-show";
+    }
+
+    @RequestMapping(value = "/material/delete.json")
+    @ResponseBody
+    public Data doMaterialDelete(Data data,@Param("id") Integer id){
+        try {
+            materialRepostitory.deleteMaterialById(id);
+            data.setSuccess(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            data.setSuccess(false);
+        }
+        return data;
     }
 }
