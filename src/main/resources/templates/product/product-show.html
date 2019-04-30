@@ -27,28 +27,30 @@
         <tr>
           <td>名称</td>
           <td th:text="${product.name}"></td>
-          <td>价格</td>
-          <td th:text="${product.price}"></td>
-        </tr>
-        <tr>
-          <td>商品编号</td>
-          <td th:text="${product.productNumber}"></td>
           <td>长度</td>
           <td th:text="${product.length}"></td>
         </tr>
         <tr>
+          <td>商品编号</td>
+          <td th:text="${product.productNumber}"></td>
           <td>宽度</td>
           <td th:text="${product.height}"></td>
+        </tr>
+        <tr>
+          <td>价格</td>
+          <td th:text="${product.price}"></td>
           <td>高度</td>
           <td th:text="${product.width}"></td>
         </tr>
         <tr>
-          <td>注意事项</td>
-          <td th:text="${product.information}"></td>
+          <td>创建日期</td>
+          <td th:text="${product.date}"></td>
+          <td>商品类型</td>
+          <td th:text="${product.tid}"></td>
         </tr>
         <tr>
-          <td>注意事项</td>
-          <td th:text="${product.information}"></td>
+          <td>商品介绍</td>
+          <td colspan="3" th:text="${product.information}"></td>
         </tr>
         </tbody>
       </table>
