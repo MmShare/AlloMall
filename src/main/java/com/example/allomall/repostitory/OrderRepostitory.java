@@ -10,7 +10,10 @@ public interface OrderRepostitory extends JpaRepository<Order,Long> {
 
     List<Order> findOrdersByState(String state);
 
-    List<Order> findOrdersByNameLike(String name);
+    List<Order> findOrdersByOrderNumberContainingAndPeopleNameContainingAndPeopleAddressContaining(String orderNumber,String peopleName,String peopleAddress);
+
+    List<Order> findOrdersByOrderNumberContainingOrPeopleNameContainingOrPeopleAddressContaining(String orderNumber,String peopleName,String peopleAddress);
+
 
     Order findOrderById(Integer id);
 

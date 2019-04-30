@@ -27,10 +27,10 @@
     <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-card-header">
-          <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+          <div class="test-table-btn" style="margin-bottom: 10px;">
             搜索ID：
             <div class="layui-inline">
-              <input class="layui-input" name="id" id="orderReload" autocomplete="off">
+              <input class="layui-input" name="condition" id="orderReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
@@ -75,7 +75,7 @@
         ,{field:'attention', width:"15%", title: '注意事项'}
         ,{field:'createTime', width:"10%", title: '创建日期', sort: true}
         ,{field:'deliveryTime', width:"10%", title: '完成日期', sort: true}
-        ,{field:'state', width:"5%", title: '状态', sort: true}
+        ,{field:'state', width:"10%", title: '状态', sort: true}
         ,{title:'操作',width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
       ],id:'oder-table-information'
@@ -91,15 +91,15 @@
       if(obj.event === 'detail'){
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
-          title:"材料添加框",
-          content:['/system/material/show.html', 'no'],
+          area: ['800px', '550px'],
+          title:"订单信息",
+          content:['/order/order/show.html/'+data.id],
         });
       } else if(obj.event === 'del'){
         layer.confirm('真的删除行么', function(index){
           $.ajax({
             type:"POST",
-            url:"/system/material/delete.json",
+            url:"/order/order/delete.json",
             dataType:"JSON",
             data:{id:data.id},
             success:function (res) {
@@ -117,32 +117,33 @@
 
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
-          title:"材料添加框",
-          content:['/system/material/edit.html', 'no'],
+          area: ['800px', '550px'],
+          title:"订单信息修改",
+          content:['/order/order/edit.html/'+data.id],
         });
       }
     });
 
     var $ = layui.$, active = {
       reload: function(){
-        var demoReload = $('#orderReload');
-
-
+        var orderReload = $('#orderReload');
         //执行重载
         table.reload('oder-table-information', {
-          url:''
+          url:'/order/order/search.json'
           ,page: {
             curr: 1 //重新从第 1 页开始
           }
           ,where: {
-            key: {
-              id: demoReload.val()
-            }
+            condition:orderReload.val()
           }
         });
       }
     };
+
+    $('.test-table-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
 
   });
 </script>

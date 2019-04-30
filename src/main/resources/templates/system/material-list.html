@@ -26,18 +26,18 @@
     <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-card-header">
-          <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+          <div class="test-table-btn" style="margin-bottom: 10px;">
             搜索ID：
-            <div class="layui-inline">
-              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">
+            <div class="layui-inline ">
+              <input class="layui-input" name="condition" id="materialReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
         </div>
         <div class="layui-card-body">
 
-          <div class="layui-btn-group test-table-operate-btn" style="margin-bottom: 10px;margin-right: 0px">
-            <button class="layui-btn" data-type="add">添加门窗类型</button>
+          <div class="layui-btn-group test-table-btn" style="margin-bottom: 10px;margin-right: 0px">
+            <button class="layui-btn" data-type="add">添加材料类型</button>
           </div>
 
           <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
@@ -84,7 +84,8 @@
                 }}
                 ,{title:'操作',width:"20%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
-      ]
+      ],
+        id:'material-table-information'
         ,page: true
       ,text: {
         none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
@@ -102,11 +103,11 @@
         layer.open({
           type: 2,
           area: ['800px', '290px'],
-          title:"材料添加框",
-          content:['/system/material/show.html', 'no'],
+          title:"材料信息",
+          content:['/system/material/show.html/'+data.id, 'no'],
         });
       } else if(obj.event === 'del'){
-        layer.confirm('真的删除行么', function(index){
+        layer.confirm('真的删除么', function(index){
           $.ajax({
             type:"POST",
             url:"/system/material/delete.json",
@@ -128,8 +129,8 @@
         layer.open({
           type: 2,
           area: ['800px', '290px'],
-          title:"材料添加框",
-          content:['/system/material/edit.html', 'no'],
+          title:"材料信息修改",
+          content:['/system/material/edit.html/'+data.id, 'no'],
         });
       }
     });
@@ -142,10 +143,26 @@
           title:"材料添加框",
           content:['/system/material/add.html', 'no'],
         });
-      }
+      },
+        reload: function(){
+
+          var materialReload = $('#materialReload');
+          //执行重载
+          table.reload('material-table-information', {
+            url:'/system/material/search.json'
+            ,page: {
+              curr: 1 //重新从第 1 页开始
+            }
+            ,where: {
+                condition: materialReload.val()
+            }
+          });
+        }
     };
 
-    $('.test-table-operate-btn .layui-btn').on('click', function(){
+
+
+    $('.test-table-btn .layui-btn').on('click', function(){
       var type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
     });

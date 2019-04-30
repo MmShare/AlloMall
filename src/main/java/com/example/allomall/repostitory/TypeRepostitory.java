@@ -10,7 +10,7 @@ public interface TypeRepostitory extends JpaRepository<Type, Long> {
 
     Type findTypeById(Integer id);
 
-    List<Type> findTypesByNameLike(String name);
+    List<Type> findTypeByNameContaining(String name);
 
     @Transactional
     void deleteTypeById(Integer id);

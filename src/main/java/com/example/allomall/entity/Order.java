@@ -29,7 +29,7 @@ public class Order {
     private String peoplePhone;//收货人电话
 
     @Column(name = "peopleAddress",length = 50)
-    private String peopleAddress;//订单名
+    private String peopleAddress;//收货人地址
 
     @Column(name = "havePay",length = 50)
     private String havePay;//已付

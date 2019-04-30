@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>表单组合</title>
@@ -14,9 +14,7 @@
 <body>
 
 <div class="layui-fluid">
-  <div class="layui-card">
-      <div class="layui-card-header">常规轮播1</div>
-    <div class="layui-card-body">
+
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
           <col width="80">
@@ -27,21 +25,33 @@
         </colgroup>
         <tbody>
         <tr>
-          <td>贤心</td>
-          <td>2016-11-29</td>
-          <td>人生就像是一场修行</td>
-          <td>人生就像是一场修行</td>
+          <td>名称</td>
+          <td th:text="${product.name}"></td>
+          <td>价格</td>
+          <td th:text="${product.price}"></td>
         </tr>
         <tr>
-          <td>许闲心</td>
-          <td>2016-11-28</td>
-          <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-          <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+          <td>商品编号</td>
+          <td th:text="${product.productNumber}"></td>
+          <td>长度</td>
+          <td th:text="${product.length}"></td>
+        </tr>
+        <tr>
+          <td>宽度</td>
+          <td th:text="${product.height}"></td>
+          <td>高度</td>
+          <td th:text="${product.width}"></td>
+        </tr>
+        <tr>
+          <td>注意事项</td>
+          <td th:text="${product.information}"></td>
+        </tr>
+        <tr>
+          <td>注意事项</td>
+          <td th:text="${product.information}"></td>
         </tr>
         </tbody>
       </table>
-    </div>
-  </div>
 </div>
 
 <script src="../../../layuiadmin/layui/layui.js"></script>

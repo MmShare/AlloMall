@@ -14,15 +14,12 @@
 <body>
 
   <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-card-header">材料信息</div>
-      <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="component-form-element">
+        <form class="layui-form" action="" lay-filter="window-form-add">
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">材料名称:</label>
+              <label class="layui-form-label">门窗类型名</label>
               <div class="layui-input-inline">
-                <input type="tel" name="name" lay-verify="title" autocomplete="off" class="layui-input">
+                <input type="tel" name="name" lay-verify="name" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -30,18 +27,16 @@
           <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">基本介绍</label>
             <div class="layui-input-block">
-              <textarea name="information" placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea name="information" lay-verify="information" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           <div class="layui-form-item" style="margin-right: 0px">
             <div class="layui-input-block" >
-              <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
+              <button class="layui-btn" lay-submit lay-filter="window-form-add">立即提交</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
           </div>
         </form>
-      </div>
-    </div>
   </div>
 
 
@@ -59,7 +54,7 @@
     ,laydate = layui.laydate
     ,form = layui.form;
 
-    form.render(null, 'component-form-group');
+    form.render(null, 'window-form-add');
 
     laydate.render({
       elem: '#LAY-component-form-group-date'
@@ -67,35 +62,31 @@
 
     /* 自定义验证规则 */
     form.verify({
-      title: function(value){
-        if(value.length < 5){
-          return '名称至少得5个字符啊';
+      name: function(value){
+        if(value.length < 1){
+          return '门窗类型名字不能为空';
+        }
+      },
+      information: function(value){
+        if(value.length < 1){
+          return '基本介绍不能为空';
         }
       }
-      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
       ,content: function(value){
         layedit.sync(editIndex);
       }
     });
 
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
-
     /* 监听提交 */
-    form.on('submit(component-form-element)', function(data){
+    form.on('submit(window-form-add)', function(data){
       $.ajax({
         type:"POST",
         url:"/system/windowsType/add.json",
         dataType:"JSON",
         data:data.field,
-        success:function (data) {
+        success:function (res) {
           window.parent.layer.closeAll();
-          window.parent.layer.msg("新增成功");
+          window.parent.layer.msg(res.msg);
           setTimeout(function () {
             window.parent.location.reload();
           },300);

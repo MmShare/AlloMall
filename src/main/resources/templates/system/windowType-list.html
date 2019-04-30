@@ -26,21 +26,21 @@
     <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-card-header">
-          <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+          <div class="test-table-btn" style="margin-bottom: 10px;">
             搜索ID：
             <div class="layui-inline">
-              <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">
+              <input class="layui-input" name="condition" id="windowReload" autocomplete="off">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
         </div>
         <div class="layui-card-body">
 
-          <div class="layui-btn-group test-table-operate-btn" style="margin-bottom: 10px;margin-right: 0px">
+          <div class="layui-btn-group test-table-btn" style="margin-bottom: 10px;margin-right: 0px">
             <button class="layui-btn" data-type="add">添加门窗类型</button>
           </div>
 
-          <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+          <table class="layui-hide" id="window-table-list" lay-filter="window-table-list"></table>
 
           <script type="text/html" id="test-table-operate-barDemo">
             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -64,7 +64,7 @@
             ,admin = layui.admin;
 
     table.render({
-      elem: '#test-table-operate'
+      elem: '#window-table-list'
       ,url: '/system/windowsType/getList.json'
       ,cols: [
               [
@@ -83,43 +83,78 @@
                 ,{title:'操作',width:"20%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
       ]
+      ,id:'window-table-information'
         ,page: true
       ,text: {
         none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
       }
     });
 
-    //监听表格复选框选择
-    table.on('checkbox(test-table-barDemo)', function(obj){
-      console.log(obj)
-    });
-    //监听工具条
-    table.on('tool(test-table-operate)', function(obj){
+//监听工具条
+    table.on('tool(window-table-list)', function(obj){
       var data = obj.data;
       if(obj.event === 'detail'){
-        layer.msg('ID：'+ data.id + ' 的查看操作');
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"门窗类型信息",
+          content:['/system/windowsType/show.html/'+data.id, 'no'],
+        });
       } else if(obj.event === 'del'){
         layer.confirm('真的删除行么', function(index){
-          obj.del();
-          layer.close(index);
+          $.ajax({
+            type:"POST",
+            url:"/system/windowsType/delete.json",
+            dataType:"JSON",
+            data:{id:data.id},
+            success:function (res) {
+              obj.del();
+              layer.close(index);
+              layer.msg(res.msg);
+            },
+
+            error:function () {
+            }
+          })
+
         });
       } else if(obj.event === 'edit'){
-        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"门窗类型修改",
+          content:['/system/windowsType/edit.html/'+data.id, 'no'],
+        });
       }
     });
+
 
     var $ = layui.$, active = {
       add: function(){ //添加材料
         layer.open({
           type: 2,
           area: ['800px', '350px'],
-          title:"材料添加框",
+          title:"门窗类型添加",
           content:['/system/windowsType/add.html', 'no'],
+        });
+      },
+      reload: function(){
+        var windowReload = $('#windowReload');
+        //执行重载
+        table.reload('window-table-information', {
+          url:'/system/windowsType/search.json'
+          ,page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            condition: windowReload.val()
+          }
         });
       }
     };
 
-    $('.test-table-operate-btn .layui-btn').on('click', function(){
+    $('.test-table-btn .layui-btn').on('click', function(){
       var type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
     });

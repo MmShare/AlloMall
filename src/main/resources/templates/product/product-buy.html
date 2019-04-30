@@ -16,34 +16,65 @@
     <div class="layui-card">
         <div class="layui-card-header">表单组合</div>
         <div class="layui-card-body" style="padding: 15px;">
-            <form class="layui-form" action="" lay-filter="product-form-add">
+            <form class="layui-form" action="" lay-filter="product-form-buy">
+                <input type="hidden" name="pid" id="pid" th:value="${product.id}">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">商品名称:</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="name" lay-verify="name" autocomplete="off"
+                            <input type="tel" th:value="${product.name}" lay-verify="name" autocomplete="off" readonly="readonly"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商品价格:</label>
+                        <label class="layui-form-label">客户名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="price" lay-verify="price" autocomplete="off" class="layui-input">
+                            <input type="text" name="peopleName" lay-verify="peopleName" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">长度</label>
+                        <label class="layui-form-label">客户电话：</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="length"  autocomplete="off" class="layui-input">
+                            <input type="tel" name="peoplePhone"  lay-verify="required|phone" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">宽度</label>
+                        <label class="layui-form-label">客户地址</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="width"  autocomplete="off" class="layui-input">
+                            <input type="text" name="peopleAddress"  lay-verify="peopleName" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">订金：</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="havePay" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">数量：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="number" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">长度：</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="length" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">宽度:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="width" lay-verify="peopleName"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -52,13 +83,13 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">高度:</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="height"  autocomplete="off" class="layui-input">
+                            <input type="tel" name="height" lay-verify="peopleName"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">单行选择框</label>
+                        <label class="layui-form-label">订单类型</label>
                         <div class="layui-input-inline">
-                            <select  name="tid" id="tid" lay-verify="tid">
+                            <select  name="state" id="state" lay-verify="state">
                                 <option th:each="type:${typeList}" th:value="${type.id}"
                                         th:text="${type.name}"></option>
                             </select>
@@ -68,28 +99,18 @@
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">图片:</label>
+                        <label class="layui-form-label">订单完成时间：</label>
                         <div class="layui-input-inline">
-                            <button type="button" class="layui-btn" id="img-upload-more">上传图片</button>
+                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
                         </div>
                     </div>
-                    <div class="layui-inline">
-                    <label class="layui-form-label"></label>
-                        <div class="layui-inline" id="ima-upload-more-list" style="height: 100px;width: 330px">
-                    </div>
-                    </div>
                 </div>
 
 
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">基本介绍</label>
-                    <div class="layui-input-block">
-                        <textarea name="information" placeholder="请输入内容" class="layui-textarea"></textarea>
-                    </div>
-                </div>
+
                 <div class="layui-form-item" style="margin-right: 0px">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="product-form-add">立即提交</button>
+                        <button class="layui-btn" lay-submit lay-filter="product-form-buy">立即提交</button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
@@ -117,6 +138,10 @@
 
         form.render(null, 'product-form-add');
 
+        //常规用法
+        laydate.render({
+            elem: '#time'
+        });
 
         /* 自定义验证规则 */
         form.verify({
@@ -125,12 +150,27 @@
                     return '名字不能为空';
                 }
             }
-            ,price: function (value) {
+            ,peopleName: function (value) {
                 if (value.length < 1) {
-                    return '价格不能为空';
+                    return '请填写客户名';
                 }
             }
-            ,tid: function (value) {
+            ,peoplePhone: function (value) {
+                if (value.length < 1) {
+                    return '请填写联系电话';
+                }
+            }
+            ,peopleAddress: function (value) {
+                if (value.length < 1) {
+                    return '请填写地址';
+                }
+            }
+            ,deliveryTime: function (value) {
+                if (value.length < 1) {
+                    return '请选择交货日期';
+                }
+            }
+            ,state: function (value) {
                 if (value ==null) {
                     return '请至少选个种类';
                 }
@@ -141,53 +181,24 @@
         });
 
         /* 监听提交 */
-        form.on('submit(product-form-add)', function (data) {
-            alert("提交请求");
+        form.on('submit(product-form-buy)', function (data) {
             $.ajax({
                 type:"POST",
-                url:"/product/product/add.json",
+                url:"/product/product/buy.json",
                 dataType:"JSON",
                 data:data.field,
-                success:function (data) {
-                    layer.msg("新增成功");
+                success:function (res) {
+                    window.parent.layer.closeAll();
+                    window.parent.layer.msg(res.msg);
+                    setTimeout(function () {
+                        window.parent.location.reload();
+                    },200);
                 },
                 error:function () {
                     window.parent.layer.closeAll();
                 }
             })
             return false;
-        });
-        var num=0;
-        //多图片上传
-        upload.render({
-            elem: '#img-upload-more'
-            ,url: '/product/product/upload.json'    //上传接口
-            ,accept: 'images' //支持图片类型
-            ,multiple: true //支持多文件上传
-            ,number:3       //最多上传几个
-            ,auto: true     //自动上传
-            ,choose:function(obj){
-//预读本地文件示例，不支持ie8
-                if (num<3){
-                    obj.preview(function(index, file, result){
-                        $('#ima-upload-more-list').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="margin-left: 0px;height: 100px;width: 100px"> ')
-                    });
-                }else {
-                    layer.msg("只能上传3个");
-
-                    return false;
-                }
-
-
-            }
-            ,before: function(obj){
-
-            }
-            ,done: function(res){
-                alert("已上传"+num);
-                num=num+1;
-
-            }
         });
 
     });

@@ -42,17 +42,13 @@ public class ProductController {
     @Autowired
     private OrderRepostitory orderRepostitory;
 
-    @RequestMapping(value = "/product/list.html/{typeid}")
-    public String toAllProduct(ModelMap map, @PathVariable("typeid") Integer typeid){
+    @RequestMapping(value = "/product/list.html/{state}")
+    public String toAllProduct(ModelMap map, @PathVariable("state") Integer state){
         log.info("product页面..................................................");
-        if (typeid==1){
-
-        }else if (typeid==2){
-
-        }else if (typeid==3){
-
-        }else {
+        if (state==1){
             map.put("productList",productRepostitory.findAll());
+        }else {
+            map.put("productList",productRepostitory.findProductsByState(state));
         }
         return "product/product-list";
     }
@@ -93,16 +89,17 @@ public class ProductController {
         return data;
     }
 
-    @RequestMapping(value = "/product/show.html")
-    public String toProductShow(ModelMap map,@Param("id") Integer id){
+    @RequestMapping(value = "/product/show.html/{id}")
+    public String toProductShow(ModelMap map,@PathVariable("id") Integer id){
         map.put("product",productRepostitory.findProductById(id));
         return "product/product-show";
     }
 
 
-    @RequestMapping(value = "/product/edit.html")
-    public String toProductEdit(@Param("id") Integer id,ModelMap map){
+    @RequestMapping(value = "/product/edit.html/{id}")
+    public String toProductEdit(@PathVariable("id") Integer id,ModelMap map){
         map.put("product",productRepostitory.findProductById(id));
+        map.put("typeList",typeRepostitory.findAll());
         return "product/product-edit";
     }
 
@@ -138,10 +135,11 @@ public class ProductController {
         return data;
     }
 
-    @RequestMapping(value = "/product/additional.html")
-    public String toProductAdditional(@Param("id") Integer id){
+    @RequestMapping(value = "/product/additional.html/{id}")
+    public String toProductAdditional(ModelMap map,@PathVariable("id") Integer id){
         associatedRepostitory.findAssociatedsByPid(id);
-        return "product/additional-material";
+        map.put("product",productRepostitory.findProductById(id));
+        return "product/product-additional-material";
     }
 
     @RequestMapping(value = "/product/additional.json")
@@ -172,14 +170,16 @@ public class ProductController {
         return data;
     }
 
-    @RequestMapping(value = "/product/buy.html")
-    public String toProductBuy(){
-        return "product-buy";
+    @RequestMapping(value = "/product/buy.html/{id}")
+    public String toProductBuy(ModelMap map,@PathVariable("id") Integer id){
+        map.put("product",productRepostitory.findProductById(id));
+        map.put("typeList",typeRepostitory.findAll());
+        return "product/product-buy";
     }
 
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
-    public Data doProductBuy(Data data, Order order,@Param("id") Integer pid){
+    public Data doProductBuy(Data data, Order order,@Param("pid") Integer pid){
         order.setPid(pid);
         order.setCreateTime(sf.format(new Date()));
         orderRepostitory.save(order);

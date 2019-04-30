@@ -14,37 +14,34 @@
 <body>
 
   <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-card-header">表单组合</div>
-      <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="material-form-edit">
           <input type="hidden" name="id" th:value="${material.id}">
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">材料名称:</label>
+              <label class="layui-form-label">材料名称</label>
               <div class="layui-input-inline">
-                <input type="tel" name="name" lay-verify="title" th:value="${material.name}" autocomplete="off" class="layui-input">
+                <input type="tel" name="name" lay-verify="name" th:value="${material.name}" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">长度:</label>
+              <label class="layui-form-label">长度</label>
               <div class="layui-input-inline">
-                <input type="text" name="length" th:value="${material.length}"  autocomplete="off" class="layui-input">
+                <input type="text" name="length"  lay-verify="length" th:value="${material.length}"  autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">宽度:</label>
+              <label class="layui-form-label">宽度</label>
               <div class="layui-input-inline">
-                <input type="tel" name="height" th:value="${material.height}"  autocomplete="off" class="layui-input">
+                <input type="tel" name="height"  lay-verify="height" th:value="${material.height}"  autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">高度:</label>
+              <label class="layui-form-label">高度</label>
               <div class="layui-input-inline">
-                <input type="text" name="width" th:value="${material.width}"  autocomplete="off" class="layui-input">
+                <input type="text" name="width" lay-verify="width" th:value="${material.width}"  autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -56,8 +53,6 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
   </div>
 
 
@@ -83,23 +78,29 @@
 
     /* 自定义验证规则 */
     form.verify({
-      title: function(value){
-        if(value.length < 5){
-          return '标题至少得5个字符啊';
+      name: function(value){
+        if(value.length < 1){
+          return '材料名称不能为空';
         }
       }
-      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+      , length: function(value){
+        if(value.length < 1){
+          return '长度不能为空';
+        }
+      }
+      , height: function(value){
+        if(value.length < 1){
+          return '高度不能为空';
+        }
+      }
+      , width: function(value){
+        if(value.length < 1){
+          return '宽度不能为空';
+        }
+      }
       ,content: function(value){
         layedit.sync(editIndex);
       }
-    });
-
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
     });
 
     /* 监听提交 */

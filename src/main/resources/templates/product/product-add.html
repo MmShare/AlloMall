@@ -142,14 +142,17 @@
 
         /* 监听提交 */
         form.on('submit(product-form-add)', function (data) {
-            alert("提交请求");
             $.ajax({
                 type:"POST",
                 url:"/product/product/add.json",
                 dataType:"JSON",
                 data:data.field,
-                success:function (data) {
-                    layer.msg("新增成功");
+                success:function (res) {
+                    window.parent.layer.closeAll();
+                    window.parent.layer.msg(res.msg);
+                    setTimeout(function () {
+                        window.parent.location.reload();
+                    },200);
                 },
                 error:function () {
                     window.parent.layer.closeAll();

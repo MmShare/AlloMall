@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>表单组合</title>
@@ -15,7 +15,45 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
-      <div class="layui-card-header">表单组合</div>
+      <div class="layui-card-header">
+        <table class="layui-table" lay-skin="row " lay-size="lg  ">
+          <colgroup>
+            <col width="80">
+            <col width="150">
+            <col width="80">
+            <col width="150">
+            <col>
+          </colgroup>
+          <tbody>
+          <tr>
+            <td>名称</td>
+            <td th:text="${product.name}"></td>
+            <td>价格</td>
+            <td th:text="${product.price}"></td>
+          </tr>
+          <tr>
+            <td>商品编号</td>
+            <td th:text="${product.productNumber}"></td>
+            <td>长度</td>
+            <td th:text="${product.length}"></td>
+          </tr>
+          <tr>
+            <td>宽度</td>
+            <td th:text="${product.height}"></td>
+            <td>高度</td>
+            <td th:text="${product.width}"></td>
+          </tr>
+          <tr>
+            <td>注意事项</td>
+            <td th:text="${product.information}"></td>
+          </tr>
+          <tr>
+            <td>注意事项</td>
+            <td th:text="${product.information}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="component-form-group">
           <div class="layui-form-item">

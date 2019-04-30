@@ -38,11 +38,11 @@
                         </div>
                     </div>
                 </a>
-                <b style="margin-left: 22px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-primary" onclick="doshow();">查看</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm" lay-event="">下单</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="">修改</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">追加材料</b>
-                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-danger " lay-event="">删除</b>
+                <b style="margin-left: 22px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-primary" th:onclick="'javascript:doshow(\''+${product.id}+'\');'">查看</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm" lay-event="" th:onclick="'javascript:docheckout(\''+${product.id}+'\');'">下单</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-warm" lay-event="" th:onclick="'javascript:doedit(\''+${product.id}+'\');'">修改</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-normal" lay-event="" th:onclick="'javascript:dosupply(\''+${product.id}+'\');'">追加材料</b>
+                <b style="margin-left: 32px;margin-top: 5px" class="layui-btn layui-btn-sm layui-btn-danger " lay-event="" th:onclick="'javascript:dodelete(\''+${product.id}+'\');'">删除</b>
             </div>
         </div>
 
@@ -54,15 +54,18 @@
 
 
 <script src="../../../layuiadmin/layui/layui.js"></script>
+<script src="../../../layuiadmin/jq/jquery-2.1.1.min.js"></script>
 <script>
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index']);
-    layui.use(['laypage', 'layer'], function(){
+    layui.use(['jquery','laypage', 'layer','index'], function(){
         var laypage = layui.laypage
-            ,layer = layui.layer;
+            ,layer = layui.layer
+            ,admin = layui.admin;
+
 
         //总页数低于页码总数
         laypage.render({
@@ -71,28 +74,57 @@
         });
     });
 
-        function doshow() {
-            layer.open({
-                type: 2,
-                area: ['800px', '290px'],
-                title:"材料添加框",
-                content:['/product/product/show.html', 'no'],
-            });
-        };
-
-        function doelete() {
-
-        };
-
-        function doedit() {
-
-        };
-        function dosupply() {
-
-        };
-        function docheckout() {
-
-        };
+    function doshow(id) {
+        layer.open({
+            type: 2,
+            area: ['800px', '290px'],
+            title:"信息查看",
+            content:['/product/product/show.html/'+id, 'no'],
+        });
+    };
+    //做删除
+    function dodelete(id) {
+        layer.confirm('真的删除吗？', function(index){
+            $.ajax({
+                type:"POST",
+                url:"/product/product/delete.json",
+                dataType:"JSON",
+                data:{id:id},
+                success:function (res) {
+                    layer.msg(res.msg);
+                },
+                error:function () {
+                }
+            })
+        });
+    };
+    //做修改
+    function doedit(id) {
+        layer.open({
+            type: 2,
+            area: ['800px', '290px'],
+            title:"信息修改",
+            content:['/product/product/edit.html/'+id],
+        });
+    };
+    //追加材料
+    function dosupply(id) {
+        layer.open({
+            type: 2,
+            area: ['800px', '290px'],
+            title:"追加材料",
+            content:['/product/product/additional.html/'+id],
+        });
+    };
+    //下单
+    function docheckout(id) {
+        layer.open({
+            type: 2,
+            area: ['800px', '550px'],
+            title:"下单",
+            content:['/product/product/buy.html/'+id],
+        });
+    };
 </script>
 </body>
 </html>

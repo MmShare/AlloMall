@@ -14,9 +14,7 @@
 <body>
 
 <div class="layui-fluid">
-  <div class="layui-card">
-      <div class="layui-card-header">常规轮播1</div>
-    <div class="layui-card-body">
+
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
           <col width="80">
@@ -40,8 +38,6 @@
         </tr>
         </tbody>
       </table>
-    </div>
-  </div>
 </div>
 
 <script src="../../../layuiadmin/layui/layui.js"></script>
@@ -64,34 +60,6 @@
       elem: '#LAY-component-form-group-date'
     });
 
-    /* 自定义验证规则 */
-    form.verify({
-      title: function(value){
-        if(value.length < 5){
-          return '标题至少得5个字符啊';
-        }
-      }
-      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-      ,content: function(value){
-        layedit.sync(editIndex);
-      }
-    });
-
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
-
-    /* 监听提交 */
-    form.on('submit(component-form-demo1)', function(data){
-      parent.layer.alert(JSON.stringify(data.field), {
-        title: '最终的提交信息'
-      })
-      return false;
-    });
   });
 </script>
 </body>

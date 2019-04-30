@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,6 +56,21 @@ public class SystemController {
         return table;
     }
 
+    @RequestMapping(value = "/windowsType/search.json")
+    @ResponseBody
+    public Table searchWindowsTypeList(Table table,@Param("condition") String condition){
+        try {
+            List<Type> typeList=typeRepostitory.findTypeByNameContaining(condition);
+            table.setCode(0);
+            table.setMsg("读取成功");
+            table.setCount(typeList.size());
+            table.setData(typeList);
+        }catch (Exception e){
+            log.info("读取门窗类型的时候发生错误");
+        }
+        return table;
+    }
+
     @RequestMapping(value = "/windowsType/add.html")
     public String toWindowsTypeAdd() {
         log.info("to material 页面......................................................");
@@ -79,14 +95,14 @@ public class SystemController {
         return data;
     }
 
-    @RequestMapping(value = "/windowsType/show.html")
-    public String toWindowsTypeShow(ModelMap map,@Param("id") Integer id){
+    @RequestMapping(value = "/windowsType/show.html/{id}")
+    public String toWindowsTypeShow(ModelMap map,@PathVariable("id") Integer id){
         map.put("windowsType",typeRepostitory.findTypeById(id));
         return "system/windowType-show";
     }
 
-    @RequestMapping(value = "/windowsType/edit.html")
-    public String toWindowsTypeEdit(ModelMap map, @Param("id") Integer id){
+    @RequestMapping(value = "/windowsType/edit.html/{id}")
+    public String toWindowsTypeEdit(ModelMap map, @PathVariable("id") Integer id){
         log.info("to windowsType edit 页面..............................................");
         map.put("windowsType",typeRepostitory.findTypeById(id));
         return "system/windowType-edit";
@@ -133,6 +149,18 @@ public class SystemController {
         return table;
     }
 
+    @RequestMapping(value = "/material/search.json")
+    @ResponseBody
+    public Table searchMaterialList(Table table,@Param("condition") String condition) {
+        log.info("search material list .....................................................");
+        table.setCode(0);
+        table.setMsg("");
+        List<Material> materialList = materialRepostitory.findMaterialsByNameContaining(condition);
+        table.setCount(materialList.size());
+        table.setData(materialList);
+        return table;
+    }
+
     @RequestMapping(value = "/material/add.html")
     public String toMaterialAdd() {
         log.info("to material Add 页面......................................................");
@@ -157,11 +185,10 @@ public class SystemController {
         return data;
     }
 
-    @RequestMapping(value = "/material/edit.html")
-    public String toMaterialEdit(ModelMap map,Material material,@Param("id") Integer id){
+    @RequestMapping(value = "/material/edit.html/{id}")
+    public String toMaterialEdit(ModelMap map,Material material,@PathVariable("id") Integer id){
         log.info("to material edit html ....................................................");
         try {
-            id=2;
             material=materialRepostitory.findMaterialById(id);
             System.out.println(material.getName());
             map.put("material",material);
@@ -186,11 +213,10 @@ public class SystemController {
         return data;
     }
 
-    @RequestMapping(value = "/material/show.html")
-    public String toMaterialShow(ModelMap map,Material material,@Param("id") Integer id){
+    @RequestMapping(value = "/material/show.html/{id}")
+    public String toMaterialShow(ModelMap map,Material material,@PathVariable("id") Integer id){
         log.info("to material show .........................................................");
         try {
-            id=1;
             material=materialRepostitory.findMaterialById(id);
             System.out.println(material.getName());
             map.put("material",material);

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>表单组合</title>
@@ -14,21 +14,20 @@
 <body>
 
   <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-card-header">表单组合</div>
-      <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="component-form-group">
+        <form class="layui-form" action="" lay-filter="order-form-edit">
+          <input type="hidden" name="pid" id="pid" th:value="${product.id}">
+          <input type="hidden" name="id" id="id" th:value="${order.id}">
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">商品名称:</label>
+              <label class="layui-form-label">商品名称</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel"   readonly="readonly" th:value="${product.name}" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">收货人:</label>
+              <label class="layui-form-label">收货人</label>
               <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="peopleName" th:value="${order.peopleName}" lay-verify="peopleName" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -37,43 +36,13 @@
             <div class="layui-inline">
               <label class="layui-form-label">收货人电话</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="peoplePhone" th:value="${order.peoplePhone}" lay-verify="required|phone" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
               <label class="layui-form-label">收货人地址</label>
               <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">长度</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">宽度</label>
-              <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">高度</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量</label>
-              <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="peopleAddress" th:value="${order.peopleAddress}" lay-verify="peopleAddress" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -82,48 +51,75 @@
             <div class="layui-inline">
               <label class="layui-form-label">订金</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="havePay" th:value="${order.havePay}" lay-verify="havePay" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
               <label class="layui-form-label">总价</label>
               <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="prices" th:value="${order.prices}" lay-verify="prices" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">交付日期</label>
+              <label class="layui-form-label">完成时间</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="text" name="deliveryTime" th:value="${order.deliveryTime}" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
               </div>
             </div>
             <div class="layui-inline">
               <label class="layui-form-label">商品类型</label>
               <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="state" th:value="${order.state}" lay-verify="state" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
 
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">长度</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="length" th:value="${order.length}" lay-verify="length" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">宽度</label>
+              <div class="layui-input-inline">
+                <input type="text" name="width" th:value="${order.width}" lay-verify="width" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">高度</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="height" th:value="${order.height}" lay-verify="height" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">数量</label>
+              <div class="layui-input-inline">
+                <input type="text" name="number" th:value="${order.number}" lay-verify="number" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
 
           <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">注意事项</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea name="attention" th:text="${order.attention}" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           <div class="layui-form-item" style="margin-right: 0px">
             <div class="layui-input-block" >
-              <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
+              <button class="layui-btn" lay-submit lay-filter="order-form-edit">立即提交</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
           </div>
         </form>
-      </div>
-    </div>
   </div>
 
     
@@ -140,38 +136,78 @@
     ,layer = layui.layer
     ,laydate = layui.laydate
     ,form = layui.form;
-    
-    form.render(null, 'component-form-group');
+
+    //常规用法
+    laydate.render({
+      elem: '#time'
+    });
+
+    form.render(null, 'order-form-edit');
 
     laydate.render({
       elem: '#LAY-component-form-group-date'
     });
-    
+
     /* 自定义验证规则 */
     form.verify({
-      title: function(value){
-        if(value.length < 5){
-          return '标题至少得5个字符啊';
+      name: function (value) {
+        if (value.length < 1) {
+          return '名字不能为空';
         }
       }
-      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-      ,content: function(value){
+      ,peopleName: function (value) {
+        if (value.length < 1) {
+          return '请填写客户名';
+        }
+      }
+      ,peoplePhone: function (value) {
+        if (value.length < 1) {
+          return '请填写联系电话';
+        }
+      }
+      ,peopleAddress: function (value) {
+        if (value.length < 1) {
+          return '请填写地址';
+        }
+      }
+      ,deliveryTime: function (value) {
+        if (value.length < 1) {
+          return '请选择交货日期';
+        }
+      }
+      ,state: function (value) {
+        if (value ==null) {
+          return '请至少选个种类';
+        }
+      }
+      ,number: function (value) {
+        if (value ==null) {
+          return '请输入数量';
+        }
+      }
+      ,content: function (value) {
         layedit.sync(editIndex);
       }
     });
     
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
-    
     /* 监听提交 */
-    form.on('submit(component-form-demo1)', function(data){
-      parent.layer.alert(JSON.stringify(data.field), {
-        title: '最终的提交信息'
+    form.on('submit(order-form-edit)', function(data){
+      $.ajax({
+        type:"POST",
+        url:"/order/order/edit.json",
+        dataType:"JSON",
+        data:data.field,
+        success:function (res) {
+          window.parent.layer.closeAll();
+          window.parent.layer.msg(res.msg);
+          setTimeout(function () {
+            window.parent.location.reload();
+          },200);
+        },
+
+        error:function () {
+          window.parent.layer.closeAll();
+        }
       })
       return false;
     });
