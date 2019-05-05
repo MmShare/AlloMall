@@ -33,39 +33,6 @@
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">客户电话：</label>
-                        <div class="layui-input-inline">
-                            <input type="tel" name="peoplePhone"  lay-verify="required|phone" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">客户地址</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="peopleAddress"  lay-verify="peopleAddress" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-
-                    <div class="layui-inline">
-                        <label class="layui-form-label">数量：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="number" lay-verify="number"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-inline">
-                        <label class="layui-form-label">交付日期：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
                         <label class="layui-form-label">高度:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="width" lay-verify="width"  autocomplete="off" class="layui-input">
@@ -78,6 +45,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">交付日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">计算类型</label>
+                        <div class="layui-input-inline">
+                            <select  name="sumType" id="sumType" lay-verify="sumType">
+                                <option value="1">2开计算方式</option>
+                                <option value="2">4开计算方式</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <textarea name="attention" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
 
                 <div class="layui-form-item" style="margin-right: 0px">
                     <div class="layui-input-block">
@@ -124,9 +117,9 @@
                     return '请填写客户名';
                 }
             }
-            ,peoplePhone: function (value) {
-                if (value.length < 1) {
-                    return '请填写联系电话';
+            ,sumType: function (value) {
+                if (value.length < 0) {
+                    return '请选择计算类型';
                 }
             }
             ,peopleAddress: function (value) {

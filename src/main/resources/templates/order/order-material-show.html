@@ -10,10 +10,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+
 </head>
 <body>
 
-<div class="layui-fluid">
+<div class="layui-fluid" id="print">
 
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
@@ -23,6 +24,9 @@
           <col>
         </colgroup>
         <tbody>
+        <tr>
+          <td colspan="4" th:text="${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.width}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.attention}"></td>
+        </tr>
         <tr>
           <td>材料名</td>
           <td>数值</td>
@@ -36,8 +40,15 @@
         </tbody>
       </table>
 </div>
+<div class="layui-form-item" style="margin-right: 0px">
+  <div class="layui-input-block" >
+    <button class="layui-btn"  onclick="print();">打印下料</button>
+  </div>
+</div>
 
 <script src="../../../layuiadmin/layui/layui.js"></script>
+<script language="javascript" src="../../../layuiadmin/jq/jquery-1.4.4.min.js"></script>
+<script language="javascript" src="../../../layuiadmin/jq/jquery.jqprint-0.3.js"></script>
 <script>
   layui.config({
     base: '../../../layuiadmin/' //静态资源所在路径
@@ -70,13 +81,6 @@
       }
     });
 
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
 
     /* 监听提交 */
     form.on('submit(component-form-demo1)', function(data){
@@ -86,6 +90,10 @@
       return false;
     });
   });
+  
+  function print() {
+    $("#print").jqprint();
+  }
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@
     <artifactId>allomall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>allomall</name>
+    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -30,6 +31,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+<!--            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>-->
         </dependency>
 
 <!--        &lt;!&ndash;  用的百度云的服务器 mysql需要将版本&ndash;&gt;
@@ -69,9 +76,17 @@
             <optional>true</optional>
         </dependency>
 
+<!--        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>8.0.36</version>
+            <scope>provided</scope>
+        </dependency>-->
+
     </dependencies>
 
     <build>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

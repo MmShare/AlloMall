@@ -23,7 +23,7 @@ public class Product {
     private String name;//商品名字
 
     @Column(name = "serialNumber",length = 50)
-    private String productNumber;//编号
+    private String serialNumber;//编号
 
     @Column(name = "url",length = 150)
     private String url;//图片地址

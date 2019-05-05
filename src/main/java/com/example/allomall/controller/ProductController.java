@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +30,8 @@ public class ProductController {
     private SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 
     private SimpleDateFormat sn=new SimpleDateFormat("yyyyMMddhhmmss");
+
+    DecimalFormat df = new DecimalFormat("#.00");//保留小数点后2位
 
     @Autowired
     private TypeRepostitory typeRepostitory;
@@ -211,16 +214,17 @@ public class ProductController {
 
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
-    public Data doProductBuy(Data data, Order order,@Param("pid") Integer pid){
+    public Data doProductBuy(Data data, Order order,@Param("pid") Integer pid,@Param("sumType") String sumType){
         Product productById = productRepostitory.findProductById(pid);
         //order.setId(null);
         order.setPid(pid);
-        order.setState("1");
+        order.setState(sumType);
         Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
-        order.setSquare(sq.toString());
+        order.setSquare(df.format(sq));
         order.setPrices(sq*Integer.valueOf(productById.getPrice()));
         order.setNumber(productById.getDid());
-        order.setPrices((Double.valueOf(productById.getPrice())*order.getNumber()*Double.valueOf(order.getSquare())));
+        order.setPrices((int)((Double.valueOf(productById.getPrice())*Double.valueOf(order.getSquare()))+0.50));
+        order.setHavePay(productById.getPrice());
         order.setOrderNumber(sn.format(new Date()));
         order.setCreateTime(sf.format(new Date()));
         orderRepostitory.save(order);
