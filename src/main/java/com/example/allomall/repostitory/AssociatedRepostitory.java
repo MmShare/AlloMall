@@ -12,4 +12,8 @@ public interface AssociatedRepostitory extends  JpaRepository<Associated,Long> {
 
     @Transactional
     void deleteAssociatedByPidAndMid(Integer pid,Integer mid);
+
+    @Transactional
+    void deleteAssociatedById(Integer id);
+
 }

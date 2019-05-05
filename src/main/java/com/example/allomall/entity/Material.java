@@ -19,14 +19,17 @@ public class Material {
     @Column(name = "name",length = 50)
     private String name;
 
-    @Column(name = "length",length = 50)
-    private String length;//长度
+    @Column(name = "valueOne",length = 50)
+    private String valueOne;//数值1
 
-    @Column(name = "height",length = 50)
-    private String height;//高度
+    @Column(name = "valueTwo",length = 50)
+    private String valueTwo;//数值2
 
-    @Column(name = "width",length = 50)
-    private String width;//宽度
+    @Column(name = "number",length = 50)
+    private String number;//数量
+
+    @Column(name = "valueSum",length = 50)
+    private String valueSum;//计算后的值
 
     @Column(name = "date",length = 50)
     private String date;//添加日期

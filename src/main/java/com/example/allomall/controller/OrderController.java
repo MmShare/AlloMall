@@ -1,9 +1,9 @@
 package com.example.allomall.controller;
 
 
-import com.example.allomall.entity.Data;
-import com.example.allomall.entity.Order;
-import com.example.allomall.entity.Table;
+import com.example.allomall.entity.*;
+import com.example.allomall.repostitory.AssociatedRepostitory;
+import com.example.allomall.repostitory.MaterialRepostitory;
 import com.example.allomall.repostitory.OrderRepostitory;
 import com.example.allomall.repostitory.ProductRepostitory;
 import org.slf4j.Logger;
@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/order")
@@ -24,30 +27,46 @@ public class OrderController {
 
     private static final Logger log= LoggerFactory.getLogger(HomeController.class);
 
+    private Map<String,String> orderMap=new HashMap<>();
+
     @Autowired
     private OrderRepostitory orderRepostitory;
 
     @Autowired
     private ProductRepostitory productRepostitory;
 
+    @Autowired
+    private AssociatedRepostitory associatedRepostitory;
+
+    @Autowired
+    private MaterialRepostitory materialRepostitory;
+
     @RequestMapping(value = "/order/list.html/{typeid}")
     public String toAllOrder(ModelMap map, @PathVariable("typeid") Integer typeid){
         log.info("to order html .................................................");
         if (typeid==1){
-
+            map.put("state",0);
         }else if (typeid==2){
-
+            map.put("state",typeid);
         }else if (typeid==3){
-
+            map.put("state",typeid);
+        }else if (typeid==4){
+            map.put("state",typeid);
+        }else if (typeid==5){
+            map.put("state",1);
         }
         return "order/order-list";
     }
 
-    @RequestMapping(value = "/order/getList.json")
+    @RequestMapping(value = "/order/getList.json/{state}")
     @ResponseBody
-    public Table getOrderTable(Table table){
-
-        List<Order> orderList=orderRepostitory.findAll();
+    public Table getOrderTable(Table table,@PathVariable("state") Integer state){
+        List<Order> orderList=new ArrayList<>();
+        if (state==0){
+            orderList=orderRepostitory.findAll();
+        }else {
+            orderList=orderRepostitory.findOrdersByState(String.valueOf(state));
+        }
         table.setCount(orderList.size());
         table.setMsg("查询成功");
         table.setCode(0);
@@ -57,10 +76,13 @@ public class OrderController {
 
     @RequestMapping(value = "/order/search.json")
     @ResponseBody
-    public Table searchOrderTable(Table table,@Param("condition") String condition){
+    public Table searchOrderTable(Table table,@Param("condition") String condition,@Param("state") String state){
 
+        System.out.println(state);
 //        List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingAndPeopleNameContainingAndPeopleAddressContaining(condition,condition,condition);
-        List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingOrPeopleNameContainingOrPeopleAddressContaining(condition,condition,condition);
+        //List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingOrPeopleNameContainingOrPeopleAddressContaining(condition,condition,condition);
+//        List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingAndStateOrPeopleNameContainingOrPeopleAddressContaining(condition,state,condition,condition);
+        List<Order> orderList=orderRepostitory.findOrdersByStateOrPeopleAddressContainingOrPeopleNameContaining(state,condition,condition);
         table.setCount(orderList.size());
         table.setMsg("查询成功");
         table.setCode(0);
@@ -70,14 +92,58 @@ public class OrderController {
 
     @RequestMapping(value = "/order/show.html/{id}")
     public String toOrderShow(ModelMap map,@PathVariable("id") Integer id,Order order){
+
         order=orderRepostitory.findOrderById(id);
+        if (order.getState().equals("1")){
+            order.setState("未完成");
+        }else if (order.getState().equals("2")){
+            order.setState("未安装");
+        }else if (order.getState()=="3"){
+            order.setState("仍欠款");
+        }else if (order.getState()=="4"){
+            order.setState("以结算");
+        }
         map.put("product",productRepostitory.findProductById(order.getPid()));
         map.put("order",order);
         return "order/order-show";
     }
 
+    @RequestMapping(value = "/material/show.html/{id}")
+    public String toOrderMaterialShow(ModelMap map,@PathVariable("id") Integer id,Order order){
+        List<Material> materialList=new ArrayList<>();
+        order=orderRepostitory.findOrderById(id);
+        Product product=productRepostitory.findProductById(order.getPid());
+        List<Associated> associatedList=associatedRepostitory.findAssociatedsByPid(order.getPid());
+        for (Associated a:associatedList
+             ) {
+            Material m=materialRepostitory.findMaterialById(a.getMid());
+            if (m.getId()==1){//光企的计算方式
+                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))));
+            }else if (m.getId()==2){//勾企的计算方式
+                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))));
+            }else if (m.getId()==3){//上下框计算方式
+                m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))/product.getDid())+Double.valueOf(m.getValueTwo()))));
+            }else if (m.getId()==4){//边框
+                m.setValueSum(order.getWidth());
+            }else if (m.getId()==5){
+                m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne())));
+            }
+            m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+            materialList.add(m);
+        }
+        map.put("materialList",materialList);
+        map.put("product",product);
+        map.put("order",order);
+        return "order/order-material-show";
+    }
+
     @RequestMapping(value = "/order/edit.html/{id}")
     public String toOrderEdit(ModelMap map,Order order,@PathVariable("id") Integer id){
+        orderMap.put("1","未完成");
+        orderMap.put("2","未安装");
+        orderMap.put("3","仍欠款");
+        orderMap.put("4","已结算");
+        map.put("orderMap",orderMap);
         order=orderRepostitory.findOrderById(id);
         map.put("product",productRepostitory.findProductById(order.getPid()));
         map.put("order",order);

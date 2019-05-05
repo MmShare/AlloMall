@@ -17,24 +17,21 @@
 
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
-          <col width="80">
+          <col width="150">
           <col width="150">
           <col width="80">
-          <col width="150">
           <col>
         </colgroup>
         <tbody>
         <tr>
-          <td>名称</td>
-          <td th:text="${material.name}"></td>
-          <td>数量</td>
-          <td th:text="${material.number}"></td>
+          <td>材料名</td>
+          <td>数值</td>
+          <td>根数</td>
         </tr>
-        <tr>
-          <td>数值1</td>
-          <td th:text="${material.valueOne}"></td>
-          <td>数值2</td>
-          <td th:text="${material.valueTwo}"></td>
+        <tr th:each="material:${materialList}">
+          <td th:text="${material.name}"></td>
+          <td th:text="${material.valueSum}"></td>
+          <td th:text="${material.number}"></td>
         </tr>
         </tbody>
       </table>
@@ -60,6 +57,34 @@
       elem: '#LAY-component-form-group-date'
     });
 
+    /* 自定义验证规则 */
+    form.verify({
+      title: function(value){
+        if(value.length < 5){
+          return '标题至少得5个字符啊';
+        }
+      }
+      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+      ,content: function(value){
+        layedit.sync(editIndex);
+      }
+    });
+
+    /* 监听指定开关 */
+    form.on('switch(component-form-switchTest)', function(data){
+      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+        offset: '6px'
+      });
+      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+    });
+
+    /* 监听提交 */
+    form.on('submit(component-form-demo1)', function(data){
+      parent.layer.alert(JSON.stringify(data.field), {
+        title: '最终的提交信息'
+      })
+      return false;
+    });
   });
 </script>
 </body>

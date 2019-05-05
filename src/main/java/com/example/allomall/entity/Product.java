@@ -46,6 +46,9 @@ public class Product {
     @Column(name = "tid",length = 50)
     private Integer tid;//隶属类型
 
+    @Column(name = "did",length = 50)
+    private Integer did;//门开数
+
     @Column(name = "date",length = 50)
     private String date;//添加日期
 

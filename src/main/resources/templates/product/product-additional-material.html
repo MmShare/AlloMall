@@ -14,180 +14,30 @@
 <body>
 
   <div class="layui-fluid">
+    <input type="hidden" name="pid" id="pid" th:value="${product.id}">
+    <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+
+    <script type="text/html" id="test-table-operate-barDemo">
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
     <div>
-        <table class="layui-table" lay-skin="row " lay-size="lg  ">
-          <colgroup>
-            <col width="80">
-            <col width="150">
-            <col width="80">
-            <col width="150">
-            <col>
-          </colgroup>
-          <tbody>
-          <tr>
-            <td>名称</td>
-            <td th:text="${product.name}"></td>
-            <td>价格</td>
-            <td th:text="${product.price}"></td>
-          </tr>
-          <tr>
-            <td>商品编号</td>
-            <td th:text="${product.productNumber}"></td>
-            <td>长度</td>
-            <td th:text="${product.length}"></td>
-          </tr>
-          <tr>
-            <td>宽度</td>
-            <td th:text="${product.height}"></td>
-            <td>高度</td>
-            <td th:text="${product.width}"></td>
-          </tr>
-          <tr>
-            <td>注意事项</td>
-            <td th:text="${product.information}"></td>
-          </tr>
-          <tr>
-            <td>注意事项</td>
-            <td th:text="${product.information}"></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    <div>
-      <div class="layui-card-body" style="padding: 15px;">
+
         <form class="layui-form" action="" lay-filter="component-form-group">
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
+              <label class="layui-form-label">选择材料</label>
               <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
+                <select  name="mid" id="mid" lay-verify="mid">
+                  <option value="">选择材料</option>
+                  <option th:each="material:${materialList}" th:value="${material.id}"
+                          th:text="${material.name}"></option>
                 </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
 
 
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">材料一：</label>
-              <div class="layui-input-block">
-                <select name="interest" lay-filter="aihao">
-                  <option value=""></option>
-                  <option value="0">写作</option>
-                  <option value="1" selected="">阅读</option>
-                  <option value="2">游戏</option>
-                  <option value="3">音乐</option>
-                  <option value="4">旅行</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">数量:</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
           <div class="layui-form-item" style="margin-right: 0px">
             <div class="layui-input-block" >
               <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
@@ -195,7 +45,6 @@
             </div>
           </div>
         </form>
-      </div>
     </div>
   </div>
 
@@ -206,13 +55,114 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form', 'laydate'], function(){
+  }).use(['index','table', 'form', 'laydate'], function(){
     var $ = layui.$
     ,admin = layui.admin
+            ,table = layui.table
     ,element = layui.element
     ,layer = layui.layer
     ,laydate = layui.laydate
     ,form = layui.form;
+
+    table.render({
+      elem: '#test-table-operate'
+      ,url: '/product/product/getAdditonalList.json/'+$("#pid").val()
+      ,cols: [
+        [
+          {type:'checkbox'}
+          ,{field:'id', width:"10%", title: 'ID', sort: true}
+          ,{field:'name', width:"15%", title: '材料名'}
+          ,{field:'valueOne', width:"10%", title: '数值1', sort: true}
+          ,{field:'valueTwo', width:"10%", title: '数值2', sort: true}
+          ,{field:'number', width:"10%", title: '数量', sort: true}
+          ,{field:'date', width:"15%", title: '日期', sort: true}
+          ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
+            if (data.state == 1){
+              return "可用";
+            }else {
+              return "不可用";
+            }
+          }}
+          ,{title:'操作',width:"20%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
+        ]
+      ],
+      id:'material-table-information'
+      ,text: {
+        none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+      }
+    });
+
+    //监听工具条
+    table.on('tool(test-table-operate)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'detail'){
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料信息",
+          content:['/system/material/show.html/'+data.id, 'no'],
+        });
+      } else if(obj.event === 'del'){
+        layer.confirm('真的删除么', function(index){
+          $.ajax({
+            type:"POST",
+            url:"/product/product/removeMaterial.json",
+            dataType:"JSON",
+            data:{mid:data.id,pid:$("#pid").val()},
+            success:function (res) {
+              obj.del();
+              layer.close(index);
+              layer.msg(res.msg);
+            },
+
+            error:function () {
+            }
+          })
+
+        });
+      } else if(obj.event === 'edit'){
+
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料信息修改",
+          content:['/system/material/edit.html/'+data.id, 'no'],
+        });
+      }
+    });
+
+    var $ = layui.$, active = {
+      add: function(){ //添加材料
+        layer.open({
+          type: 2,
+          area: ['800px', '290px'],
+          title:"材料添加框",
+          content:['/system/material/add.html', 'no'],
+        });
+      },
+      reload: function(){
+
+        var materialReload = $('#materialReload');
+        //执行重载
+        table.reload('material-table-information', {
+          url:'/product/product/getAdditonalList.json/'+$("#pid").val()
+          ,page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            condition: materialReload.val()
+          }
+        });
+      }
+    };
+
+
+
+    $('.test-table-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
     
     form.render(null, 'component-form-group');
 
@@ -220,31 +170,27 @@
       elem: '#LAY-component-form-group-date'
     });
     
-    /* 自定义验证规则 */
-    form.verify({
-      title: function(value){
-        if(value.length < 5){
-          return '标题至少得5个字符啊';
-        }
-      }
-      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-      ,content: function(value){
-        layedit.sync(editIndex);
-      }
-    });
-    
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
-    
+
     /* 监听提交 */
-    form.on('submit(component-form-demo1)', function(data){
-      parent.layer.alert(JSON.stringify(data.field), {
-        title: '最终的提交信息'
+    form.on('submit(component-form-element)', function(data){
+      var pid=$("#pid").val();
+      var mid=$("#mid").val();
+      $.ajax({
+        type:"POST",
+        url:"/product/product/additional.json",
+        dataType:"JSON",
+        data:{pid:pid,mid:mid},
+        success:function (res) {
+          $("#mid").val("");
+          table.reload('material-table-information', {
+            url:'/product/product/getAdditonalList.json/'+$("#pid").val()
+          });
+          layer.msg(res.msg);
+        },
+
+        error:function (res) {
+          layer.msg(res.msg);
+        }
       })
       return false;
     });

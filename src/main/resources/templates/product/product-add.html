@@ -19,44 +19,38 @@
             <form class="layui-form" action="" lay-filter="product-form-add">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">商品名称:</label>
+                        <label class="layui-form-label">商品名称</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="name" lay-verify="name" autocomplete="off"
+                            <input type="tel" name="name" id="name" lay-verify="name" autocomplete="off"
                                    class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">商品价格:</label>
+                        <label class="layui-form-label">价格/平方米</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="price" lay-verify="price" autocomplete="off" class="layui-input">
+                            <input type="text" name="price" id="price" lay-verify="price" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
 
-                <div class="layui-form-item">
+<!--                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">长度</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="length"  autocomplete="off" class="layui-input">
+                            <input type="tel" name="length" id="length" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">宽度</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="width"  autocomplete="off" class="layui-input">
+                            <input type="text" name="width" id="width"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">高度:</label>
-                        <div class="layui-input-inline">
-                            <input type="tel" name="height"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">单行选择框</label>
+                        <label class="layui-form-label">商品类型</label>
                         <div class="layui-input-inline">
                             <select  name="tid" id="tid" lay-verify="tid">
                                 <option th:each="type:${typeList}" th:value="${type.id}"
@@ -64,9 +58,19 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">门开数</label>
+                        <div class="layui-input-inline">
+                            <select  name="did" id="did" lay-verify="did">
+                                <option th:each="door:${doorList}" th:value="${door.id}"
+                                        th:text="${door.name}"></option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="layui-form-item">
+<!--                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">图片:</label>
                         <div class="layui-input-inline">
@@ -78,13 +82,13 @@
                         <div class="layui-inline" id="ima-upload-more-list" style="height: 100px;width: 330px">
                     </div>
                     </div>
-                </div>
+                </div>-->
 
 
                 <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">基本介绍</label>
+                    <label class="layui-form-label">门窗介绍</label>
                     <div class="layui-input-block">
-                        <textarea name="information" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea name="information" id="information" placeholder="请输入该门窗的介绍" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="margin-right: 0px">
@@ -135,6 +139,11 @@
                     return '请至少选个种类';
                 }
             }
+            ,did: function (value) {
+                if (value ==null) {
+                    return '请选择门开数';
+                }
+            }
             ,content: function (value) {
                 layedit.sync(editIndex);
             }
@@ -148,11 +157,13 @@
                 dataType:"JSON",
                 data:data.field,
                 success:function (res) {
-                    window.parent.layer.closeAll();
+                    $("#name").val("");
+                    $("#price").val("");
+                    $("#length").val("");
+                    $("#width").val("");
+                    $("#height").val("");
+                    $("#information").val("");
                     window.parent.layer.msg(res.msg);
-                    setTimeout(function () {
-                        window.parent.location.reload();
-                    },200);
                 },
                 error:function () {
                     window.parent.layer.closeAll();

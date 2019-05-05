@@ -39,15 +39,15 @@
         <tr>
           <td>收货地址</td>
           <td th:text="${order.peopleAddress}"></td>
-          <td>订金</td>
-          <td th:text="${order.havePay}"></td>
+          <td>总价</td>
+          <td th:text="${order.prices}"></td>
         </tr>
 
         <tr>
-          <td>数量</td>
+          <td>门开数</td>
           <td th:text="${order.number}"></td>
-          <td>长度</td>
-          <td th:text="${order.length}"></td>
+          <td>交货日期</td>
+          <td th:text="${order.deliveryTime}"></td>
         </tr>
 
         <tr>
@@ -55,13 +55,6 @@
           <td th:text="${order.width}"></td>
           <td>高度</td>
           <td th:text="${order.height}"></td>
-        </tr>
-
-        <tr>
-          <td>订单类型</td>
-          <td th:text="${order.state}"></td>
-          <td>交货日期</td>
-          <td th:text="${order.deliveryTime}"></td>
         </tr>
         <tr>
           <td>注意事项</td>

@@ -24,24 +24,24 @@
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">长度</label>
+              <label class="layui-form-label">数量</label>
               <div class="layui-input-inline">
-                <input type="text" name="length"  lay-verify="length" th:value="${material.length}"  autocomplete="off" class="layui-input">
+                <input type="text" name="number"  lay-verify="length" th:value="${material.number}"  autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">宽度</label>
+              <label class="layui-form-label">数值1</label>
               <div class="layui-input-inline">
-                <input type="tel" name="height"  lay-verify="height" th:value="${material.height}"  autocomplete="off" class="layui-input">
+                <input type="tel" name="valueOne"  lay-verify="height" th:value="${material.valueOne}"  autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">高度</label>
+              <label class="layui-form-label">数值2</label>
               <div class="layui-input-inline">
-                <input type="text" name="width" lay-verify="width" th:value="${material.width}"  autocomplete="off" class="layui-input">
+                <input type="text" name="valueTwo" lay-verify="width" th:value="${material.valueTwo}"  autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -85,17 +85,17 @@
       }
       , length: function(value){
         if(value.length < 1){
-          return '长度不能为空';
+          return '数量不能为空';
         }
       }
       , height: function(value){
         if(value.length < 1){
-          return '高度不能为空';
+          return '数值1不能为空，没有则填0';
         }
       }
       , width: function(value){
         if(value.length < 1){
-          return '宽度不能为空';
+          return '数值2不能为空，没有则填0';
         }
       }
       ,content: function(value){

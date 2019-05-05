@@ -70,10 +70,10 @@
               [
                 {type:'checkbox'}
                 ,{field:'id', width:"10%", title: 'ID', sort: true}
-                ,{field:'name', width:"15%", title: '商品名'}
-                ,{field:'length', width:"10%", title: '长度', sort: true}
-                ,{field:'height', width:"10%", title: '宽度', sort: true}
-                ,{field:'width', width:"10%", title: '高度', sort: true}
+                ,{field:'name', width:"15%", title: '材料名'}
+                ,{field:'valueOne', width:"10%", title: '数值1', sort: true}
+                ,{field:'valueTwo', width:"10%", title: '数值2', sort: true}
+                ,{field:'number', width:"10%", title: '数量', sort: true}
                 ,{field:'date', width:"15%", title: '日期', sort: true}
                 ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
                   if (data.state == 1){
@@ -86,7 +86,6 @@
       ]
       ],
         id:'material-table-information'
-        ,page: true
       ,text: {
         none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
       }

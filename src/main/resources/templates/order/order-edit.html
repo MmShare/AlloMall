@@ -17,6 +17,8 @@
         <form class="layui-form" action="" lay-filter="order-form-edit">
           <input type="hidden" name="pid" id="pid" th:value="${product.id}">
           <input type="hidden" name="id" id="id" th:value="${order.id}">
+          <input type="hidden" name="createTime" id="createTime" th:value="${order.createTime}">
+          <input type="hidden" name="orderNumber" id="orderNumber" th:value="${order.orderNumber}">
           <div class="layui-form-item">
             <div class="layui-inline">
               <label class="layui-form-label">商品名称</label>
@@ -49,11 +51,12 @@
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">订金</label>
+              <label class="layui-form-label">总平方</label>
               <div class="layui-input-inline">
-                <input type="tel" name="havePay" th:value="${order.havePay}" lay-verify="havePay" autocomplete="off" class="layui-input">
+                <input type="text" name="square" th:value="${order.square}"  autocomplete="off" class="layui-input">
               </div>
             </div>
+
             <div class="layui-inline">
               <label class="layui-form-label">总价</label>
               <div class="layui-input-inline">
@@ -62,47 +65,33 @@
             </div>
           </div>
 
-          <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">完成时间</label>
-              <div class="layui-input-inline">
-                <input type="text" name="deliveryTime" th:value="${order.deliveryTime}" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">商品类型</label>
-              <div class="layui-input-inline">
-                <input type="text" name="state" th:value="${order.state}" lay-verify="state" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
 
           <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">长度</label>
-              <div class="layui-input-inline">
-                <input type="tel" name="length" th:value="${order.length}" lay-verify="length" autocomplete="off" class="layui-input">
-              </div>
-            </div>
             <div class="layui-inline">
               <label class="layui-form-label">宽度</label>
               <div class="layui-input-inline">
                 <input type="text" name="width" th:value="${order.width}" lay-verify="width" autocomplete="off" class="layui-input">
               </div>
             </div>
-          </div>
-
-          <div class="layui-form-item">
             <div class="layui-inline">
               <label class="layui-form-label">高度</label>
               <div class="layui-input-inline">
                 <input type="tel" name="height" th:value="${order.height}" lay-verify="height" autocomplete="off" class="layui-input">
               </div>
             </div>
+          </div>
+
+          <div class="layui-form-item">
             <div class="layui-inline">
               <label class="layui-form-label">数量</label>
               <div class="layui-input-inline">
                 <input type="text" name="number" th:value="${order.number}" lay-verify="number" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">交货时间</label>
+              <div class="layui-input-inline">
+                <input type="text" name="deliveryTime" th:value="${order.deliveryTime}" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
               </div>
             </div>
           </div>

@@ -46,8 +46,8 @@ public class Order {
     @Column(name = "state",length = 50)
     private String state;//状态
 
-    @Column(name = "length",length = 50)
-    private String length;//长度
+    @Column(name = "square",length = 50)
+    private String square;//总平方
 
     @Column(name = "height",length = 50)
     private String height;//高度
@@ -56,7 +56,7 @@ public class Order {
     private String width;//宽度
 
     @Column(name = "number",length = 50)
-    private Integer number;//数量
+    private Integer number;//门扇数
 
     @Column(name = "attention",length = 50)
     private String attention;//注意事项

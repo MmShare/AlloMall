@@ -13,9 +13,6 @@
 <body>
 
 <div class="layui-fluid">
-    <div class="layui-card">
-        <div class="layui-card-header">表单组合</div>
-        <div class="layui-card-body" style="padding: 15px;">
             <form class="layui-form" action="" lay-filter="product-form-buy">
                 <input type="hidden" name="pid" id="pid" th:value="${product.id}">
                 <div class="layui-form-item">
@@ -44,69 +41,43 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">客户地址</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="peopleAddress"  lay-verify="peopleName" autocomplete="off" class="layui-input">
+                            <input type="text" name="peopleAddress"  lay-verify="peopleAddress" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">订金：</label>
-                        <div class="layui-input-inline">
-                            <input type="tel" name="havePay" lay-verify="peopleName"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
+
                     <div class="layui-inline">
                         <label class="layui-form-label">数量：</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="number" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                            <input type="text" name="number" lay-verify="number"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                </div>
 
-                <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">长度：</label>
+                        <label class="layui-form-label">交付日期：</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="length" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">宽度:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="width" lay-verify="peopleName"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">高度:</label>
                         <div class="layui-input-inline">
+                            <input type="text" name="width" lay-verify="width"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">宽度:</label>
+                        <div class="layui-input-inline">
                             <input type="tel" name="height" lay-verify="peopleName"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">订单类型</label>
-                        <div class="layui-input-inline">
-                            <select  name="state" id="state" lay-verify="state">
-                                <option th:each="type:${typeList}" th:value="${type.id}"
-                                        th:text="${type.name}"></option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">订单完成时间：</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
-                        </div>
-                    </div>
-                </div>
-
-
 
                 <div class="layui-form-item" style="margin-right: 0px">
                     <div class="layui-input-block">
@@ -115,8 +86,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
 </div>
 
 
@@ -168,11 +137,6 @@
             ,deliveryTime: function (value) {
                 if (value.length < 1) {
                     return '请选择交货日期';
-                }
-            }
-            ,state: function (value) {
-                if (value ==null) {
-                    return '请至少选个种类';
                 }
             }
             ,content: function (value) {

@@ -20,21 +20,21 @@
         <input type="hidden" name="id" th:value="${product.id}">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <label class="layui-form-label">商品名称:</label>
+            <label class="layui-form-label">商品名称</label>
             <div class="layui-input-inline">
               <input type="tel" name="name" th:value="${product.name}" lay-verify="name" autocomplete="off"
                      class="layui-input">
             </div>
           </div>
           <div class="layui-inline">
-            <label class="layui-form-label">商品价格:</label>
+            <label class="layui-form-label">价格/平方米</label>
             <div class="layui-input-inline">
-              <input type="text" name="price" th:value="${product.name}" lay-verify="price" autocomplete="off" class="layui-input">
+              <input type="text" name="price" th:value="${product.price}" lay-verify="price" autocomplete="off" class="layui-input">
             </div>
           </div>
         </div>
 
-        <div class="layui-form-item">
+<!--        <div class="layui-form-item">
           <div class="layui-inline">
             <label class="layui-form-label">长度</label>
             <div class="layui-input-inline">
@@ -47,27 +47,30 @@
               <input type="text" name="width"  th:value="${product.name}" autocomplete="off" class="layui-input">
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="layui-form-item">
           <div class="layui-inline">
-            <label class="layui-form-label">高度:</label>
+            <label class="layui-form-label">门窗类型</label>
             <div class="layui-input-inline">
-              <input type="tel" name="height" th:value="${product.name}"  autocomplete="off" class="layui-input">
+              <select  name="tid" id="tid" lay-verify="tid">
+                <option th:each="type:${typeList}" th:selected="${product.tid==type.id}" th:value="${type.id}"
+                        th:text="${type.name} "></option>
+              </select>
             </div>
           </div>
           <div class="layui-inline">
-            <label class="layui-form-label">单行选择框</label>
+            <label class="layui-form-label">门开数</label>
             <div class="layui-input-inline">
-              <select  name="tid" id="tid" lay-verify="tid">
-                <option th:each="type:${typeList}" th:value="${type.id}"
-                        th:text="${type.name}"></option>
+              <select  name="did" id="did" lay-verify="did">
+                <option th:each="door:${doorList}" th:selected="${product.did==door.id}" th:value="${door.id}"
+                        th:text="${door.name} "></option>
               </select>
             </div>
           </div>
         </div>
 
-        <div class="layui-form-item">
+<!--        <div class="layui-form-item">
           <div class="layui-inline">
             <label class="layui-form-label">图片:</label>
             <div class="layui-input-inline">
@@ -79,11 +82,11 @@
             <div class="layui-inline" id="ima-upload-more-list" style="height: 100px;width: 330px">
             </div>
           </div>
-        </div>
+        </div>-->
 
 
         <div class="layui-form-item layui-form-text">
-          <label class="layui-form-label">基本介绍</label>
+          <label class="layui-form-label">门窗介绍</label>
           <div class="layui-input-block">
             <textarea name="information" th:text="${product.information}" placeholder="请输入内容" class="layui-textarea"></textarea>
           </div>

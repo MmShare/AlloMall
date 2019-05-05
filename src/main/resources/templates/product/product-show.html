@@ -15,6 +15,7 @@
 
 <div class="layui-fluid">
 
+      <div>
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
           <col width="80">
@@ -27,33 +28,46 @@
         <tr>
           <td>名称</td>
           <td th:text="${product.name}"></td>
-          <td>长度</td>
-          <td th:text="${product.length}"></td>
-        </tr>
-        <tr>
-          <td>商品编号</td>
-          <td th:text="${product.productNumber}"></td>
-          <td>宽度</td>
-          <td th:text="${product.height}"></td>
-        </tr>
-        <tr>
-          <td>价格</td>
+          <td>价格/平方米</td>
           <td th:text="${product.price}"></td>
-          <td>高度</td>
-          <td th:text="${product.width}"></td>
         </tr>
         <tr>
-          <td>创建日期</td>
-          <td th:text="${product.date}"></td>
-          <td>商品类型</td>
+          <td>门窗类型</td>
           <td th:text="${product.tid}"></td>
+          <td>门开数</td>
+          <td th:text="${product.did}"></td>
         </tr>
-        <tr>
-          <td>商品介绍</td>
-          <td colspan="3" th:text="${product.information}"></td>
-        </tr>
+
         </tbody>
       </table>
+      </div>
+
+  <div>
+    <table class="layui-table" lay-skin="row " lay-size="lg  ">
+      <colgroup>
+        <col width="100">
+        <col width="80">
+        <col width="80">
+        <col width="80">
+        <col>
+      </colgroup>
+      <tbody>
+      <tr>
+        <td>材料名</td>
+        <td>数量</td>
+        <td>计算值1</td>
+        <td>计算值2</td>
+      </tr>
+      <tr th:each="material:${materialList}">
+        <td th:text="${material.name}"></td>
+        <td th:text="${material.number}"></td>
+        <td th:text="${material.valueOne}"></td>
+        <td th:text="${material.valueTwo}"></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script src="../../../layuiadmin/layui/layui.js"></script>

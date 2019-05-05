@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>开启分页 - 数据表格</title>
@@ -28,9 +28,10 @@
       <div class="layui-card">
         <div class="layui-card-header">
           <div class="test-table-btn" style="margin-bottom: 10px;">
-            搜索ID：
+            搜索：
             <div class="layui-inline">
-              <input class="layui-input" name="condition" id="orderReload" autocomplete="off">
+              <input class="layui-input" name="condition" placeholder="联系人或者地址" id="orderReload" autocomplete="off">
+              <input type="hidden" name="state" th:value="${state}" id="state">
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
           </div>
@@ -40,6 +41,7 @@
 
           <script type="text/html" id="test-table-operate-barDemo">
             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">下料</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
           </script>
@@ -57,26 +59,38 @@
     index: 'lib/index' //主入口模块
   }).use(['index', 'table'], function(){
     var admin = layui.admin
+            ,$=layui.$
             ,table = layui.table;
 
     table.render({
+
       elem: '#oder-table-information'
-      ,url: '/order/order/getList.json'
+      ,url: '/order/order/getList.json/'+$("#state").val()
+      // ,where:{state:$("#state").val()}
       ,cols: [
               [
         {type:'checkbox'}
-        ,{field:'id', width:"5%", title: 'ID', sort: true}
-        ,{field:'orderNumber', width:"10%", title: '订单号', sort: true}
         ,{field:'peopleName', width:"10%", title: '收货人'}
         ,{field:'peoplePhone', width:"10%", title: '联系电话'}
-        ,{field:'peopleAddress', width:"15%",title: '收货地址', minWidth: 100}
-        ,{field:'havePay', width:"8%", title: '押金', sort: true}
-        ,{field:'prices', width:"8%", title: '总价', sort: true}
+        ,{field:'width', width:"10%", title: '宽度', sort: true}
+        ,{field:'height', width:"10%", title: '高度', sort: true}
+        ,{field:'square', width:"10%", title: '平方', sort: true}
+                ,{field:'prices', width:"10%", title: '总价', sort: true}
         ,{field:'attention', width:"15%", title: '注意事项'}
+        ,{field:'deliveryTime', width:"10%", title: '交货日期', sort: true}
         ,{field:'createTime', width:"10%", title: '创建日期', sort: true}
-        ,{field:'deliveryTime', width:"10%", title: '完成日期', sort: true}
-        ,{field:'state', width:"10%", title: '状态', sort: true}
-        ,{title:'操作',width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
+        ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
+                  if (data.state == 2){
+                    return "未安装";
+                  }else if (data.state==3) {
+                    return "未结算";
+                  }else if (data.state==4) {
+                    return "仍欠款";
+                  }else if (data.state==1) {
+                    return "未完成";
+                  }
+                }}
+        ,{title:'操作',width:250, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
       ],id:'oder-table-information'
       ,page: true
@@ -95,7 +109,14 @@
           title:"订单信息",
           content:['/order/order/show.html/'+data.id],
         });
-      } else if(obj.event === 'del'){
+      }else if(obj.event === 'show'){
+        layer.open({
+          type: 2,
+          area: ['800px', '550px'],
+          title:"材料列表",
+          content:['/order/material/show.html/'+data.id],
+        });
+      }else if(obj.event === 'del'){
         layer.confirm('真的删除行么', function(index){
           $.ajax({
             type:"POST",
@@ -127,6 +148,7 @@
     var $ = layui.$, active = {
       reload: function(){
         var orderReload = $('#orderReload');
+        var state=$("#state").val();
         //执行重载
         table.reload('oder-table-information', {
           url:'/order/order/search.json'
@@ -134,7 +156,8 @@
             curr: 1 //重新从第 1 页开始
           }
           ,where: {
-            condition:orderReload.val()
+            condition:orderReload.val(),
+            state:state
           }
         });
       }

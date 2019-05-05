@@ -1,16 +1,12 @@
 package com.example.allomall.controller;
 
 
-import com.example.allomall.entity.Data;
-import com.example.allomall.entity.Order;
-import com.example.allomall.entity.Product;
-import com.example.allomall.repostitory.AssociatedRepostitory;
-import com.example.allomall.repostitory.OrderRepostitory;
-import com.example.allomall.repostitory.ProductRepostitory;
-import com.example.allomall.repostitory.TypeRepostitory;
+import com.example.allomall.entity.*;
+import com.example.allomall.repostitory.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.boot.system.SystemProperties;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -20,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -29,6 +27,8 @@ public class ProductController {
     private static final Logger log= LoggerFactory.getLogger(HomeController.class);
 
     private SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
+
+    private SimpleDateFormat sn=new SimpleDateFormat("yyyyMMddhhmmss");
 
     @Autowired
     private TypeRepostitory typeRepostitory;
@@ -42,13 +42,22 @@ public class ProductController {
     @Autowired
     private OrderRepostitory orderRepostitory;
 
+    @Autowired
+    private DoorRepository doorRepository;
+
+    @Autowired
+    private MaterialRepostitory materialRepostitory;
+
     @RequestMapping(value = "/product/list.html/{state}")
     public String toAllProduct(ModelMap map, @PathVariable("state") Integer state){
         log.info("product页面..................................................");
         if (state==1){
             map.put("productList",productRepostitory.findAll());
+
+        }else if(state==2) {
+            map.put("productList",productRepostitory.findProductsByState(1));
         }else {
-            map.put("productList",productRepostitory.findProductsByState(state));
+            map.put("productList",productRepostitory.findProductsByState(0));
         }
         return "product/product-list";
     }
@@ -57,6 +66,7 @@ public class ProductController {
     public String toAddProduct(ModelMap map){
         log.info("add Product 页面.................");
         try {
+            map.put("doorList",doorRepository.findAll());
         map.put("typeList",typeRepostitory.findAll());
         }catch (Exception e){
             log.info("进入添加商品页面时,读取门窗类型发生错误");
@@ -91,6 +101,13 @@ public class ProductController {
 
     @RequestMapping(value = "/product/show.html/{id}")
     public String toProductShow(ModelMap map,@PathVariable("id") Integer id){
+        List<Associated> associatedList=associatedRepostitory.findAssociatedsByPid(id);
+        List<Material> materialList = new ManagedList<>();
+        for (Associated a:associatedList
+             ) {
+            materialList.add(materialRepostitory.findMaterialById(a.getMid()));
+        }
+        map.put("materialList",materialList);
         map.put("product",productRepostitory.findProductById(id));
         return "product/product-show";
     }
@@ -98,6 +115,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/edit.html/{id}")
     public String toProductEdit(@PathVariable("id") Integer id,ModelMap map){
+        map.put("doorList",doorRepository.findAll());
         map.put("product",productRepostitory.findProductById(id));
         map.put("typeList",typeRepostitory.findAll());
         return "product/product-edit";
@@ -122,9 +140,10 @@ public class ProductController {
     @ResponseBody
     public Data doProductDelete(Data data,Product product,@Param("id") Integer id){
         try {
-            product=productRepostitory.findProductById(id);
-            product.setState(0);
-            productRepostitory.save(product);
+//            product=productRepostitory.findProductById(id);
+//            product.setState(0);
+//            productRepostitory.save(product);
+            productRepostitory.deleteProductById(id);
             data.setSuccess(true);
             data.setMsg("删除商品成功");
         }catch (Exception e){
@@ -137,22 +156,32 @@ public class ProductController {
 
     @RequestMapping(value = "/product/additional.html/{id}")
     public String toProductAdditional(ModelMap map,@PathVariable("id") Integer id){
-        associatedRepostitory.findAssociatedsByPid(id);
+        map.put("materialList",materialRepostitory.findAll());
         map.put("product",productRepostitory.findProductById(id));
         return "product/product-additional-material";
     }
 
+    @RequestMapping(value = "/product/getAdditonalList.json/{pid}")
+    @ResponseBody
+    public Table getAdditionalList(Table table,@PathVariable("pid") Integer pid){
+        List<Material> materialList=new ArrayList<>();
+        List<Associated> associatedList=associatedRepostitory.findAssociatedsByPid(pid);
+        for (Associated a:associatedList
+             ) {
+            materialList.add(materialRepostitory.findMaterialById(a.getMid()));
+        }
+        table.setCode(0);
+        table.setMsg("读取成功");
+        table.setCount(materialList.size());
+        table.setData(materialList);
+        return table;
+    }
     @RequestMapping(value = "/product/additional.json")
     @ResponseBody
-    public Data doProductAdditional(Data data,@Param("id") Integer id,@Param("id_one") Integer id_one,@Param("id_two") Integer id_two,@Param("id_three") Integer id_three){
+    public Data doProductAdditional(Data data,Associated associated){
         try {
-            if (id_one!=null){
-
-            }else if (id_two!=null){
-
-            }else if (id_three!=null){
-
-            }
+            associated.setState(1);
+            associatedRepostitory.save(associated);
             data.setSuccess(true);
             data.setMsg("附加材料成功");
         }catch (Exception e){
@@ -166,7 +195,10 @@ public class ProductController {
     @RequestMapping(value = "/product/removeMaterial.json")
     @ResponseBody
     public Data doProductRemoveMaterial(Data data,@Param("pid") Integer pid,@Param("mid") Integer mid ){
+        //associatedRepostitory.deleteAssociatedById(id);
         associatedRepostitory.deleteAssociatedByPidAndMid(pid,mid);
+        data.setSuccess(true);
+        data.setMsg("移除材料成功");
         return data;
     }
 
@@ -180,10 +212,23 @@ public class ProductController {
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
     public Data doProductBuy(Data data, Order order,@Param("pid") Integer pid){
+        Product productById = productRepostitory.findProductById(pid);
+        //order.setId(null);
         order.setPid(pid);
+        order.setState("1");
+        Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
+        order.setSquare(sq.toString());
+        order.setPrices(sq*Integer.valueOf(productById.getPrice()));
+        order.setNumber(productById.getDid());
+        order.setPrices((Double.valueOf(productById.getPrice())*order.getNumber()*Double.valueOf(order.getSquare())));
+        order.setOrderNumber(sn.format(new Date()));
         order.setCreateTime(sf.format(new Date()));
         orderRepostitory.save(order);
+        data.setSuccess(true);
+        data.setMsg("下单成功");
         return data;
     }
+
+
 
 }
