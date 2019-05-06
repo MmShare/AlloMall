@@ -76,21 +76,21 @@
       elem: '#oder-table-information'
       ,url: '/order/order/getList.json/'+$("#state").val()
         ,toolbar: '#toolbarDemo'
-       , height: 'full-200'
+       , height: 460
       ,cols: [
               [
         {type:'checkbox'}
 /*        ,{field:'id', width:"5%", title: 'ID'}*/
         ,{field:'peopleName', width:"10%", title: '收货人'}
                 ,{field:'attention', width:"15%", title: '备注'}
+                  ,{field:'height', width:"10%", title: '高度', sort: true}
         ,{field:'width', width:"10%", title: '宽度', sort: true}
-        ,{field:'height', width:"10%", title: '高度', sort: true}
         ,{field:'number', width:"8%", title: '门开数', sort: true}
         ,{field:'square', width:"8%", title: '平方', sort: true}
         ,{field:'havePay', width:"10%", title: '元/平方', sort: true}
                 ,{field:'prices', width:"10%", title: '总价(元)', sort: true}
-        ,{field:'deliveryTime', width:"10%", title: '交货日期', sort: true}
-        ,{field:'createTime', width:"10%", title: '创建日期', sort: true}
+                  ,{field:'createTime', width:"10%", title: '创建日期', sort: true}
+/*        ,{field:'deliveryTime', width:"10%", title: '交货日期', sort: true}
         ,{field:'state', width:"10%", title: '状态', sort: true,templet:function (data) {
                   if (data.state == 2){
                     return "未安装";
@@ -101,8 +101,8 @@
                   }else if (data.state==1) {
                     return "未完成";
                   }
-                }}
-        ,{title:'操作',width:150, align:'right', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
+                }}*/
+        ,{title:'操作',width:180, align:'right', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
       ]
       ],id:'oder-table-information'
       ,page: true

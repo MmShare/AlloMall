@@ -24,17 +24,17 @@
                 </a>
                 <a href="javascript:;">
                     <div class="cmdlist-text">
-                        <p class="info" th:text="${product.information}"></p>
-                        <p class="info" th:text="${product.name}"></p>
+                        <p class="info" th:text="'名称：'+${product.name}"></p>
+                        <p class="info" th:text="'简介：'+${product.information}"></p>
                         <div class="price">
-                            <b th:text="'￥'+${product.price}"></b>
+                            <b >官方价：</b>
                             <p>
-                                ¥
-                                <del>130</del>
+
+                                <b th:text="'￥'+${product.price}" ></b>
                             </p>
                             <span class="flow">
-                      <i class="layui-icon layui-icon-rate" th:if="${product.state==1}" th:text="在售"></i>
-                      <i class="layui-icon layui-icon-rate" th:if="${product.state==0}" th:text="下架"></i>
+  <!--                    <i class="layui-icon layui-icon-rate" th:if="${product.state==1}" th:text="在售"></i>
+                      <i class="layui-icon layui-icon-rate" th:if="${product.state==0}" th:text="下架"></i>-->
                     </span>
                         </div>
                     </div>

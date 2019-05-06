@@ -118,15 +118,15 @@ public class OrderController {
              ) {
             Material m=materialRepostitory.findMaterialById(a.getMid());
             if (m.getId()==1){//光企的计算方式
-                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))));
+                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
             }else if (m.getId()==2){//勾企的计算方式
-                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))));
+                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
             }else if (m.getId()==3){//上下框计算方式
-                m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne()))/product.getDid())+Double.valueOf(m.getValueTwo()))));
+                m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
             }else if (m.getId()==4){//边框
                 m.setValueSum(order.getWidth());
             }else if (m.getId()==5){
-                m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOne())));
+                m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
             }
             m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
             materialList.add(m);

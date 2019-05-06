@@ -18,7 +18,7 @@ public class Associated implements  Serializable {
     private Integer id;//id
 
     @Column(name = "number",length = 50)
-    private Integer number;//数量
+    private Integer number;//材料的类型
 
     @Column(name = "pid",length = 50)
     private Integer pid;//商品的id

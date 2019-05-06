@@ -19,11 +19,29 @@ public class Material {
     @Column(name = "name",length = 50)
     private String name;
 
-    @Column(name = "valueOne",length = 50)
-    private String valueOne;//数值1
+    @Column(name = "valueOneOne",length = 50)
+    private String valueOneOne;//数值1_1
 
-    @Column(name = "valueTwo",length = 50)
-    private String valueTwo;//数值2
+    @Column(name = "valueOneTwo",length = 50)
+    private String valueOneTwo;//数值1_2
+
+    @Column(name = "valueTwoOne",length = 50)
+    private String valueTwoOne;//数值2_1
+
+    @Column(name = "valueTwoTwo",length = 50)
+    private String valueTwoTwo;//数值2_2
+
+    @Column(name = "valueThrOne",length = 50)
+    private String valueThrOne;//数值3_1
+
+    @Column(name = "valueThrTwo",length = 50)
+    private String valueThrTwo;//数值3_2
+
+    @Column(name = "valueFourOne",length = 50)
+    private String valueFourOne;//数值4_1
+
+    @Column(name = "valueFourTwo",length = 50)
+    private String valueFourTwo;//数值4_2
 
     @Column(name = "number",length = 50)
     private String number;//数量

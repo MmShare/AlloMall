@@ -32,7 +32,7 @@ public class Order {
     private String peopleAddress;//收货人地址
 
     @Column(name = "havePay",length = 50)
-    private String havePay;//已付
+    private String havePay;//商品单价
 
     @Column(name = "prices",length = 50)
     private double prices;//总价
@@ -57,6 +57,15 @@ public class Order {
 
     @Column(name = "number",length = 50)
     private Integer number;//门扇数
+
+    @Column(name = "cid",length = 50)
+    private String cid;//颜色
+
+     @Column(name = "bid",length = 50)
+    private String bid;//玻璃名称
+
+    @Column(name = "sumType",length = 50)
+    private Integer sumType;//计算类型
 
     @Column(name = "attention",length = 50)
     private String attention;//注意事项

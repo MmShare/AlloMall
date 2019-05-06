@@ -24,41 +24,70 @@
                         </div>
                     </div>
                     <div class="layui-inline">
+                        <label class="layui-form-label">价格:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="havePay" lay-verify="havePay" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+
+                    <div class="layui-inline">
                         <label class="layui-form-label">客户名:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="peopleName" lay-verify="peopleName" autocomplete="off" class="layui-input">
                         </div>
                     </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">玻璃类型</label>
+                        <div class="layui-input-inline">
+                            <select  name="bid" id="bid" lay-verify="bid">
+                                <option value="非钢化玻璃">非钢化玻璃</option>
+                                <option value="钢化玻璃">钢化玻璃</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">高度:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="width" lay-verify="width"  autocomplete="off" class="layui-input">
+                            <input type="tel" name="height" lay-verify="peopleName"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">宽度:</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="height" lay-verify="peopleName"  autocomplete="off" class="layui-input">
+                            <input type="text" name="width" lay-verify="width"  autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                </div>
 
+                </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">交付日期</label>
+                        <label class="layui-form-label">颜色</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="deliveryTime" lay-verify="deliveryTime" class="layui-input" id="time" placeholder="yyyy-MM-dd">
+                            <select  name="cid" id="cid" lay-verify="cid">
+                                <option th:each="type:${typeList}" th:value="${type.name}"
+                                        th:text="${type.name}"></option>
+                            </select>
                         </div>
                     </div>
+
                     <div class="layui-inline">
                         <label class="layui-form-label">计算类型</label>
                         <div class="layui-input-inline">
                             <select  name="sumType" id="sumType" lay-verify="sumType">
-                                <option value="1">2开计算方式</option>
-                                <option value="2">4开计算方式</option>
+                                <option value="1">单开门计算方式</option>
+                                <option value="2">双开门计算方式</option>
+                                <option value="3">三开门计算方式</option>
+                                <option value="4">四开门计算方式</option>
                             </select>
                         </div>
                     </div>
