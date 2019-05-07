@@ -51,6 +51,9 @@ public class ProductController {
     @Autowired
     private MaterialRepostitory materialRepostitory;
 
+    @Autowired
+    private ColorRepostitory colorRepostitory;
+
     @RequestMapping(value = "/product/list.html/{state}")
     public String toAllProduct(ModelMap map, @PathVariable("state") Integer state){
         log.info("product页面..................................................");
@@ -207,6 +210,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/buy.html/{id}")
     public String toProductBuy(ModelMap map,@PathVariable("id") Integer id){
+        map.put("colorList",colorRepostitory.findAll());
         map.put("product",productRepostitory.findProductById(id));
         map.put("typeList",typeRepostitory.findAll());
         return "product/product-buy";
@@ -214,17 +218,15 @@ public class ProductController {
 
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
-    public Data doProductBuy(Data data, Order order,@Param("pid") Integer pid,@Param("sumType") String sumType){
-        Product productById = productRepostitory.findProductById(pid);
-        //order.setId(null);
+    public Data doProductBuy(Data data, Order order,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
         order.setPid(pid);
-        order.setState(sumType);
+        //order.setState(sumType);
         Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
         order.setSquare(df.format(sq));
-        order.setPrices(sq*Integer.valueOf(productById.getPrice()));
-        order.setNumber(productById.getDid());
-        order.setPrices((int)((Double.valueOf(productById.getPrice())*Double.valueOf(order.getSquare()))+0.50));
-        order.setHavePay(productById.getPrice());
+        order.setPrices(sq*price);
+        order.setNumber(sumType);
+        order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
+        order.setHavePay(price.toString());
         order.setOrderNumber(sn.format(new Date()));
         order.setCreateTime(sf.format(new Date()));
         orderRepostitory.save(order);

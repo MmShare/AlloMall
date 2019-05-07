@@ -26,16 +26,13 @@
         </colgroup>
         <tbody>
         <tr>
-          <td>名称</td>
-          <td th:text="${product.name}"></td>
-          <td>价格/平方米</td>
-          <td th:text="${product.price}"></td>
+          <td colspan="4"><p>门窗基本信息</p></td>
         </tr>
         <tr>
+          <td>名称</td>
+          <td th:text="${product.name}"></td>
           <td>门窗类型</td>
           <td th:text="${product.tid}"></td>
-          <td>门开数</td>
-          <td th:text="${product.did}"></td>
         </tr>
 
         </tbody>
@@ -53,6 +50,9 @@
       </colgroup>
       <tbody>
       <tr>
+        <td colspan="4">材料信息列表</td>
+      </tr>
+      <tr>
         <td>材料名</td>
         <td>数量</td>
         <td>计算值1</td>
@@ -61,8 +61,8 @@
       <tr th:each="material:${materialList}">
         <td th:text="${material.name}"></td>
         <td th:text="${material.number}"></td>
-        <td th:text="${material.valueOne}"></td>
-        <td th:text="${material.valueTwo}"></td>
+        <td th:text="${material.valueOneOne}"></td>
+        <td th:text="${material.valueOneTwo}"></td>
       </tr>
 
       </tbody>

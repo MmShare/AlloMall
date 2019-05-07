@@ -49,6 +49,9 @@ public class Material {
     @Column(name = "valueSum",length = 50)
     private String valueSum;//计算后的值
 
+    @Column(name = "mtid",length = 50)
+    private Integer mtid;//材料类型
+
     @Column(name = "date",length = 50)
     private String date;//添加日期
 

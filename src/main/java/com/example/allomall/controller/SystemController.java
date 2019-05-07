@@ -6,6 +6,7 @@ import com.example.allomall.entity.Material;
 import com.example.allomall.entity.Table;
 import com.example.allomall.entity.Type;
 import com.example.allomall.repostitory.MaterialRepostitory;
+import com.example.allomall.repostitory.MaterialTypeRepostitory;
 import com.example.allomall.repostitory.TypeRepostitory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,9 @@ public class SystemController {
 
     @Autowired
     private TypeRepostitory typeRepostitory;
+
+    @Autowired
+    private MaterialTypeRepostitory materialTypeRepostitory;
 
     @RequestMapping(value = "/windowsType/list.html")
     public String toWindowsType() {
@@ -162,8 +166,9 @@ public class SystemController {
     }
 
     @RequestMapping(value = "/material/add.html")
-    public String toMaterialAdd() {
+    public String toMaterialAdd(ModelMap map) {
         log.info("to material Add 页面......................................................");
+        map.put("materialTypeList",materialTypeRepostitory.findAll());
         return "system/material-add";
     }
 
