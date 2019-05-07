@@ -218,10 +218,12 @@ public class ProductController {
 
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
-    public Data doProductBuy(Data data, Order order,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
+    public Data doProductBuy(Data data, Order order,@Param("cid") String cid,@Param("bid") String bid,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
+        Product productById = productRepostitory.findProductById(pid);
         order.setPid(pid);
         //order.setState(sumType);
         Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
+        order.setName(productById.getName());
         order.setSquare(df.format(sq));
         order.setPrices(sq*price);
         order.setNumber(sumType);
@@ -229,6 +231,7 @@ public class ProductController {
         order.setHavePay(price.toString());
         order.setOrderNumber(sn.format(new Date()));
         order.setCreateTime(sf.format(new Date()));
+        order.setAttention(cid+"&nbsp;&nbsp;"+bid+"&nbsp;&nbsp;"+order.getAttention());
         orderRepostitory.save(order);
         data.setSuccess(true);
         data.setMsg("下单成功");

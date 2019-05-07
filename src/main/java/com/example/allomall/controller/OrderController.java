@@ -117,19 +117,97 @@ public class OrderController {
         for (Associated a:associatedList
              ) {
             Material m=materialRepostitory.findMaterialById(a.getMid());
-            if (m.getId()==1){//光企的计算方式
-                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
-            }else if (m.getId()==2){//勾企的计算方式
-                m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
-            }else if (m.getId()==3){//上下框计算方式
-                m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
-            }else if (m.getId()==4){//边框
-                m.setValueSum(order.getWidth());
-            }else if (m.getId()==5){
-                m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+            if (order.getSumType()==1){//单开门计算方式
+                if (m.getMtid()==1){//光企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==2){//勾企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==3){//上下方计算方式
+                    m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==4){//轨道
+                    m.setValueSum(order.getWidth());
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==5){//边框
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==6){//玻璃
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }
+                materialList.add(m);
+            }else if (order.getSumType()==2){//双开门计算公式
+
+                if (m.getMtid()==1){//光企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==2){//勾企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==3){//上下方计算方式
+                    m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==4){//轨道
+                    m.setValueSum(order.getWidth());
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==5){//边框
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==6){//玻璃
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }
+                materialList.add(m);
+
+            }else if (order.getSumType()==3){//三开门计算公式
+
+                if (m.getMtid()==1){//光企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==2){//勾企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==3){//上下方计算方式
+                    m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==4){//轨道
+                    m.setValueSum(order.getWidth());
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==5){//边框
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==6){//玻璃
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }
+                materialList.add(m);
+
+            }else if (order.getSumType()==4){//4开门计算公式
+
+                if (m.getMtid()==1){//光企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==2){//勾企的计算方式
+                    m.setValueSum(String.valueOf((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==3){//上下方计算方式
+                    m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/product.getDid())+Double.valueOf(m.getValueOneTwo()))));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==4){//轨道
+                    m.setValueSum(order.getWidth());
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==5){//边框
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }else if (m.getMtid()==6){//玻璃
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
+                    m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
+                }
+                materialList.add(m);
             }
-            m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
-            materialList.add(m);
+
         }
         map.put("materialList",materialList);
         map.put("product",product);

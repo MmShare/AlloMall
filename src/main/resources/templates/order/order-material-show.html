@@ -25,7 +25,7 @@
         </colgroup>
         <tbody>
         <tr>
-          <td colspan="4" th:text="${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.width}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.attention}"></td>
+          <td colspan="4" th:text="'客户名：'+${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+'门窗名:'+${order.name}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.width}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+'备注：'+${order.attention}"></td>
         </tr>
         <tr>
           <td>材料名</td>
