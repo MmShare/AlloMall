@@ -194,6 +194,7 @@ public class SystemController {
     public String toMaterialEdit(ModelMap map,Material material,@PathVariable("id") Integer id){
         log.info("to material edit html ....................................................");
         try {
+            map.put("materialTypeList",materialTypeRepostitory.findAll());
             material=materialRepostitory.findMaterialById(id);
             System.out.println(material.getName());
             map.put("material",material);

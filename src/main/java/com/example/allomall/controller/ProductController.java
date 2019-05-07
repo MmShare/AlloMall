@@ -231,7 +231,7 @@ public class ProductController {
         order.setHavePay(price.toString());
         order.setOrderNumber(sn.format(new Date()));
         order.setCreateTime(sf.format(new Date()));
-        order.setAttention(cid+"&nbsp;&nbsp;"+bid+"&nbsp;&nbsp;"+order.getAttention());
+        order.setAttention(cid+"       "+bid+"      "+order.getAttention());
         orderRepostitory.save(order);
         data.setSuccess(true);
         data.setMsg("下单成功");

@@ -110,7 +110,7 @@
           type: 2,
           area: ['800px', '290px'],
           title:"材料信息",
-          content:['/system/material/show.html/'+data.id, 'no'],
+          content:['/system/material/show.html/'+data.id],
         });
       } else if(obj.event === 'del'){
         layer.confirm('真的删除么', function(index){
@@ -136,7 +136,7 @@
           type: 2,
           area: ['800px', '290px'],
           title:"材料信息修改",
-          content:['/system/material/edit.html/'+data.id, 'no'],
+          content:['/system/material/edit.html/'+data.id],
         });
       }
     });

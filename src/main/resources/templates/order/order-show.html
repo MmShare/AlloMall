@@ -27,27 +27,31 @@
         <tr>
           <td>商品名称</td>
           <td th:text="${product.name}"></td>
-          <td>订单编号</td>
-          <td th:text="${order.orderNumber}"></td>
-        </tr>
-        <tr>
           <td>客户</td>
           <td th:text="${order.peopleName}"></td>
-          <td>创建日期</td>
-          <td th:text="${order.createTime}"></td>
         </tr>
         <tr>
           <td>门开数</td>
           <td th:text="${order.number}"></td>
-          <td>总价</td>
-          <td th:text="${order.prices}"></td>
+          <td>创建日期</td>
+          <td th:text="${order.createTime}"></td>
         </tr>
 
         <tr>
-          <td>宽度</td>
-          <td th:text="${order.width}"></td>
           <td>高度</td>
           <td th:text="${order.height}"></td>
+          <td>宽度</td>
+          <td th:text="${order.width}"></td>
+        </tr>
+        <tr>
+          <td>平方</td>
+          <td th:text="${order.square}"></td>
+          <td>元/平方</td>
+          <td th:text="${order.havePay}"></td>
+        </tr>
+        <tr>
+          <td>总价</td>
+          <td th:text="${order.prices}"></td>
         </tr>
         <tr>
           <td>注意事项</td>

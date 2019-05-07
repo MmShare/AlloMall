@@ -23,25 +23,82 @@
                 <input type="tel" name="name" lay-verify="name" th:value="${material.name}" autocomplete="off" class="layui-input">
               </div>
             </div>
+          </div>
+
+          <div class="layui-form-item">
             <div class="layui-inline">
               <label class="layui-form-label">数量</label>
               <div class="layui-input-inline">
                 <input type="text" name="number"  lay-verify="length" th:value="${material.number}"  autocomplete="off" class="layui-input">
               </div>
             </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">材料类型</label>
+              <div class="layui-input-inline">
+                <select  name="mtid" id="mtid" lay-verify="mtid">
+                  <option th:each="materialType:${materialTypeList}" th:selected="${materialType.id==material.mtid}" th:value="${materialType.id}"
+                          th:text="${materialType.name}"></option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">数值1</label>
+              <label class="layui-form-label">单开计算值1</label>
               <div class="layui-input-inline">
-                <input type="tel" name="valueOne"  lay-verify="height" th:value="${material.valueOne}"  autocomplete="off" class="layui-input">
+                <input type="tel" name="valueOneOne"  lay-verify="height" th:value="${material.valueOneOne}"  autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-inline">
-              <label class="layui-form-label">数值2</label>
+              <label class="layui-form-label">单开计算值2</label>
               <div class="layui-input-inline">
-                <input type="text" name="valueTwo" lay-verify="width" th:value="${material.valueTwo}"  autocomplete="off" class="layui-input">
+                <input type="text" name="valueOneTwo" lay-verify="width" th:value="${material.valueOneTwo}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">双开开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueTwoOne"  lay-verify="height" th:value="${material.valueTwoOne}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">双开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueTwoTwo" lay-verify="width" th:value="${material.valueTwoTwo}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">三开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueThrOne"  lay-verify="height" th:value="${material.valueThrOne}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">三开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueThrTwo" lay-verify="width" th:value="${material.valueThrTwo}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">四开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueFourOne"  lay-verify="height" th:value="${material.valueFourOne}"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">四开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueFourTwo" lay-verify="width" th:value="${material.valueFourTwo}"  autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
