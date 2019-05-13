@@ -265,6 +265,13 @@ public class OrderController {
 
     @RequestMapping(value = "/order/print.html/{ids}")
     public String goOrderPrint(ModelMap map,@PathVariable("ids") String ids){
+
+        String[] idStr = ids.split(",");
+        Integer[] idInt=new Integer[idStr.length];
+        for (int i=0;i<idStr.length;i++){
+            idInt[i]=Integer.valueOf(idStr[i]);
+        }
+        map.put("orderList",orderRepostitory.findOrdersByIdIn(idInt));
         return "order/order-print";
     }
 

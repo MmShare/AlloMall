@@ -67,6 +67,7 @@
         var admin = layui.admin
             , $ = layui.$
             , table = layui.table;
+        var tableid = table.render();
         table.render({
 
             elem: '#oder-table-information'
@@ -97,6 +98,34 @@
             }
         });
 
+        //头工具栏事件
+        table.on('toolbar(oder-table-information)', function (obj) {
+            switch (obj.event) {
+                case 'printOrder':
+                    var  arr="";
+                    var selectData = table.checkStatus('oder-information').data;
+                    for (var i=0;i<selectData.length;i++){
+                        arr=arr+selectData[i].id+",";
+                    }
+                    layer.open({
+                        type: 2,
+                        area: ['800px', '500px'],
+                        title: "材料列表",
+                        content: ['/order/order/print.html/' + arr],
+                    });
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+            }
+            ;
+        });
+
+
         //监听工具条
         table.on('tool(oder-table-information)', function (obj) {
             var data = obj.data;
@@ -114,20 +143,7 @@
                     title: "材料列表",
                     content: ['/order/material/show.html/' + data.id],
                 });
-            }
-            else if (obj.event === 'printOrder') {
-                var  arr="";
-                var selectData = table.checkStatus('oder-information').data;
-                for (var i=0;i<selectData.length;i++){
-                    arr=selectData[i].id+",";
-                }
-                layer.open({
-                    type: 2,
-                    area: ['800px', '500px'],
-                    title: "材料列表",
-                    content: ['/order/order/print.html/' + arr],
-                });
-            }else if (obj.event === 'del') {
+            } else if (obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: "POST",
