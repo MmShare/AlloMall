@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/order")
 public class OrderController {
 
     private static final Logger log= LoggerFactory.getLogger(HomeController.class);
+
+    private SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 
     private Map<String,String> orderMap=new HashMap<>();
 
@@ -265,12 +265,13 @@ public class OrderController {
 
     @RequestMapping(value = "/order/print.html/{ids}")
     public String goOrderPrint(ModelMap map,@PathVariable("ids") String ids){
-
         String[] idStr = ids.split(",");
         Integer[] idInt=new Integer[idStr.length];
         for (int i=0;i<idStr.length;i++){
             idInt[i]=Integer.valueOf(idStr[i]);
         }
+        map.put("orderInformation",orderRepostitory.findOrderById(idInt[1]));
+        map.put("time",sf.format(new Date()));
         map.put("orderList",orderRepostitory.findOrdersByIdIn(idInt));
         return "order/order-print";
     }
