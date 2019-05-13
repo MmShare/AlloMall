@@ -178,7 +178,7 @@ public class SystemController {
         log.info("do material add.........................................................");
         try {
             material.setDate(sf.format(new Date()));
-            material.setState(SystemParameter.IS_USER);
+            material.setState(1);
             materialRepostitory.save(material);
             data.setSuccess(true);
             data.setMsg("添加材料成功");
