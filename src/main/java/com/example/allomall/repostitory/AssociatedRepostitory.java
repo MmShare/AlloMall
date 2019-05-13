@@ -10,6 +10,10 @@ public interface AssociatedRepostitory extends  JpaRepository<Associated,Long> {
 
     List<Associated> findAssociatedsByPid(Integer pid);
 
+    Associated findAssociatedByPidAndMid(Integer pid,Integer mid);
+
+    Associated findAssociatedByNumberAndPid(Integer number,Integer pid);
+
     @Transactional
     void deleteAssociatedByPidAndMid(Integer pid,Integer mid);
 

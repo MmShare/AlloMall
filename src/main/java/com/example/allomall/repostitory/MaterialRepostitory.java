@@ -10,6 +10,8 @@ public interface MaterialRepostitory extends JpaRepository<Material,Long> {
 
     Material findMaterialById(Integer id);
 
+    Material findMaterialByMtidAndId(Integer mtid,Integer id);
+
     @Transactional
     void deleteMaterialById(Integer id);
 

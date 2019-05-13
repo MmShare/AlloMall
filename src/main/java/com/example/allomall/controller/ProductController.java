@@ -146,9 +146,6 @@ public class ProductController {
     @ResponseBody
     public Data doProductDelete(Data data,Product product,@Param("id") Integer id){
         try {
-//            product=productRepostitory.findProductById(id);
-//            product.setState(0);
-//            productRepostitory.save(product);
             productRepostitory.deleteProductById(id);
             data.setSuccess(true);
             data.setMsg("删除商品成功");
@@ -187,6 +184,8 @@ public class ProductController {
     public Data doProductAdditional(Data data,Associated associated){
         try {
             associated.setState(1);
+            Material materialById = materialRepostitory.findMaterialById(associated.getMid());
+            associated.setNumber(materialById.getMtid());
             associatedRepostitory.save(associated);
             data.setSuccess(true);
             data.setMsg("附加材料成功");
@@ -201,7 +200,6 @@ public class ProductController {
     @RequestMapping(value = "/product/removeMaterial.json")
     @ResponseBody
     public Data doProductRemoveMaterial(Data data,@Param("pid") Integer pid,@Param("mid") Integer mid ){
-        //associatedRepostitory.deleteAssociatedById(id);
         associatedRepostitory.deleteAssociatedByPidAndMid(pid,mid);
         data.setSuccess(true);
         data.setMsg("移除材料成功");
@@ -219,25 +217,35 @@ public class ProductController {
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
     public Data doProductBuy(Data data, Order order,@Param("cid") String cid,@Param("bid") String bid,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
+        Boolean isBuy=false;
         Product productById = productRepostitory.findProductById(pid);
-        order.setPid(pid);
-        //order.setState(sumType);
-        Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
-        order.setName(productById.getName());
-        order.setSquare(df.format(sq));
-        order.setPrices(sq*price);
-        order.setNumber(sumType);
-        order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
-        order.setHavePay(price.toString());
-        order.setOrderNumber(sn.format(new Date()));
-        order.setCreateTime(sf.format(new Date()));
-        order.setAttention(cid+"       "+bid+"      "+order.getAttention());
-        orderRepostitory.save(order);
-        data.setSuccess(true);
-        data.setMsg("下单成功");
+        List<Associated> associatedsByPidList = associatedRepostitory.findAssociatedsByPid(pid);
+        for (Associated a:associatedsByPidList
+             ) {
+            if (a.getNumber()==3){
+                isBuy=true;
+            }
+        }
+        if (isBuy){
+            order.setPid(pid);
+            Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
+            order.setName(productById.getName());
+            order.setSquare(df.format(sq));
+            order.setPrices(sq*price);
+            order.setNumber(sumType);
+            order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
+            order.setHavePay(price.toString());
+            order.setOrderNumber(sn.format(new Date()));
+            order.setCreateTime(sf.format(new Date()));
+            order.setAttention(cid+"       "+bid+"      "+order.getAttention());
+            orderRepostitory.save(order);
+            data.setSuccess(true);
+            data.setMsg("下单成功");
+        }else {
+            data.setSuccess(false);
+            data.setMsg("这个门窗材料缺少上下方，请先去添加上下方");
+        }
         return data;
     }
-
-
 
 }

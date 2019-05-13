@@ -77,11 +77,7 @@ public class OrderController {
     @RequestMapping(value = "/order/search.json")
     @ResponseBody
     public Table searchOrderTable(Table table,@Param("condition") String condition,@Param("state") String state){
-
         System.out.println(state);
-//        List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingAndPeopleNameContainingAndPeopleAddressContaining(condition,condition,condition);
-        //List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingOrPeopleNameContainingOrPeopleAddressContaining(condition,condition,condition);
-//        List<Order> orderList=orderRepostitory.findOrdersByOrderNumberContainingAndStateOrPeopleNameContainingOrPeopleAddressContaining(condition,state,condition,condition);
         List<Order> orderList=orderRepostitory.findOrdersByStateOrPeopleAddressContainingOrPeopleNameContaining(state,condition,condition);
         table.setCount(orderList.size());
         table.setMsg("查询成功");
@@ -108,18 +104,15 @@ public class OrderController {
         for (Associated a:associatedList
              ) {
             Material m=materialRepostitory.findMaterialById(a.getMid());
-            double sum1=0.0;
-            double sum2=0.0;
+            //Material mt=materialRepostitory.findMaterialByMtidAndId(a.get,a.getMid());
             if (order.getSumType()==1){//单开门计算方式
                 if (m.getMtid()==1){//光企的计算方式
-                    sum1=(Double.valueOf(order.getHeight())-Double.valueOf(m.getValueOneOne()));
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueOneOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueOneOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
-                    sum2=(((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()));
                     m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//边框
@@ -129,13 +122,17 @@ public class OrderController {
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
                     m.setNumber(order.getNumber().toString());
                 }else if (m.getMtid()==6){//玻璃
-                    m.setValueSum(String.valueOf(sum1-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(sum2-Double.valueOf(m.getValueOneOne())));
+                    Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
+                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
+                    Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
+                    Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueOneOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*product.getDid()*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
             }else if (order.getSumType()==2){//双开门计算公式
+                double sum2=0.0;
                 if (m.getMtid()==1){//光企的计算方式
-                    sum1=(Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()));
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
@@ -152,15 +149,18 @@ public class OrderController {
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne())));
                     m.setNumber(order.getNumber().toString());
                 }else if (m.getMtid()==6){//玻璃
-                    m.setValueSum(String.valueOf(sum1-Double.valueOf(m.getValueTwoOne()))+"x"+String.valueOf(sum2-Double.valueOf(m.getValueTwoOne())));
+                    Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
+                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
+                    Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
+                    Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueTwoOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
 
             }else if (order.getSumType()==3){//三开门计算公式
-
+                double sum2=0.0;
                 if (m.getMtid()==1){//光企的计算方式
-                    sum1=(Double.valueOf(order.getHeight())-Double.valueOf(m.getValueThrOne()));
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueThrOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
@@ -177,15 +177,18 @@ public class OrderController {
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne())));
                     m.setNumber(order.getNumber().toString());
                 }else if (m.getMtid()==6){//玻璃
-                    m.setValueSum(String.valueOf(sum1-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(sum2-Double.valueOf(m.getValueThrOne())));
+                    Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
+                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
+                    Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
+                    Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueThrOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
 
             }else if (order.getSumType()==4){//4开门计算公式
-
+                double sum2=0.0;
                 if (m.getMtid()==1){//光企的计算方式
-                    sum1=(Double.valueOf(order.getHeight())-Double.valueOf(m.getValueFourOne()));
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueFourOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
@@ -202,7 +205,11 @@ public class OrderController {
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne())));
                     m.setNumber(order.getNumber().toString());
                 }else if (m.getMtid()==6){//玻璃
-                    m.setValueSum(String.valueOf(sum1-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(sum2-Double.valueOf(m.getValueFourOne())));
+                    Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
+                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
+                    Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
+                    Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueFourOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
@@ -254,6 +261,11 @@ public class OrderController {
             data.setSuccess(false);
         }
         return data;
+    }
+
+    @RequestMapping(value = "/order/print.html/{ids}")
+    public String goOrderPrint(ModelMap map,@PathVariable("ids") String ids){
+        return "order/order-print";
     }
 
 

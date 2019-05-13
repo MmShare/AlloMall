@@ -174,11 +174,16 @@
                 dataType:"JSON",
                 data:data.field,
                 success:function (res) {
-                    window.parent.layer.closeAll();
-                    window.parent.layer.msg(res.msg);
-                    setTimeout(function () {
-                        window.parent.location.reload();
-                    },200);
+                    if (res.success){
+                        window.parent.layer.closeAll();
+                        window.parent.layer.msg(res.msg);
+                        setTimeout(function () {
+                            window.parent.location.reload();
+                        },200);
+                    }else {
+                        layer.msg(res.msg);
+                    }
+
                 },
                 error:function () {
                     window.parent.layer.closeAll();

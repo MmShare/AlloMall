@@ -39,7 +39,7 @@
             </exclusions>-->
         </dependency>
 
-<!--        &lt;!&ndash;  用的百度云的服务器 mysql需要将版本&ndash;&gt;
+<!--        &lt;!&ndash;用的百度云的服务器mysql需要降版本&ndash;&gt;
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

@@ -70,25 +70,9 @@
       ,cols: [
         [
           {type:'checkbox'}
-          ,{field:'id', width:"10%", title: 'ID', sort: true}
-          ,{field:'name', width:"10%", title: '材料名'}
-          ,{field:'number', width:"10%", title: '数量', sort: true}
-          ,{field:'valueOneOne', width:"10%", title: '单开计算值1', sort: true}
-          ,{field:'valueOneTwo', width:"10%", title: '单开计算值2', sort: true}
-          ,{field:'valueTwoOne', width:"10%", title: '双开计算值1', sort: true}
-          ,{field:'valueTwoTwo', width:"10%", title: '双开计算值2', sort: true}
-          ,{field:'valueThrOne', width:"10%", title: '三开计算值1', sort: true}
-          ,{field:'valueThrTwo', width:"10%", title: '三开计算值2', sort: true}
-          ,{field:'valueFourOne', width:"10%", title: '四开计算值1', sort: true}
-          ,{field:'valueFourTwo', width:"10%", title: '四开计算值2', sort: true}
-          ,{field:'state', width:"15%", title: '状态', sort: true,templet:function (data) {
-            if (data.state == 1){
-              return "可用";
-            }else {
-              return "不可用";
-            }
-          }}
-          ,{title:'操作',width:"20%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
+          ,{field:'name', width:"30%", title: '材料名'}
+          ,{field:'number', width:"20%", title: '数量', sort: true}
+          ,{title:'操作',width:"50%", align:'center',fixed: 'right', toolbar: '#test-table-operate-barDemo'}
         ]
       ],
       id:'material-table-information'
@@ -103,7 +87,7 @@
       if(obj.event === 'detail'){
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
+          area: ['800px', '450px'],
           title:"材料信息",
           content:['/system/material/show.html/'+data.id, 'no'],
         });
@@ -129,7 +113,7 @@
 
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
+          area: ['800px', '450px'],
           title:"材料信息修改",
           content:['/system/material/edit.html/'+data.id, 'no'],
         });
@@ -140,7 +124,7 @@
       add: function(){ //添加材料
         layer.open({
           type: 2,
-          area: ['800px', '290px'],
+          area: ['800px', '450px'],
           title:"材料添加框",
           content:['/system/material/add.html', 'no'],
         });
