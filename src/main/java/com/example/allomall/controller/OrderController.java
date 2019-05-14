@@ -270,7 +270,7 @@ public class OrderController {
         for (int i=0;i<idStr.length;i++){
             idInt[i]=Integer.valueOf(idStr[i]);
         }
-        map.put("orderInformation",orderRepostitory.findOrderById(idInt[1]));
+        map.put("orderInformation",orderRepostitory.findOrderById(idInt[0]));
         map.put("time",sf.format(new Date()));
         map.put("orderList",orderRepostitory.findOrdersByIdIn(idInt));
         return "order/order-print";
