@@ -131,7 +131,6 @@ public class OrderController {
                 }
                 materialList.add(m);
             }else if (order.getSumType()==2){//双开门计算公式
-                double sum2=0.0;
                 if (m.getMtid()==1){//光企的计算方式
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
@@ -139,7 +138,6 @@ public class OrderController {
                     m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
-                    sum2=(((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()));
                     m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//边框
@@ -150,10 +148,10 @@ public class OrderController {
                     m.setNumber(order.getNumber().toString());
                 }else if (m.getMtid()==6){//玻璃
                     Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
-                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
+                    Material mt1 = materialRepostitory.findMaterialById(as1.getMid());//
                     Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                     Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
-                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueTwoOne())));
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueTwoOne()))/order.getNumber())+Double.valueOf(mt2.getValueTwoTwo())-Double.valueOf(m.getValueTwoOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
@@ -181,7 +179,7 @@ public class OrderController {
                     Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                     Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                     Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
-                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueThrOne())));
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueThrOne()))/order.getNumber())+Double.valueOf(mt2.getValueThrTwo())-Double.valueOf(m.getValueThrOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
@@ -209,7 +207,7 @@ public class OrderController {
                     Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                     Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                     Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
-                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueFourOne())));
+                    m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourTwo()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueFourOne()))/order.getNumber())+Double.valueOf(mt2.getValueFourTwo())-Double.valueOf(m.getValueFourOne())));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }
                 materialList.add(m);
