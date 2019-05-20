@@ -56,19 +56,24 @@
           </div>
         </div>
 
-<!--        <div class="layui-form-item">
+        <div class="layui-form-item">
           <div class="layui-inline">
             <label class="layui-form-label">图片:</label>
             <div class="layui-input-inline">
-              <button type="button" class="layui-btn" id="img-upload-more">上传图片</button>
+              <button type="button" class="layui-btn" id="test1">上传图片</button>
             </div>
+
           </div>
           <div class="layui-inline">
             <label class="layui-form-label"></label>
-            <div class="layui-inline" id="ima-upload-more-list" style="height: 100px;width: 330px">
+            <div class="layui-input-inline">
+              <img class="layui-upload-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558326985402&di=829a6a31a2998552b25afba4eb4f84f9&imgtype=jpg&src=http%3A%2F%2Fwww.elss.com.cn%2Fimages%2Fpic.jpg" id="url" th:if="${product.url==null}" style="height: 100px;width: 188px">
+              <img class="layui-upload-img" th:src="${product.url}" id="url"  th:if="${product.url!=null}"style="height: 100px;width: 188px">
+              <p id="demoText"></p>
+              <input type="hidden" name="url"  value="" id="imagePath" class="layui-input">
             </div>
           </div>
-        </div>-->
+        </div>
 
 
         <div class="layui-form-item layui-form-text">
@@ -180,6 +185,35 @@
         alert("已上传"+num);
         num=num+1;
 
+      }
+    });
+
+    //普通图片上传
+    var uploadInst = upload.render({
+      elem: '#test1'
+      ,url: '/product/product/upload.json'
+      ,before: function(obj){
+        //预读本地文件示例，不支持ie8
+        obj.preview(function(index, file, result){
+          $('#url').attr('src', result); //图片链接（base64）
+          //$('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 0px;height: 100px;width: 100px"> ')
+        });
+      }
+      ,done: function(res){
+        //如果上传失败
+        if(res.success){
+          $("#imagePath").val(res.msg);
+          return layer.msg('上传成功');
+        }
+        //上传成功
+      }
+      ,error: function(){
+        //演示失败状态，并实现重传
+        var demoText = $('#demoText');
+        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+        demoText.find('.demo-reload').on('click', function(){
+          uploadInst.upload();
+        });
       }
     });
 

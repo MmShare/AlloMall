@@ -28,31 +28,17 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">价格/平方米</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="price" id="price" lay-verify="price" autocomplete="off" class="layui-input">
+                            <input type="text" name="price" id="price" lay-verify="price" autocomplete="off"
+                                   class="layui-input">
                         </div>
                     </div>
                 </div>
-
-<!--                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">长度</label>
-                        <div class="layui-input-inline">
-                            <input type="tel" name="length" id="length" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">宽度</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="width" id="width"  autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                </div>-->
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">商品类型</label>
                         <div class="layui-input-inline">
-                            <select  name="tid" id="tid" lay-verify="tid">
+                            <select name="tid" id="tid" lay-verify="tid">
                                 <option th:each="type:${typeList}" th:value="${type.id}"
                                         th:text="${type.name}"></option>
                             </select>
@@ -62,7 +48,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">门开数</label>
                         <div class="layui-input-inline">
-                            <select  name="did" id="did" lay-verify="did">
+                            <select name="did" id="did" lay-verify="did">
                                 <option th:each="door:${doorList}" th:value="${door.id}"
                                         th:text="${door.name}"></option>
                             </select>
@@ -70,25 +56,31 @@
                     </div>
                 </div>
 
-<!--                <div class="layui-form-item">
+                <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">图片:</label>
                         <div class="layui-input-inline">
-                            <button type="button" class="layui-btn" id="img-upload-more">上传图片</button>
+                            <button type="button" class="layui-btn" id="test1">上传图片</button>
                         </div>
+
                     </div>
                     <div class="layui-inline">
-                    <label class="layui-form-label"></label>
-                        <div class="layui-inline" id="ima-upload-more-list" style="height: 100px;width: 330px">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-input-inline">
+                            <!--<img class="layui-upload-img" id="url"  style="height: 100px;width: 100px">-->
+                            <img class="layui-upload-img"src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558326985402&di=829a6a31a2998552b25afba4eb4f84f9&imgtype=jpg&src=http%3A%2F%2Fwww.elss.com.cn%2Fimages%2Fpic.jpg" id="url"  style="height: 100px;width: 188px">
+                            <p id="demoText"></p>
+                            <input type="hidden" name="url"  value="" id="imagePath" class="layui-input">
+                        </div>
                     </div>
-                    </div>
-                </div>-->
+                </div>
 
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">门窗介绍</label>
                     <div class="layui-input-block">
-                        <textarea name="information" id="information" placeholder="请输入该门窗的介绍" class="layui-textarea"></textarea>
+                        <textarea name="information" id="information" placeholder="请输入该门窗的介绍"
+                                  class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item" style="margin-right: 0px">
@@ -105,12 +97,12 @@
 
 <script src="../../../layuiadmin/layui/layui.js"></script>
 <script>
-    var  number=0;
+    var number = 0;
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form', 'laydate','upload'], function () {
+    }).use(['index', 'form', 'laydate', 'upload'], function () {
         var $ = layui.$
             , admin = layui.admin
             , element = layui.element
@@ -129,22 +121,22 @@
                     return '名字不能为空';
                 }
             }
-            ,price: function (value) {
+            , price: function (value) {
                 if (value.length < 1) {
                     return '价格不能为空';
                 }
             }
-            ,tid: function (value) {
-                if (value ==null) {
+            , tid: function (value) {
+                if (value == null) {
                     return '请至少选个种类';
                 }
             }
-            ,did: function (value) {
-                if (value ==null) {
+            , did: function (value) {
+                if (value == null) {
                     return '请选择门开数';
                 }
             }
-            ,content: function (value) {
+            , content: function (value) {
                 layedit.sync(editIndex);
             }
         });
@@ -152,41 +144,43 @@
         /* 监听提交 */
         form.on('submit(product-form-add)', function (data) {
             $.ajax({
-                type:"POST",
-                url:"/product/product/add.json",
-                dataType:"JSON",
-                data:data.field,
-                success:function (res) {
+                type: "POST",
+                url: "/product/product/add.json",
+                dataType: "JSON",
+                data: data.field,
+                success: function (res) {
                     $("#name").val("");
                     $("#price").val("");
                     $("#length").val("");
                     $("#width").val("");
                     $("#height").val("");
                     $("#information").val("");
+                    $("#imagePath").val("");
+                    $('#url').removeAttr('src');
                     window.parent.layer.msg(res.msg);
                 },
-                error:function () {
+                error: function () {
                     window.parent.layer.closeAll();
                 }
             })
             return false;
         });
-        var num=0;
+        var num = 0;
         //多图片上传
         upload.render({
             elem: '#img-upload-more'
-            ,url: '/product/product/upload.json'    //上传接口
-            ,accept: 'images' //支持图片类型
-            ,multiple: true //支持多文件上传
-            ,number:3       //最多上传几个
-            ,auto: true     //自动上传
-            ,choose:function(obj){
+            , url: '/product/product/upload.json'    //上传接口
+            , accept: 'images' //支持图片类型
+            , multiple: true //支持多文件上传
+            , number: 3       //最多上传几个
+            , auto: true     //自动上传
+            , choose: function (obj) {
 //预读本地文件示例，不支持ie8
-                if (num<3){
-                    obj.preview(function(index, file, result){
-                        $('#ima-upload-more-list').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" style="margin-left: 0px;height: 100px;width: 100px"> ')
+                if (num < 3) {
+                    obj.preview(function (index, file, result) {
+                        $('#ima-upload-more-list').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 0px;height: 100px;width: 100px"> ')
                     });
-                }else {
+                } else {
                     layer.msg("只能上传3个");
 
                     return false;
@@ -194,16 +188,44 @@
 
 
             }
-            ,before: function(obj){
+            , before: function (obj) {
 
             }
-            ,done: function(res){
-                alert("已上传"+num);
-                num=num+1;
+            , done: function (res) {
+                alert("已上传" + num);
+                num = num + 1;
 
             }
         });
 
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/product/product/upload.json'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#url').attr('src', result); //图片链接（base64）
+                    //$('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 0px;height: 100px;width: 100px"> ')
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.success){
+                    $("#imagePath").val(res.msg);
+                    return layer.msg('上传成功');
+                }
+                //上传成功
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
     });
 </script>
 </body>

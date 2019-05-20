@@ -6,15 +6,18 @@ import com.example.allomall.repostitory.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.boot.system.SystemProperties;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +35,9 @@ public class ProductController {
     private SimpleDateFormat sn=new SimpleDateFormat("yyyyMMddhhmmss");
 
     DecimalFormat df = new DecimalFormat("#.00");//保留小数点后2位
+
+    @Value("${system.image.path}")
+    private String imagePath;
 
     @Autowired
     private TypeRepostitory typeRepostitory;
@@ -82,8 +88,13 @@ public class ProductController {
 
     @RequestMapping(value = "/product/upload.json")
     @ResponseBody
-    public Data doUploadImage(Data data){
+    public Data doUploadImage(Data data, MultipartFile file ) throws IOException {
         log.info(" do image uploading ..................................");
+        File imageFile=new File(imagePath+sn.format(new Date())+".jpg");
+        file.transferTo(imageFile);
+        data.setMsg(sn.format(new Date())+".jpg");
+        data.setSuccess(true);
+        data.setCode(200);
         return data;
     }
 
@@ -94,6 +105,7 @@ public class ProductController {
         try {
             product.setDate(sf.format(new Date()));
             product.setState(1);
+            product.setUrl("http://localhost:7071/image/"+product.getUrl());
             productRepostitory.save(product);
             data.setSuccess(true);
             data.setMsg("新增成功");
@@ -131,6 +143,7 @@ public class ProductController {
     @ResponseBody
     public Data doProductEdit(Data data,Product product){
         try {
+            product.setUrl("http://localhost:7071/image/"+product.getUrl());
             productRepostitory.save(product);
             data.setSuccess(true);
             data.setMsg("修改商品信息成功");
@@ -218,14 +231,47 @@ public class ProductController {
     @ResponseBody
     public Data doProductBuy(Data data, Order order,@Param("cid") String cid,@Param("bid") String bid,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
         Boolean isBuy=false;
+        Boolean haveBoLi=false;
+        Boolean haveBaoTao=false;
+        Boolean haveGuangQi=false;
+        Boolean haveShangXiaFang=false;
         Product productById = productRepostitory.findProductById(pid);
         List<Associated> associatedsByPidList = associatedRepostitory.findAssociatedsByPid(pid);
-        for (Associated a:associatedsByPidList
-             ) {
-            if (a.getNumber()==3){
+        if (productById.getTid()==1){
+            for (Associated a:associatedsByPidList
+            ) {
+                if (a.getNumber()==3){
+                    haveShangXiaFang=true;
+                }else if (a.getNumber()==1){
+                    haveGuangQi=true;
+                }else if (a.getNumber()==6){
+                    haveBoLi=true;
+                }
+            }
+            if (haveBoLi&&haveGuangQi&&haveShangXiaFang){
                 isBuy=true;
+            }else {
+                data.setSuccess(false);
+                data.setMsg("请查看玻璃，光企，上下方这三个材料是否都添加上了");
+                return data;
+            }
+        }else if (productById.getTid()==2){
+            for (Associated a:associatedsByPidList
+            ) {
+                if (a.getNumber()==6){
+                    haveBoLi=true;
+                }else if (a.getNumber()==7){
+                    haveBaoTao=true;
+                }
+            }
+            if (haveBoLi&&haveBaoTao){
+                isBuy=true;
+            }else {
+                data.setSuccess(false);
+                data.setMsg("请查看玻璃，包套这两个材料是否都添加上了");
             }
         }
+
         if (isBuy){
             order.setPid(pid);
             Double sq=(Double.valueOf(order.getHeight())/100)*(Double.valueOf(order.getWidth())/100);
@@ -238,6 +284,7 @@ public class ProductController {
             order.setOrderNumber(sn.format(new Date()));
             order.setCreateTime(sf.format(new Date()));
             order.setAttention(cid+"       "+bid+"      "+order.getAttention());
+            order.setState(productById.getTid().toString());
             orderRepostitory.save(order);
             data.setSuccess(true);
             data.setMsg("下单成功");
