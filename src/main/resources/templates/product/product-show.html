@@ -32,7 +32,9 @@
           <td>名称</td>
           <td th:text="${product.name}"></td>
           <td>门窗类型</td>
-          <td th:text="${product.tid}"></td>
+          <td th:text="阳台门" th:if="${product.tid==1}"></td>
+          <td th:text="平开门" th:if="${product.tid==2}"></td>
+          <td th:text="衣柜门" th:if="${product.tid==3}"></td>
         </tr>
 
         </tbody>

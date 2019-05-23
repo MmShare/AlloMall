@@ -269,6 +269,7 @@ public class ProductController {
             }else {
                 data.setSuccess(false);
                 data.setMsg("请查看玻璃，包套这两个材料是否都添加上了");
+                return data;
             }
         }
 
