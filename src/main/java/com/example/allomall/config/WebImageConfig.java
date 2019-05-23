@@ -1,4 +1,4 @@
-package com.example.allomall.Config;
+package com.example.allomall.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -9,7 +9,7 @@ public class WebImageConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry){
-        resourceHandlerRegistry.addResourceHandler("/image/**").addResourceLocations("file:D://");
+        resourceHandlerRegistry.addResourceHandler("/image/**").addResourceLocations("file:/root/image/");
         super.addResourceHandlers(resourceHandlerRegistry);
     }
 }

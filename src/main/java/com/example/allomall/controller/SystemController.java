@@ -1,6 +1,6 @@
 package com.example.allomall.controller;
 
-import com.example.allomall.Config.SystemParameter;
+import com.example.allomall.config.SystemParameter;
 import com.example.allomall.entity.Data;
 import com.example.allomall.entity.Material;
 import com.example.allomall.entity.Table;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

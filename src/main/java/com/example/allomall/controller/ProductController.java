@@ -105,7 +105,7 @@ public class ProductController {
         try {
             product.setDate(sf.format(new Date()));
             product.setState(1);
-            product.setUrl("http://localhost:7071/image/"+product.getUrl());
+            product.setUrl("http://106.13.107.8:8080/image/"+product.getUrl());
             productRepostitory.save(product);
             data.setSuccess(true);
             data.setMsg("新增成功");
@@ -143,7 +143,7 @@ public class ProductController {
     @ResponseBody
     public Data doProductEdit(Data data,Product product){
         try {
-            product.setUrl("http://localhost:7071/image/"+product.getUrl());
+            product.setUrl("http://106.13.107.8:8080/image/"+product.getUrl());
             productRepostitory.save(product);
             data.setSuccess(true);
             data.setMsg("修改商品信息成功");

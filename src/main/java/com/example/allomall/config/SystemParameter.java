@@ -1,4 +1,4 @@
-package com.example.allomall.Config;
+package com.example.allomall.config;
 
 public class SystemParameter {
 
