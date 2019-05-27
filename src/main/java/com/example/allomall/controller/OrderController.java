@@ -29,6 +29,7 @@ public class OrderController {
     private SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd");
 
     DecimalFormat df = new DecimalFormat("#.00");//保留小数点后2位
+    DecimalFormat gf = new DecimalFormat("#.0");//保留小数点后1位
 
     private Map<String,String> orderMap=new HashMap<>();
 
@@ -119,11 +120,11 @@ public class OrderController {
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
                     if (order.getState().equals("1")){//阳台门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()))+0.0));
                     }else if (order.getState().equals("2")){//平推门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo()))+0.0));
                     }else if (order.getState().equals("3")){//衣柜门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne()))/order.getNumber()))+0.0));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//边框
@@ -141,13 +142,13 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueOneOne())));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(mt2.getValueOneTwo())-Double.valueOf(m.getValueOneOne())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("2")){//衣柜门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(7, a.getPid());
                         Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueOneTwo())-Double.valueOf(m.getValueOneTwo())));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueOneTwo())-Double.valueOf(m.getValueOneTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("3")){//衣柜门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -155,7 +156,7 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo())));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueOneOne())-Double.valueOf(m.getValueOneOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueOneOne()))/order.getNumber())+Double.valueOf(m.getValueOneTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }
                 }else if (m.getMtid()==7){//包套
@@ -177,11 +178,11 @@ public class OrderController {
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
                     if (order.getState().equals("1")){//阳台门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()))+0.0));
                     }else if (order.getState().equals("2")){//平推门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo()))+0.0));
                     }else if (order.getState().equals("3")){//衣柜门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne()))/order.getNumber()))+0.0));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//边框
@@ -199,13 +200,13 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.00)+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueTwoOne()))/order.getNumber())+Double.valueOf(mt2.getValueTwoTwo())-Double.valueOf(m.getValueTwoTwo())+0.00));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.00)+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueTwoOne()))/order.getNumber())+Double.valueOf(mt2.getValueTwoTwo())-Double.valueOf(m.getValueTwoTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("2")){//平开门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(7, a.getPid());
                         Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.00)+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueTwoTwo())-Double.valueOf(m.getValueTwoTwo())+0.00));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.00)+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueTwoTwo())-Double.valueOf(m.getValueTwoTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("3")){//衣柜门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -213,7 +214,7 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.00)+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo())+0.00));
+                        m.setValueSum(String.valueOf(gf.format(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueTwoOne())-Double.valueOf(m.getValueTwoOne())+0.0))+"x"+String.valueOf(gf.format(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueTwoOne()))/order.getNumber())+Double.valueOf(m.getValueTwoTwo())+0.0)));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }
                 }else if (m.getMtid()==7){//包套
@@ -235,11 +236,11 @@ public class OrderController {
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
                     if (order.getState().equals("1")){//阳台门
-                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())))));
+                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())+0.0))));
                     }else if (order.getState().equals("2")){//平推门
-                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())))));
+                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())+0.0))));
                     }else if (order.getState().equals("3")){//衣柜门
-                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())))));
+                        m.setValueSum(String.valueOf(df.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+0.0))));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//轨道
@@ -257,13 +258,13 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueThrOne()))/order.getNumber())+Double.valueOf(mt2.getValueThrTwo())-Double.valueOf(m.getValueThrTwo())+0.00));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueThrOne()))/order.getNumber())+Double.valueOf(mt2.getValueThrTwo())-Double.valueOf(m.getValueThrTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("2")){//平推门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(7, a.getPid());
                         Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueThrTwo())-Double.valueOf(m.getValueThrTwo())));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueThrTwo())-Double.valueOf(m.getValueThrTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("3")){//衣柜门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -271,7 +272,7 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())+0.00));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueThrOne())-Double.valueOf(m.getValueThrOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueThrOne()))/order.getNumber())+Double.valueOf(m.getValueThrTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }
                 }else if (m.getMtid()==7){//包套
@@ -293,11 +294,11 @@ public class OrderController {
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
                     if (order.getState().equals("1")){//阳台门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber())+Double.valueOf(m.getValueFourTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber())+Double.valueOf(m.getValueFourTwo()))+0.0));
                     }else if (order.getState().equals("2")){//平推门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber())+Double.valueOf(m.getValueFourTwo()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber())+Double.valueOf(m.getValueFourTwo()))+0.0));
                     }else if (order.getState().equals("3")){//衣柜门
-                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber()))+0.00));
+                        m.setValueSum(String.valueOf((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber()))+0.0));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==4){//轨道
@@ -315,13 +316,13 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueFourOne()))/order.getNumber())+Double.valueOf(mt2.getValueFourTwo())-Double.valueOf(m.getValueFourTwo())+0.00));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueFourOne()))/order.getNumber())+Double.valueOf(mt2.getValueFourTwo())-Double.valueOf(m.getValueFourTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("2")){//平推门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(7, a.getPid());
                         Material mt1 = materialRepostitory.findMaterialById(as1.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueFourTwo())+Double.valueOf(m.getValueFourTwo())));
+                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())+Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(Double.valueOf(order.getWidth())+Double.valueOf(mt1.getValueFourTwo())+Double.valueOf(m.getValueFourTwo())+0.0));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }else if (order.getState().equals("3")){//衣柜门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -329,7 +330,7 @@ public class OrderController {
                         Associated as2 = associatedRepostitory.findAssociatedByNumberAndPid(3, a.getPid());
                         Material mt2 = materialRepostitory.findMaterialById(as2.getMid());
                         m.setName("玻");
-                        m.setValueSum(String.valueOf(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne()))+"x"+String.valueOf(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueFourTwo()))/order.getNumber())+Double.valueOf(m.getValueFourTwo())+0.00));
+                        m.setValueSum(String.valueOf(gf.format(Double.valueOf(order.getHeight())-Double.valueOf(mt1.getValueFourOne())-Double.valueOf(m.getValueFourOne())))+"x"+String.valueOf(gf.format(((Double.valueOf(order.getWidth())-Double.valueOf(mt2.getValueFourTwo()))/order.getNumber())+Double.valueOf(m.getValueFourTwo())+0.0)));
                         m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                     }
                 }else if (m.getMtid()==7){//包套

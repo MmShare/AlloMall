@@ -19,15 +19,13 @@
       <table class="layui-table" lay-skin="row " lay-size="lg  ">
         <colgroup>
           <col width="150">
-          <col width="150">
         </colgroup>
         <tbody>
         <tr>
-          <td colspan="4" th:text="'客户名：'+${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+'门窗名:'+${order.name}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.height}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+'备注：'+${order.attention}"></td>
+          <td colspan="4" th:text="${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.name}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.height}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.attention}"></td>
         </tr>
         <tr th:each="material:${materialList}">
-          <td th:text="${material.name}"></td>
-          <td th:text="${material.valueSum}+'='+${material.number}"></td>
+          <td th:text="${material.name}+'&nbsp;&nbsp;&nbsp;'+${material.valueSum}+'='+${material.number}"></td>
         </tr>
         </tbody>
       </table>

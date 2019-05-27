@@ -197,6 +197,12 @@ public class ProductController {
     public Data doProductAdditional(Data data,Associated associated){
         try {
             associated.setState(1);
+            Associated associatedByPidAndMid = associatedRepostitory.findAssociatedByPidAndMid(associated.getPid(), associated.getMid());
+            if (associatedByPidAndMid!=null){
+                data.setSuccess(false);
+                data.setMsg("您已经添加过这个材料，请不要重复添加");
+                return data;
+            }
             Material materialById = materialRepostitory.findMaterialById(associated.getMid());
             associated.setNumber(materialById.getMtid());
             associatedRepostitory.save(associated);
