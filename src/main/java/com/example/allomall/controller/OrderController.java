@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -111,11 +112,11 @@ public class OrderController {
             if (order.getSumType()==1){//单开门计算方式
                 if (m.getMtid()==1){//光企的计算方式
                     m.setName("光");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueOneOne()))));
+                    m.setValueSum(String.valueOf(( new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueOneOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
                     m.setName("勾");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueOneOne()))));
+                    m.setValueSum(String.valueOf((new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueOneOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
@@ -169,11 +170,11 @@ public class OrderController {
             }else if (order.getSumType()==2){//双开门计算公式
                 if (m.getMtid()==1){//光企的计算方式
                     m.setName("光");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()))));
+                    m.setValueSum(String.valueOf(( new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueTwoOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
                     m.setName("勾");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueTwoOne()))));
+                    m.setValueSum(String.valueOf((new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueTwoOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
@@ -227,11 +228,11 @@ public class OrderController {
             }else if (order.getSumType()==3){//三开门计算公式
                 if (m.getMtid()==1){//光企的计算方式
                     m.setName("光");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueThrOne()))));
+                    m.setValueSum(String.valueOf(( new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueThrOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
                     m.setName("勾");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueThrOne()))));
+                    m.setValueSum(String.valueOf((new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueThrOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");
@@ -285,11 +286,11 @@ public class OrderController {
             }else if (order.getSumType()==4){//4开门计算公式
                 if (m.getMtid()==1){//光企的计算方式
                     m.setName("光");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueFourOne()))));
+                    m.setValueSum(String.valueOf(( new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueFourOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==2){//勾企的计算方式
                     m.setName("勾");
-                    m.setValueSum(String.valueOf((Double.valueOf(order.getHeight())-Double.valueOf(m.getValueFourOne()))));
+                    m.setValueSum(String.valueOf((new BigDecimal(order.getHeight()).subtract(new BigDecimal(m.getValueFourOne())))));
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
                 }else if (m.getMtid()==3){//上下方计算方式
                     m.setName("上下");

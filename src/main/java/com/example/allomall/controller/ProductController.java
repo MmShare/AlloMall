@@ -160,6 +160,7 @@ public class ProductController {
     public Data doProductDelete(Data data,Product product,@Param("id") Integer id){
         try {
             productRepostitory.deleteProductById(id);
+            associatedRepostitory.deleteAssociatedByPid(id);
             data.setSuccess(true);
             data.setMsg("删除商品成功");
         }catch (Exception e){
@@ -236,7 +237,7 @@ public class ProductController {
     @RequestMapping(value = "/product/buy.json")
     @ResponseBody
     public Data doProductBuy(Data data, Order order,@Param("cid") String cid,@Param("bid") String bid,@Param("price") Integer price,@Param("pid") Integer pid,@Param("sumType") Integer sumType){
-        Boolean isBuy=false;
+        Boolean isBuy=true;
         Boolean haveBoLi=false;
         Boolean haveBaoTao=false;
         Boolean haveGuangQi=false;
