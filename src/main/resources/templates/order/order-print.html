@@ -150,7 +150,11 @@
   });
   
   function print() {
-    $("#print").jqprint();
+    $("#print").jqprint({
+      importCSS:true,
+      printContainer:true,
+      operaSupport:true
+    });
   }
 </script>
 </body>
