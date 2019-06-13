@@ -401,6 +401,7 @@ public class OrderController {
         List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt);
         for (Order o:orderList
              ) {
+            o.setAttention(o.getAttention()+"&nbsp;&nbsp;&nbsp;&nbsp;墙厚："+o.getWall());
             allPrices+=o.getPrices();
         }
         map.put("orderInformation",orderRepostitory.findOrderById(idInt[0]));

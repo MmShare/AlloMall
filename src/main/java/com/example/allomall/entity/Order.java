@@ -64,6 +64,9 @@ public class Order {
      @Column(name = "bid",length = 50)
     private String bid;//玻璃名称
 
+    @Column(name = "wall",length = 50)
+    private String wall;//墙厚
+
     @Column(name = "sumType",length = 50)
     private Integer sumType;//计算类型
 

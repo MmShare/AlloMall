@@ -287,7 +287,11 @@ public class ProductController {
             order.setSquare(df.format(sq));
             order.setPrices(sq*price);
             order.setNumber(sumType);
-            order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
+            if (order.getWall()!=null&&order.getWall()!=""){
+                order.setPrices((int)((Double.valueOf(price)*sq)+0.50+20.00));
+            }else {
+                order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
+            }
             order.setHavePay(price.toString());
             order.setOrderNumber(sn.format(new Date()));
             order.setCreateTime(sf.format(new Date()));
@@ -298,7 +302,7 @@ public class ProductController {
             data.setMsg("下单成功");
         }else {
             data.setSuccess(false);
-            data.setMsg("这个门窗材料缺少上下方，请先去添加上下方");
+            data.setMsg("下单时发生错误，请重新下单");
         }
         return data;
     }

@@ -22,7 +22,7 @@
         </colgroup>
         <tbody>
         <tr>
-          <td colspan="4" th:text="${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.name}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.height}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.attention}"></td>
+          <td colspan="4" th:text="${order.peopleName}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.name}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.height}+'&nbsp;'+'x'+'&nbsp;'+${order.width}+'&nbsp;=&nbsp;'+${order.number}+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '+${order.attention}+'&nbsp;&nbsp;&nbsp;&nbsp;墙厚:'+${order.wall}"></td>
         </tr>
         <tr th:each="material:${materialList}">
           <td th:text="${material.name}+'&nbsp;&nbsp;&nbsp;'+${material.valueSum}+'='+${material.number}"></td>
