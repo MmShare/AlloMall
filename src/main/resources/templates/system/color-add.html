@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>添加材料类型</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+        <form class="layui-form" action="" lay-filter="material-form-add">
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">材料名称</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">数量</label>
+              <div class="layui-input-inline">
+                <input type="text" name="number"  lay-verify="length" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <div class="layui-inline">
+              <label class="layui-form-label">材料类型</label>
+              <div class="layui-input-inline">
+                <select  name="mtid" id="mtid" lay-verify="mtid">
+                  <option th:each="materialType:${materialTypeList}" th:value="${materialType.id}"
+                          th:text="${materialType.name}"></option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">单开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueOneOne" lay-verify="height"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">单开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueOneTwo" lay-verify="width"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">双开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueTwoOne" lay-verify="height"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">双开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueTwoTwo" lay-verify="width"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">三开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueThrOne" lay-verify="height"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">三开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueThrTwo" lay-verify="width"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">四开计算值1</label>
+              <div class="layui-input-inline">
+                <input type="tel" name="valueFourOne" lay-verify="height"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">四开计算值2</label>
+              <div class="layui-input-inline">
+                <input type="text" name="valueFourTwo" lay-verify="width"  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item" style="margin-right: 0px">
+            <div class="layui-input-block" >
+              <button class="layui-btn" lay-submit lay-filter="material-form-add">立即提交</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+  </div>
+
+
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form', 'laydate'], function(){
+    var $ = layui.$
+    ,admin = layui.admin
+    ,element = layui.element
+    ,layer = layui.layer
+    ,laydate = layui.laydate
+    ,form = layui.form;
+
+    form.render(null, 'material-form-add');
+
+    laydate.render({
+      elem: '#LAY-component-form-group-date'
+    });
+
+    /* 自定义验证规则 */
+    form.verify({
+      name: function(value){
+        if(value.length < 1){
+          return '材料名称不能为空';
+        }
+      }
+      , length: function(value){
+        if(value.length < 1){
+          return '数量不能为空';
+        }
+      }
+      , height: function(value){
+        if(value.length < 1){
+          return '数值1不能为空，没有则填0';
+        }
+      }
+      , width: function(value){
+        if(value.length < 1){
+          return '数值2不能为空，没有则填0';
+        }
+      }
+      ,content: function(value){
+        layedit.sync(editIndex);
+      }
+    });
+
+    /* 监听提交 */
+    form.on('submit(material-form-add)', function(data){
+      $.ajax({
+        type:"POST",
+        url:"/system/material/add.json",
+        dataType:"JSON",
+        data:data.field,
+        success:function (res) {
+          window.parent.layer.closeAll();
+          window.parent.layer.msg(res.msg);
+          setTimeout(function () {
+            window.parent.location.reload();
+          },200);
+        },
+
+        error:function () {
+          window.parent.layer.closeAll();
+        }
+      })
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>

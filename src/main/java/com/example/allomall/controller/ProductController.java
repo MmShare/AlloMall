@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -288,7 +289,12 @@ public class ProductController {
             order.setPrices(sq*price);
             order.setNumber(sumType);
             if (order.getWall()!=null&&order.getWall()!=""){
-                order.setPrices((int)((Double.valueOf(price)*sq)+0.50+20.00));
+                BigDecimal number = new BigDecimal(price);
+                if (number.compareTo(new BigDecimal(20))==1){
+                    order.setPrices((int)((Double.valueOf(price)*sq)+0.50+60.00));
+                }else {
+                    order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
+                }
             }else {
                 order.setPrices((int)((Double.valueOf(price)*sq)+0.50));
             }

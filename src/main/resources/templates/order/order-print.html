@@ -26,7 +26,7 @@
     </colgroup>
     <tbody>
     <tr>
-      <td colspan="4" style=" text-align:center;">天长市聚福门业</td>
+      <td colspan="4" style=" text-align:center;font-size: 30px">天长市聚福门业</td>
     </tr>
     <tr>
       <td th:text="'客户名：'+${orderInformation.peopleName}" style="margin-left:0px;"></td>
@@ -36,7 +36,7 @@
     </tbody>
   </table>
 
-  <table class="layui-table" lay-skin="row " lay-size="lg  ">
+  <table class="layui-table" lay-skin="row " lay-size="lg " style="font-family: 黑体">
     <colgroup>
       <col width="50">
       <col width="100">
@@ -53,14 +53,14 @@
     <tr>
     </tr>
     <tr>
-      <td>序号</td>
-      <td>尺寸高</td>
-      <td>尺寸宽</td>
+      <td>序</td>
+      <td>高</td>
+      <td>宽</td>
       <td>门扇</td>
       <td>平方</td>
-      <td>单价/平</td>
-      <td>商品名称</td>
-      <td>商品备注</td>
+      <td>单价</td>
+      <td>名称</td>
+      <td>备注</td>
       <td>总价</td>
     </tr>
     <tr th:each="order,orderStat :${orderList}">
@@ -91,7 +91,7 @@
     </colgroup>
     <tbody>
     <tr>
-      <td style="margin-left:0px;">地址：安徽省&nbsp;&nbsp;天长市&nbsp;&nbsp;邱家湾</td>
+      <td style="margin-left:0px;">厂址：安徽省&nbsp;&nbsp;天长市&nbsp;&nbsp;邱家湾</td>
       <td>签收日期：</td>
       <td>客户签字：</td>
     </tr>

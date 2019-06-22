@@ -135,7 +135,7 @@ public class OrderController {
                 }else if (m.getMtid()==5){//轨道
                     m.setName("轨");
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueOneOne())));
-                    m.setNumber(order.getNumber().toString());
+                    m.setNumber("1");
                 }else if (m.getMtid()==6){//玻璃
                     if (order.getState().equals("1")){//平开门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -193,7 +193,7 @@ public class OrderController {
                 }else if (m.getMtid()==5){//轨道
                     m.setName("轨");
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueTwoOne())));
-                    m.setNumber(order.getNumber().toString());
+                    m.setNumber("1");
                 }else if (m.getMtid()==6){//玻璃
                     if (order.getState().equals("1")){//阳台门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -244,14 +244,14 @@ public class OrderController {
                         m.setValueSum(String.valueOf(gf.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne()))/order.getNumber())+0.0))));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
-                }else if (m.getMtid()==4){//轨道
-                    m.setName("轨道");
+                }else if (m.getMtid()==4){//边框
+                    m.setName("边");
                     m.setValueSum(order.getHeight());
                     m.setNumber(order.getNumber().toString());
-                }else if (m.getMtid()==5){//边框
-                    m.setName("边");
+                }else if (m.getMtid()==5){//轨道
+                    m.setName("轨");
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueThrOne())));
-                    m.setNumber(order.getNumber().toString());
+                    m.setNumber("1");
                 }else if (m.getMtid()==6){//玻璃
                     if (order.getState().equals("1")){//阳台门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -302,14 +302,14 @@ public class OrderController {
                         m.setValueSum(String.valueOf(gf.format((((Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne()))/order.getNumber()))+0.0)));
                     }
                     m.setNumber(String.valueOf((Integer.valueOf(m.getNumber())*Integer.valueOf(order.getNumber()))));
-                }else if (m.getMtid()==4){//轨道
-                    m.setName("轨");
+                }else if (m.getMtid()==4){//边框
+                    m.setName("边");
                     m.setValueSum(order.getHeight());
                     m.setNumber(order.getNumber().toString());
-                }else if (m.getMtid()==5){//边框
-                    m.setName("边");
+                }else if (m.getMtid()==5){//轨道
+                    m.setName("轨道");
                     m.setValueSum(String.valueOf(Double.valueOf(order.getWidth())-Double.valueOf(m.getValueFourOne())));
-                    m.setNumber(order.getNumber().toString());
+                    m.setNumber("1");
                 }else if (m.getMtid()==6){//玻璃
                     if (order.getState().equals("1")){//阳台门玻璃计算方式
                         Associated as1 = associatedRepostitory.findAssociatedByNumberAndPid(1, a.getPid());
@@ -401,7 +401,11 @@ public class OrderController {
         List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt);
         for (Order o:orderList
              ) {
-            o.setAttention(o.getAttention()+"&nbsp;&nbsp;&nbsp;&nbsp;墙厚："+o.getWall());
+            if (o.getWall()==null || o.getWall().equals("")){
+                o.setAttention(o.getAttention());
+            }else {
+                o.setAttention(o.getAttention()+"                    "+"  墙厚："+o.getWall());
+            }
             allPrices+=o.getPrices();
         }
         map.put("orderInformation",orderRepostitory.findOrderById(idInt[0]));

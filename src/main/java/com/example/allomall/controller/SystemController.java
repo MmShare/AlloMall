@@ -1,10 +1,8 @@
 package com.example.allomall.controller;
 
 import com.example.allomall.config.SystemParameter;
-import com.example.allomall.entity.Data;
-import com.example.allomall.entity.Material;
-import com.example.allomall.entity.Table;
-import com.example.allomall.entity.Type;
+import com.example.allomall.entity.*;
+import com.example.allomall.repostitory.ColorRepostitory;
 import com.example.allomall.repostitory.MaterialRepostitory;
 import com.example.allomall.repostitory.MaterialTypeRepostitory;
 import com.example.allomall.repostitory.TypeRepostitory;
@@ -37,6 +35,9 @@ public class SystemController {
 
     @Autowired
     private MaterialTypeRepostitory materialTypeRepostitory;
+
+    @Autowired
+    private ColorRepostitory colorRepostitory;
 
     @RequestMapping(value = "/windowsType/list.html")
     public String toWindowsType() {
@@ -241,6 +242,47 @@ public class SystemController {
             e.printStackTrace();
             data.setSuccess(false);
         }
+        return data;
+    }
+
+    @RequestMapping(value = "/color/list.html")
+    public String toColor(){
+        log.info("to color list  html...................................");
+        return "system/color-list";
+    }
+
+    @RequestMapping(value = "/color/getList.json")
+    @ResponseBody
+    public Table getColorList(Table table){
+        log.info("get color list .....................................................");
+        table.setCode(0);
+        table.setMsg("");
+        List<Color> colorList = colorRepostitory.findAll();
+        table.setCount(colorList.size());
+        table.setData(colorList);
+        return table;
+    }
+
+    @RequestMapping(value = "/color/add.html")
+    public String toColorAdd(){
+        log.info(" to  color  add .......................................");
+        return "system/color-add";
+    }
+
+    @RequestMapping(value = "/color/add.json")
+    @ResponseBody
+    public Data doColorAdd(Data data){
+        return data;
+    }
+
+    @RequestMapping(value = "/color/edit.html")
+    public String toColorEdit(){
+        return "system/color-edit";
+    }
+
+    @RequestMapping(value = "/color/edit.json")
+    @ResponseBody
+    public Data doColorEdit(Data data){
         return data;
     }
 }
