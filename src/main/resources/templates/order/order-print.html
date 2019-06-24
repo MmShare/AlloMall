@@ -10,7 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
-
+  <style type="text/css">
+    .table_style{font-family:'宋体';font-size:16px;line-height:45px;font-weight:bold;}
+  </style>
 </head>
 <body>
 
@@ -151,9 +153,9 @@
   
   function print() {
     $("#print").jqprint({
-      // importCSS:true,
-      // printContainer:true,
-      // operaSupport:true
+      importCSS:true,
+      printContainer:true,
+      operaSupport:true
     });
   }
 </script>
