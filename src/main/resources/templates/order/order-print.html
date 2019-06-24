@@ -14,10 +14,10 @@
 </head>
 <body>
 
-<div class="layui-fluid" id="print" style="font-family: 宋体">
+<div class="layui-fluid" id="print">
 
 
-  <table class="layui-table" lay-skin="nob" lay-size="lg">
+  <table class="layui-table" lay-skin="nob" lay-size="lg" style="font-family: 黑体">
     <colgroup>
       <col width="150">
       <col width="80">
@@ -36,17 +36,17 @@
     </tbody>
   </table>
 
-  <table class="layui-table" lay-skin="row " lay-size="lg " style="font-family: 黑体">
+  <table class="layui-table" lay-skin="row " lay-size="sm " style="font-family: 黑体">
     <colgroup>
-      <col width="50">
-      <col width="100">
-      <col width="100">
+      <col width="20">
+      <col width="20">
+      <col width="20">
+      <col width="20">
+      <col width="20">
+      <col width="20">
+      <col width="250">
+      <col width="900">
       <col width="80">
-      <col width="80">
-      <col width="100">
-      <col width="150">
-      <col width="200">
-      <col width="100">
       <col>
     </colgroup>
     <tbody>
@@ -82,7 +82,7 @@
     </tbody>
   </table>
 
-  <table class="layui-table" lay-skin="nob" lay-size="lg">
+  <table class="layui-table" lay-skin="nob" lay-size="lg" style="font-family: 黑体">
     <colgroup>
       <col width="200">
       <col width="120">
@@ -90,7 +90,7 @@
       <col>
     </colgroup>
     <tbody>
-    <tr>
+    <tr style="font-size: 30px">
       <td style="margin-left:0px;">厂址：安徽省&nbsp;&nbsp;天长市&nbsp;&nbsp;邱家湾</td>
       <td>签收日期：</td>
       <td>客户签字：</td>
@@ -151,9 +151,9 @@
   
   function print() {
     $("#print").jqprint({
-      importCSS:true,
-      printContainer:true,
-      operaSupport:true
+      // importCSS:true,
+      // printContainer:true,
+      // operaSupport:true
     });
   }
 </script>

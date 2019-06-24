@@ -14,20 +14,20 @@
 <body>
 
   <div class="layui-fluid">
-        <form class="layui-form" action="" lay-filter="color-form-add">
-
+        <form class="layui-form" action="" lay-filter="color-form-edit">
+          <input type="hidden" name="id" th:value="${color.id}">
           <div class="layui-form-item">
             <div class="layui-inline">
-              <label class="layui-form-label">颜色名</label>
+              <label class="layui-form-label">材料名称</label>
               <div class="layui-input-inline">
-                <input type="tel" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+                <input type="tel" name="name" lay-verify="name" autocomplete="off" th:value="${color.name}" class="layui-input">
               </div>
             </div>
           </div>
 
           <div class="layui-form-item" style="margin-right: 0px">
             <div class="layui-input-block" >
-              <button class="layui-btn" lay-submit lay-filter="color-form-add">立即提交</button>
+              <button class="layui-btn" lay-submit lay-filter="material-form-add">立即提交</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
           </div>
@@ -49,7 +49,7 @@
     ,laydate = layui.laydate
     ,form = layui.form;
 
-    form.render(null, 'color-form-add');
+    form.render(null, 'material-form-add');
 
     laydate.render({
       elem: '#LAY-component-form-group-date'
@@ -68,10 +68,10 @@
     });
 
     /* 监听提交 */
-    form.on('submit(color-form-add)', function(data){
+    form.on('submit(material-form-add)', function(data){
       $.ajax({
         type:"POST",
-        url:"/system/color/add.json",
+        url:"/system/color/edit.json",
         dataType:"JSON",
         data:data.field,
         success:function (res) {

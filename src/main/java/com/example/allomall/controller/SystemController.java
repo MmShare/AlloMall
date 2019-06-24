@@ -271,18 +271,62 @@ public class SystemController {
 
     @RequestMapping(value = "/color/add.json")
     @ResponseBody
-    public Data doColorAdd(Data data){
+    public Data doColorAdd(Data data,Color color){
+        try {
+            colorRepostitory.save(color);
+            data.setSuccess(true);
+            data.setMsg("添加颜色成功");
+        }catch (Exception e){
+            data.setSuccess(false);
+            data.setMsg("添加颜色的时候发生错误");
+        }
         return data;
     }
 
-    @RequestMapping(value = "/color/edit.html")
-    public String toColorEdit(){
+    @RequestMapping(value = "/color/edit.html/{id}")
+    public String toColorEdit(ModelMap map,@PathVariable("id") Integer id){
+        Color color=colorRepostitory.findColorById(id);
+        map.put("color",color);
         return "system/color-edit";
     }
 
     @RequestMapping(value = "/color/edit.json")
     @ResponseBody
-    public Data doColorEdit(Data data){
+    public Data doColorEdit(Data data,Color color){
+        try {
+            colorRepostitory.save(color);
+            data.setSuccess(true);
+            data.setMsg("修改颜色成功");
+        }catch (Exception e){
+            data.setSuccess(false);
+            data.setMsg("修改颜色时发生错误");
+        }
         return data;
+    }
+
+    @RequestMapping(value = "/color/delete.json")
+    @ResponseBody
+    public Data doColorDelete(Data data,@Param("id") Integer id){
+        try {
+            colorRepostitory.deleteColorById(id);
+            data.setSuccess(true);
+            data.setMsg("删除颜色成功");
+        }catch (Exception e){
+            data.setSuccess(false);
+            data.setMsg("删除颜色发生错误");
+        }
+        return data;
+    }
+
+    @RequestMapping(value = "/color/search.json")
+    @ResponseBody
+    public Table searchCololrList(Table table,@Param("condition") String condition) {
+        log.info("search color list .....................................................");
+        table.setCode(0);
+        table.setMsg("");
+        List<Color> colorList = colorRepostitory.findColorsByNameContaining(condition);
+        table.setCount(colorList.size());
+        table.setData(colorList);
+        return table;
     }
 }
