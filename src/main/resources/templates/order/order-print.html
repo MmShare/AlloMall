@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
   <style type="text/css">
-    .table_style{font-family:'宋体';font-size:16px;line-height:45px;font-weight:bold;}
+    .table_style{font-family:'黑体';color: #0C0C0C}
   </style>
 </head>
 <body>
@@ -19,7 +19,7 @@
 <div class="layui-fluid" id="print">
 
 
-  <table class="layui-table" lay-skin="nob" lay-size="lg" style="font-family: 黑体">
+  <table class="layui-table table_style" lay-skin="nob" lay-size="lg">
     <colgroup>
       <col width="150">
       <col width="80">
@@ -38,7 +38,7 @@
     </tbody>
   </table>
 
-  <table class="layui-table" lay-skin="row " lay-size="sm " style="font-family: 黑体">
+  <table class="layui-table table_style" lay-skin="row " lay-size="sm " style="font-family: 黑体">
     <colgroup>
       <col width="20">
       <col width="20">
@@ -84,7 +84,7 @@
     </tbody>
   </table>
 
-  <table class="layui-table" lay-skin="nob" lay-size="lg" style="font-family: 黑体">
+  <table class="layui-table table_style" lay-skin="nob" lay-size="lg" style="font-family: 黑体">
     <colgroup>
       <col width="200">
       <col width="120">
@@ -114,7 +114,7 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form', 'laydate'], function(){
+  }).use(['index', 'form','print', 'laydate'], function(){
     var $ = layui.$
             ,admin = layui.admin
             ,element = layui.element
