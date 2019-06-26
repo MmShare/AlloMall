@@ -55,6 +55,7 @@
 <script type="text/html" id="print">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="printOrder">打印选中订单</button>
+        <button class="layui-btn layui-btn-sm" lay-event="downOrder">下载选中订单</button>
     </div>
 </script>
 
@@ -114,6 +115,14 @@
                         title: "材料列表",
                         content: ['/order/order/print.html/' + arr],
                     });
+                    break;
+                case 'downOrder':
+                    var  arr="";
+                    var selectData = table.checkStatus('oder-information').data;
+                    for (var i=0;i<selectData.length;i++){
+                        arr=arr+selectData[i].id+",";
+                    }
+                    window.location.href="/order/order/downExcel/"+arr;
                     break;
                 case 'getCheckLength':
                     var data = checkStatus.data;

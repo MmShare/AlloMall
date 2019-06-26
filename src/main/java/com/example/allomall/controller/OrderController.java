@@ -6,6 +6,7 @@ import com.example.allomall.repostitory.AssociatedRepostitory;
 import com.example.allomall.repostitory.MaterialRepostitory;
 import com.example.allomall.repostitory.OrderRepostitory;
 import com.example.allomall.repostitory.ProductRepostitory;
+import com.example.allomall.utlis.ExcelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +36,8 @@ public class OrderController {
     DecimalFormat gf = new DecimalFormat("#.0");//保留小数点后1位
 
     private Map<String,String> orderMap=new HashMap<>();
+
+    private ExcelUtil excelUtil=new ExcelUtil();
 
     @Autowired
     private OrderRepostitory orderRepostitory;
@@ -415,6 +420,28 @@ public class OrderController {
         return "order/order-print";
     }
 
+    @RequestMapping(value = "/order/downExcel")
+    public void doDownExcel(ModelMap map, @PathVariable("ids") String ids, HttpServletResponse response) throws IOException {
+        String[] idStr = ids.split(",");
+        Integer[] idInt=new Integer[idStr.length];
+        Double allPrices=0.00;
+        for (int i=0;i<idStr.length;i++){
+            idInt[i]=Integer.valueOf(idStr[i]);
+        }
+        String[] keys={"序","高","宽","门扇","平方","单价","名称","备注","总价"};
+        List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt);
+        for (Order o:orderList
+        ) {
+            if (o.getWall()==null || o.getWall().equals("")){
+                o.setAttention(o.getAttention());
+            }else {
+                o.setAttention(o.getAttention()+"                    "+"  墙厚："+o.getWall());
+            }
+            allPrices+=o.getPrices();
+        }
+        String fileName=orderRepostitory.findOrderById(idInt[0]).getPeopleName()+"的订单";
+        excelUtil.downloadWorkBook(orderList,keys,fileName,response);
+    }
 
 
 }
