@@ -90,8 +90,8 @@ public class ExcelUtil {
         HSSFCell cell1 = row1.createCell(5);
         cell1.setCellValue("订单日期:");
 //        cell1.setCellStyle(cs);
+        HSSFRow row2=sheet.createRow(2);
         for (int i=0;i<keys.length;i++){
-            HSSFRow row2=sheet.createRow(2);
             HSSFCell cell4=row2.createCell(i);
             cell4.setCellValue(keys[i].toString());
 //            cell4.setCellStyle(cs);
@@ -107,19 +107,19 @@ public class ExcelUtil {
                         cellj.setCellValue(i+1);
                         break;
                     case 1:
-                        cellj.setCellValue(list.get(i).getHeight() == null ? " " : list.get(i).getHeight().toString());
+                        cellj.setCellValue(list.get(i).getHeight() == null ? 0 : Double.valueOf(list.get(i).getHeight().toString()));
                         break;
                     case 2:
-                        cellj.setCellValue(list.get(i).getWidth() == null ? " " : list.get(i).getWidth().toString());
+                        cellj.setCellValue(list.get(i).getWidth() == null ? 0 : Double.valueOf(list.get(i).getWidth().toString()));
                         break;
                     case 3:
-                        cellj.setCellValue(list.get(i).getNumber() == null ? " " : list.get(i).getNumber().toString());
+                        cellj.setCellValue(list.get(i).getNumber() == null ? 0 : Double.valueOf(list.get(i).getNumber().toString()));
                         break;
                     case 4:
-                        cellj.setCellValue(list.get(i).getSquare() == null ? " " : list.get(i).getSquare().toString());
+                        cellj.setCellValue(list.get(i).getSquare() == null ? 0 : Double.valueOf(list.get(i).getSquare().toString()));
                         break;
                     case 5:
-                        cellj.setCellValue(list.get(i).getHavePay() == null ? " " : list.get(i).getHavePay().toString());
+                        cellj.setCellValue(list.get(i).getHavePay() == null ? 0 : Double.valueOf(list.get(i).getHavePay().toString()));
                         break;
                     case 6:
                         cellj.setCellValue(list.get(i).getName() == null ? " " : list.get(i).getName().toString());
