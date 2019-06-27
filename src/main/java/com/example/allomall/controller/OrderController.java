@@ -420,7 +420,7 @@ public class OrderController {
         return "order/order-print";
     }
 
-    @RequestMapping(value = "/order/downExcel")
+    @RequestMapping(value = "/order/downExcel/{ids}")
     public void doDownExcel(ModelMap map, @PathVariable("ids") String ids, HttpServletResponse response) throws IOException {
         String[] idStr = ids.split(",");
         Integer[] idInt=new Integer[idStr.length];

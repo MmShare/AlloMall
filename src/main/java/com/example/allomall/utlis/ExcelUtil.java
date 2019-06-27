@@ -25,41 +25,25 @@ public class ExcelUtil {
      * list 数据
      *
      * @param keys        list中map的key数组集合
-     * @param columnNames excel的列名
+     * @param keys excel的列名
      */
     public HSSFWorkbook createWorkBook(List<Order> list, String[] keys) {
         // 创建excel工作簿
         HSSFWorkbook wb = new HSSFWorkbook();
         // 创建第一个sheet页，并命名
         HSSFSheet sheet = wb.createSheet("订单统计");
-        // 设置列宽
-        for (int i = 0; i < keys.length; i++) {
-            //最后一列为附件URL地址,列宽设置大一些
-            if (i == (keys.length - 1)) {
-                sheet.setColumnWidth((short) i, (short) (200 * 120));
-            } else {
-                sheet.setColumnWidth((short) i, (short) (50 * 60));
-            }
-        }
+//        // 设置列宽
+//        for (int i = 0; i < keys.length; i++) {
+//            //最后一列为附件URL地址,列宽设置大一些
+//            if (i == (keys.length - 1)) {
+//                sheet.setColumnWidth((short) i, (short) (200 * 120));
+//            } else {
+//                sheet.setColumnWidth((short) i, (short) (50 * 60));
+//            }
+//        }
 
 
 
-        //设置合并的列
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 8));
-
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 8));
-
-        sheet.addMergedRegion(new CellRangeAddress(list.size()+2, list.size()+2, 0, 7));
-        sheet.addMergedRegion(new CellRangeAddress(list.size()+2, list.size()+2, 8, 8));
-
-        sheet.addMergedRegion(new CellRangeAddress(list.size()+3, list.size()+3, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(list.size()+3, list.size()+3, 4, 5));
-        sheet.addMergedRegion(new CellRangeAddress(list.size()+3, list.size()+3, 6, 8));
-
-        // 创建第一行，并设置其单元格格式
-        HSSFRow row = sheet.createRow((short) 0);
-        row.setHeight((short) 500);
         // 表头样式
         HSSFCellStyle cs = wb.createCellStyle();
         HSSFFont f = wb.createFont();
@@ -71,6 +55,7 @@ public class ExcelUtil {
         cs.setVerticalAlignment(VerticalAlignment.CENTER);// 垂直居中
         cs.setLocked(true);
         cs.setWrapText(false);//自动换行
+
 
         //数据样式
         HSSFFont f2 = wb.createFont();
@@ -84,81 +69,105 @@ public class ExcelUtil {
         cellStyle.setWrapText(false);//自动换行
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
+        // 创建第一行，并设置其单元格格式
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 8));
+        HSSFRow row = sheet.createRow((short) 0);
+        row.setHeight((short) 500);
+
         HSSFCell cell = row.createCell(0);
         cell.setCellValue("聚福门业");
-        cell.setCellStyle(cs);
+//        cell.setCellStyle(cs);
 
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 4));
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 5, 8));
         // 创建第二行，并设置其单元格格式
         HSSFRow row1 = sheet.createRow((short) 1);
-        row.setHeight((short) 500);
+        row1.setHeight((short) 500);
         // 单元格格式(用于列名)
-        HSSFCell cell0 = row.createCell(0);
+        HSSFCell cell0 = row1.createCell(0);
         cell0.setCellValue("客户姓名:");
-        cell0.setCellStyle(cs);
-        HSSFCell cell1 = row.createCell(1);
-        cell1.setCellValue("");
-        cell1.setCellStyle(cs);
-        HSSFCell cell2 = row.createCell(2);
-        cell2.setCellValue("订单日期:");
-        cell2.setCellStyle(cs);
-        HSSFCell cell3 = row.createCell(3);
-        cell3.setCellValue("");
-        cell3.setCellStyle(cs);
+//        cell0.setCellStyle(cs);
+        HSSFCell cell1 = row1.createCell(5);
+        cell1.setCellValue("订单日期:");
+//        cell1.setCellStyle(cs);
         for (int i=0;i<keys.length;i++){
             HSSFRow row2=sheet.createRow(2);
-            HSSFCell cell4 = row2.createCell(i);
-            cell4.setCellValue(keys[i]);
-            cell4.setCellStyle(cs);
+            HSSFCell cell4=row2.createCell(i);
+            cell4.setCellValue(keys[i].toString());
+//            cell4.setCellStyle(cs);
         }
         //设置首行外,每行每列的值(Row和Cell都从0开始)
-        for (short i = 3; i < list.size()+2; i++) {
-            HSSFRow rowi = sheet.createRow((short) i);
+        for (short i = 0; i < list.size(); i++) {
+            HSSFRow rowi = sheet.createRow((short) i+3);
             //在Row行创建单元格
             for (short j = 0; j < keys.length; j++) {
                 HSSFCell cellj = rowi.createCell(j);
                 switch (j){
-                    case 0:cellj.setCellValue(i);
-                    case 1:cellj.setCellValue(list.get(i).getHeight() == null ? " " : list.get(i).getHeight().toString());
-                    case 2:cellj.setCellValue(list.get(i).getWidth() == null ? " " : list.get(i).getWidth().toString());
-                    case 3:cellj.setCellValue(list.get(i).getNumber() == null ? " " : list.get(i).getNumber().toString());
-                    case 4:cellj.setCellValue(list.get(i).getSquare() == null ? " " : list.get(i).getSquare().toString());
-                    case 5:cellj.setCellValue(list.get(i).getHavePay() == null ? " " : list.get(i).getHavePay().toString());
-                    case 6:cellj.setCellValue(list.get(i).getName() == null ? " " : list.get(i).getName().toString());
-                    case 7:cellj.setCellValue(list.get(i).getAttention() == null ? " " : list.get(i).getAttention().toString());
-                    case 8:cellj.setCellValue(list.get(i).getPrices());
+                    case 0:
+                        cellj.setCellValue(i+1);
+                        break;
+                    case 1:
+                        cellj.setCellValue(list.get(i).getHeight() == null ? " " : list.get(i).getHeight().toString());
+                        break;
+                    case 2:
+                        cellj.setCellValue(list.get(i).getWidth() == null ? " " : list.get(i).getWidth().toString());
+                        break;
+                    case 3:
+                        cellj.setCellValue(list.get(i).getNumber() == null ? " " : list.get(i).getNumber().toString());
+                        break;
+                    case 4:
+                        cellj.setCellValue(list.get(i).getSquare() == null ? " " : list.get(i).getSquare().toString());
+                        break;
+                    case 5:
+                        cellj.setCellValue(list.get(i).getHavePay() == null ? " " : list.get(i).getHavePay().toString());
+                        break;
+                    case 6:
+                        cellj.setCellValue(list.get(i).getName() == null ? " " : list.get(i).getName().toString());
+                        break;
+                    case 7:
+                        cellj.setCellValue(list.get(i).getAttention() == null ? " " : list.get(i).getAttention().toString());
+                        break;
+                    case 8:
+                        cellj.setCellValue(list.get(i).getPrices());
+                        break;
                     default:
                 }
             }
-            //依次为每个单元格设置样式
-            for (int m = 0; m < keys.length; m++) {
-                HSSFCell hssfCell = rowi.getCell(m);
-                hssfCell.setCellStyle(cellStyle);
-            }
+//            //依次为每个单元格设置样式
+//            for (int m = 0; m < keys.length; m++) {
+//                HSSFCell hssfCell = rowi.getCell(m);
+//                hssfCell.setCellStyle(cellStyle);
+//            }
         }
+        sheet.addMergedRegion(new CellRangeAddress(list.size()+4, list.size()+4, 0, 6));
+        sheet.addMergedRegion(new CellRangeAddress(list.size()+4, list.size()+4, 7, 8));
         // 创建倒数第二行，并设置其单元格格式
-        HSSFRow row_2 = sheet.createRow((short) list.size()+2);
-        row.setHeight((short) 500);
+        HSSFRow row_2 = sheet.createRow((short) list.size()+4);
+        row_2.setHeight((short) 500);
         // 单元格格式(用于列名)
-        HSSFCell cell_2_1 = row.createCell(0);
+        HSSFCell cell_2_1 = row_2.createCell(0);
         cell_2_1.setCellValue("总计:");
-        cell_2_1.setCellStyle(cellStyle);
-        HSSFCell cell_2_2 = row.createCell(1);
-        cell_2_2.setCellValue("");
-        cell_2_2.setCellStyle(cellStyle);
+//        cell_2_1.setCellStyle(cellStyle);
+        HSSFCell cell_2_2 = row_2.createCell(7);
+        cell_2_2.setCellValue("111");
+//        cell_2_2.setCellStyle(cellStyle);
 
+        sheet.addMergedRegion(new CellRangeAddress(list.size()+5, list.size()+5, 0, 3));
+        sheet.addMergedRegion(new CellRangeAddress(list.size()+5, list.size()+5, 4, 5));
+        sheet.addMergedRegion(new CellRangeAddress(list.size()+5, list.size()+5, 6, 8));
         // 创建倒数第一行，并设置其单元格格式
-        HSSFRow row_1 = sheet.createRow((short) list.size()+3);
-        row.setHeight((short) 500);
+        HSSFRow row_1 = sheet.createRow((short) list.size()+5);
+        row_1.setHeight((short) 500);
         // 单元格格式(用于列名)
-        HSSFCell cell_1_1 = row.createCell(0);
+        HSSFCell cell_1_1 = row_1.createCell(0);
         cell_1_1.setCellValue("厂址:安徽省 天长市 邱家湾");
-        cell_1_1.setCellStyle(cellStyle);
-        HSSFCell cell_1_2 = row.createCell(1);
+//        cell_1_1.setCellStyle(cellStyle);
+        HSSFCell cell_1_2 = row_1.createCell(4);
         cell_1_2.setCellValue("签收日期:");
-        cell_1_2.setCellStyle(cellStyle);
-        HSSFCell cell_1_3 = row.createCell(2);
+//        cell_1_2.setCellStyle(cellStyle);
+        HSSFCell cell_1_3 = row_1.createCell(6);
         cell_1_3.setCellValue("客户签字:");
-        cell_1_3.setCellStyle(cellStyle);
+//        cell_1_3.setCellStyle(cellStyle);
         return wb;
     }
 
