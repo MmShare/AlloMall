@@ -48,7 +48,7 @@ public class ExcelUtil {
         HSSFCellStyle cs = wb.createCellStyle();
         HSSFFont f = wb.createFont();
         f.setFontName("黑体");
-        f.setFontHeightInPoints((short) 10);
+        f.setFontHeightInPoints((short) 50);
         f.setBold(true);
         cs.setFont(f);
         cs.setAlignment(HorizontalAlignment.CENTER);// 水平居中
