@@ -409,7 +409,7 @@ public class OrderController {
             if (o.getWall()==null || o.getWall().equals("")){
                 o.setAttention(o.getAttention());
             }else {
-                o.setAttention(o.getAttention()+"                    "+"  墙厚："+o.getWall());
+                o.setAttention(o.getAttention()+","+"  墙厚："+o.getWall());
             }
             allPrices+=o.getPrices();
         }
@@ -435,7 +435,7 @@ public class OrderController {
             if (o.getWall()==null || o.getWall().equals("")){
                 o.setAttention(o.getAttention());
             }else {
-                o.setAttention(o.getAttention()+"                    "+"  墙厚："+o.getWall());
+                o.setAttention(o.getAttention()+","+"  墙厚："+o.getWall());
             }
             allPrices+=o.getPrices();
         }
