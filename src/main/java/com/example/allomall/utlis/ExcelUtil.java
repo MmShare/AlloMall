@@ -10,6 +10,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -131,49 +132,54 @@ public class ExcelUtil {
             cell4.setCellStyle(cellStyle);
         }
         //设置首行外,每行每列的值(Row和Cell都从0开始)
+        Order order=null;
+        BigDecimal count=new BigDecimal(0);
         for (short i = 0; i < list.size(); i++) {
             HSSFRow rowi = sheet.createRow((short) i+3);
+
             //在Row行创建单元格
             for (short j = 0; j < keys.length; j++) {
                 HSSFCell cellj = rowi.createCell(j);
+                order=list.get(i);
                 switch (j){
                     case 0:
                         cellj.setCellValue(i+1);
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 1:
-                        cellj.setCellValue(list.get(i).getHeight() == null ? 0 : Double.valueOf(list.get(i).getHeight().toString()));
+                        cellj.setCellValue(order.getHeight() == null ? 0 : Double.valueOf(order.getHeight().toString()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 2:
-                        cellj.setCellValue(list.get(i).getWidth() == null ? 0 : Double.valueOf(list.get(i).getWidth().toString()));
+                        cellj.setCellValue(order.getWidth() == null ? 0 : Double.valueOf(order.getWidth().toString()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 3:
-                        cellj.setCellValue(list.get(i).getNumber() == null ? 0 : Double.valueOf(list.get(i).getNumber().toString()));
+                        cellj.setCellValue(order.getNumber() == null ? 0 : Double.valueOf(order.getNumber().toString()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 4:
-                        cellj.setCellValue(list.get(i).getSquare() == null ? 0 : Double.valueOf(list.get(i).getSquare().toString()));
+                        cellj.setCellValue(order.getSquare() == null ? 0 : Double.valueOf(order.getSquare().toString()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 5:
-                        cellj.setCellValue(list.get(i).getHavePay() == null ? 0 : Double.valueOf(list.get(i).getHavePay().toString()));
+                        cellj.setCellValue(order.getHavePay() == null ? 0 : Double.valueOf(order.getHavePay().toString()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 6:
-                        cellj.setCellValue(list.get(i).getName() == null ? " " : list.get(i).getName().toString());
+                        cellj.setCellValue(order.getName() == null ? " " : order.getName().toString());
                         cellj.setCellStyle(cellStyle);
                         break;
                     case 7:
-                        cellj.setCellValue(list.get(i).getAttention() == null ? " " : list.get(i).getAttention().toString());
+                        cellj.setCellValue(order.getAttention() == null ? " " : order.getAttention().toString());
                         break;
                     case 8:
-                        cellj.setCellValue(Double.valueOf(list.get(i).getPrices()));
+                        cellj.setCellValue(Double.valueOf(order.getPrices()));
                         cellj.setCellStyle(cellStyle);
                         break;
                     default:
                 }
+                count=count.add(new BigDecimal(order.getPrices()));
             }
 //            //依次为每个单元格设置样式
 //            for (int m = 0; m < keys.length; m++) {
@@ -194,7 +200,7 @@ public class ExcelUtil {
         cell_2_1.setCellValue("总计:");
         cell_2_1.setCellStyle(cellStyle3);
         HSSFCell cell_2_2 = row_2.createCell(8);
-        cell_2_2.setCellValue(111);
+        cell_2_2.setCellValue(count.doubleValue());
         cell_2_2.setCellStyle(cellStyle4);
 
 
