@@ -10,6 +10,7 @@ import com.example.allomall.utlis.ExcelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,6 +35,8 @@ public class OrderController {
 
     DecimalFormat df = new DecimalFormat("#.00");//保留小数点后2位
     DecimalFormat gf = new DecimalFormat("#.0");//保留小数点后1位
+
+    Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC,"createTime"));
 
     private Map<String,String> orderMap=new HashMap<>();
 
@@ -73,9 +76,9 @@ public class OrderController {
     public Table getOrderTable(Table table,@PathVariable("state") Integer state){
         List<Order> orderList=new ArrayList<>();
         if (state==0){
-            orderList=orderRepostitory.findAll();
+            orderList=orderRepostitory.findAll(sort);
         }else {
-            orderList=orderRepostitory.findOrdersByState(String.valueOf(state));
+            orderList=orderRepostitory.findOrdersByState(String.valueOf(state),sort);
         }
         table.setCount(orderList.size());
         table.setMsg("查询成功");
@@ -88,7 +91,7 @@ public class OrderController {
     @ResponseBody
     public Table searchOrderTable(Table table,@Param("condition") String condition,@Param("state") String state){
         System.out.println(state);
-        List<Order> orderList=orderRepostitory.findOrdersByStateOrPeopleAddressContainingOrPeopleNameContaining(state,condition,condition);
+        List<Order> orderList=orderRepostitory.findOrdersByStateOrPeopleAddressContainingOrPeopleNameContaining(state,condition,condition,sort);
         table.setCount(orderList.size());
         table.setMsg("查询成功");
         table.setCode(0);
@@ -403,7 +406,7 @@ public class OrderController {
         for (int i=0;i<idStr.length;i++){
             idInt[i]=Integer.valueOf(idStr[i]);
         }
-        List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt);
+        List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt,sort);
         for (Order o:orderList
              ) {
             if (o.getWall()==null || o.getWall().equals("")){
@@ -421,7 +424,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/order/downExcel/{ids}")
-    public void doDownExcel(ModelMap map, @PathVariable("ids") String ids, HttpServletResponse response) throws IOException {
+    public void doDownExcel(@PathVariable("ids") String ids, HttpServletResponse response) throws IOException {
         String[] idStr = ids.split(",");
         Integer[] idInt=new Integer[idStr.length];
         Double allPrices=0.00;
@@ -429,7 +432,7 @@ public class OrderController {
             idInt[i]=Integer.valueOf(idStr[i]);
         }
         String[] keys={"序","高","宽","门扇","平方","单价","名称","备注","总价"};
-        List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt);
+        List<Order> orderList=orderRepostitory.findOrdersByIdIn(idInt,sort);
         for (Order o:orderList
         ) {
             if (o.getWall()==null || o.getWall().equals("")){

@@ -17,6 +17,33 @@
 
 <div class="layui-fluid layadmin-cmdlist-fluid">
     <div class="layui-row layui-col-space30">
+        <div class="layui-col-md3 layui-col-sm4" th:each="special:${specialList}">
+            <div class="cmdlist-container">
+                <a href="javascript:;">
+                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558326985402&di=829a6a31a2998552b25afba4eb4f84f9&imgtype=jpg&src=http%3A%2F%2Fwww.elss.com.cn%2Fimages%2Fpic.jpg" th:if="${special.url==null}" style="width: 245px;height: 176px">
+                    <img th:src="${special.url}" th:if="${special.url!=null}" style="width: 245px;height: 176px">
+                </a>
+                <a href="javascript:;">
+                    <div class="cmdlist-text">
+                        <p class="info" th:text="'名称：'+${special.name}"></p>
+                        <p class="info" th:text="'简介：'+${special.information}"></p>
+                        <div class="price">
+                            <b >官方价：</b>
+                            <p>
+
+                                <b th:text="'￥'+${special.price}" ></b>
+                            </p>
+                            <span class="flow">
+  <!--                    <i class="layui-icon layui-icon-rate" th:if="${product.state==1}" th:text="在售"></i>
+                      <i class="layui-icon layui-icon-rate" th:if="${product.state==0}" th:text="下架"></i>-->
+                    </span>
+                        </div>
+                    </div>
+                </a>
+                <b style="margin-left: 50px;margin-top: 5px" class="layui-btn layui-btn-sm" lay-event="" th:onclick="'javascript:specialcheckout(\''+${special.id}+'\');'">下单</b>
+            </div>
+        </div>
+
         <div class="layui-col-md3 layui-col-sm4" th:each="product:${productList}">
             <div class="cmdlist-container">
                 <a href="javascript:;">
@@ -125,6 +152,15 @@
             area: ['800px', '550px'],
             title:"下单",
             content:['/product/product/buy.html/'+id],
+        });
+    };
+    //下单
+    function specialcheckout(id) {
+        layer.open({
+            type: 2,
+            area: ['500px', '450px'],
+            title:"下单",
+            content:['/product/special/buy.html/'+id],
         });
     };
 </script>

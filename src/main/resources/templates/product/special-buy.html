@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>表单组合</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+            <form class="layui-form" action="" lay-filter="product-form-buy">
+                <input type="hidden" name="pid" id="pid" th:value="${product.id}">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">商品名称:</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" th:value="${product.name}" lay-verify="name" autocomplete="off" readonly="readonly"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">价格:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="price" lay-verify="price" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">客户名:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="peopleName" lay-verify="peopleName" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">数量:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="attention" lay-verify="attention" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">高度:</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="height" lay-verify="height"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">宽度:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="width" lay-verify="width"  autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item" style="margin-right: 0px">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="product-form-buy">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+</div>
+
+
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+    var  number=0;
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'laydate','upload'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , element = layui.element
+            , layer = layui.layer
+            , laydate = layui.laydate
+            , upload = layui.upload
+            , form = layui.form;
+
+        form.render(null, 'product-form-add');
+
+        //常规用法
+        laydate.render({
+            elem: '#time'
+        });
+
+        /* 自定义验证规则 */
+        form.verify({
+            name: function (value) {
+                if (value.length < 1) {
+                    return '名字不能为空';
+                }
+            }
+            ,peopleName: function (value) {
+                if (value.length < 1) {
+                    return '请填写客户名';
+                }
+            }
+            ,sumType: function (value) {
+                if (value.length < 0) {
+                    return '请选择计算类型';
+                }
+            }
+            ,peopleAddress: function (value) {
+                if (value.length < 1) {
+                    return '请填写地址';
+                }
+            }
+            ,deliveryTime: function (value) {
+                if (value.length < 1) {
+                    return '请选择交货日期';
+                }
+            }
+            ,content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        /* 监听提交 */
+        form.on('submit(product-form-buy)', function (data) {
+            $.ajax({
+                type:"POST",
+                url:"/product/special/buy.json",
+                dataType:"JSON",
+                data:data.field,
+                success:function (res) {
+                    if (res.success){
+                        window.parent.layer.closeAll();
+                        window.parent.layer.msg(res.msg);
+                        setTimeout(function () {
+                            window.parent.location.reload();
+                        },200);
+                    }else {
+                        layer.msg(res.msg);
+                    }
+
+                },
+                error:function () {
+                    window.parent.layer.closeAll();
+                }
+            })
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

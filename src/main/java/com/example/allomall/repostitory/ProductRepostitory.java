@@ -16,6 +16,8 @@ public interface ProductRepostitory extends JpaRepository<Product,Long> {
 
     List<Product> findProductsByNameLike(String name);
 
+    List<Product> findProductsBySerialNumber(String number);
+
     @Transactional
     void deleteProductById(Integer id);
 }
